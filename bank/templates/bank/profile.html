@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <title>3NITY BANK NIG. PLC</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/profile.css">
+</head>
+
+<body>
+  <header>
+    <center>
+      <h2>Profile</h2>
+    </center>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-2 profile-img">
+          <img src="images/IMG_20200627_181056.jpg" width="100%" height="100%" alt="sl">
+        </div>
+        <div class="col-10">
+          <div class="row">
+            <div class="col-12 d-flex justify-content-end logo-cont">
+              <h3>LOGO</h3>
+            </div>
+            <div class="col-12">
+              <span>Welcome, <b>Paul Innocent</b></span>
+            </div>
+            <div class="col-12 d-flex justify-content-between">
+              <span style="font-size: .7rem;">Acc. bal. <b>N <span>23, 480 .00</span> K</b></span>
+              <a href="index.html" style="color:white; padding: 0 .3rem; border:1px solid; font-size: .7rem;"><i class="fa fa-arrow-left"></i> <span>Dashboard</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- header -->
+
+  <div class="top-nav">
+    <ul>
+      <li>
+        <center><i class="fa fa-money" aria-hidden="true"></i>
+          <p>
+            Transfer
+          </p>
+        </center>
+      </li>
+      <li>
+        <center><i class="fa fa-mobile" aria-hidden="true"></i>
+          <p class="d-flex justify-content-center align-items-center">
+            Airtime<i class="fa fa-caret-down" aria-hidden="true"></i>
+          </p>
+        </center>
+      </li>
+      <li>
+        <center><i class="fa fa-paper-plane" aria-hidden="true"></i>
+          <p>
+            Pay&nbsp;Bills
+          </p>
+        </center>
+      </li>
+      <li>
+        <center><i class="fa fa-money" aria-hidden="true"></i>
+          <p>
+            Claim&nbsp;Cheque
+          </p>
+        </center>
+      </li>
+    </ul>
+  </div>
+  <!-- top nav -->
+
+  <div class="exp-catg" style="padding-left: 1rem;">
+    <h3>Expenses Category </h3>
+    <hr />
+    <ul>
+      <a style="border: 1px solid rgb(184, 17, 134); color: rgb(184, 17, 134);" href="#category1" onclick="expandCatg('1')">Properties</a>
+      <a style="border: 1px solid rgb(17, 184, 170); color: rgb(17, 184, 170);" href="#category2" onclick="expandCatg('2')">Investment</a>
+      <a style="border: 1px solid rgb(184, 181, 17); color: rgb(184, 181, 17);" href="#category3" onclick="expandCatg('3')">Food</a>
+      <a style="border: 1px solid rgb(17, 184, 128); color: rgb(17, 184, 128);" href="#category4" onclick="expandCatg('4')">Shelter</a>
+      <a style="border: 1px solid rgb(184, 64, 17); color: rgb(184, 64, 17);" href="#category5" onclick="expandCatg('5')">Miseleneous</a>
+    </ul>
+  </div>
+  <!-- exp-catg -->
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="src-exp d-flex justify-content-around">
+          <div class="add-src" onclick="addSrc()">
+            <i class="fa fa-plus"></i> Add source
+          </div>
+          <div class="add-exp" onclick="addExp()">
+            <i class="fa fa-plus"></i> Add expenses
+          </div>
+        </div>
+        <!-- src-exp -->
+
+        <div class="add-box-cont">
+          <div class="toggle-add-box" onclick="toggleAddBox()">
+            <i class="fa fa-times-circle" aria-hidden="true"></i>
+          </div>
+          <div class="add-box add-src-box">
+            <form id="add-src" action="" method="get" accept-charset="utf-8">
+              <div class="form-group">
+                <label for="Source">Source</label>
+                <input type="text" name="source" id="Source" placeholder="Source" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label for="Source">Amount</label>
+                <input type="number" name="amount" id="Amount" placeholder="Amount" class="form-control" />
+              </div>
+              <button type="submit" class="btn btn-primary" style="margin: 1rem;">Submit</button>
+            </form>
+          </div>
+          <!-- add-src-box -->
+
+          <div class="add-box add-exp-box">
+            <form id="add-exp-form" action="" method="get" accept-charset="utf-8">
+              <div class="form-group">
+                <label for="Category">Category</label>
+                <select name="Category" id="Category" class="form-control">
+                  <option value="">Select</option>
+                  <option value="1">Catg1</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="Expenses">Expenses</label>
+                <input type="text" name="expenses" id="Expenses" placeholder="Expenses" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label for="Source">Amount</label>
+                <input type="number" name="amount" id="Amount" placeholder="Amount" class="form-control" />
+              </div>
+              <button type="submit" class="btn btn-primary" style="margin: 1rem;">Submit</button>
+            </form>
+          </div>
+          <!-- add-exp-box -->
+        </div>
+        <!-- add box -->
+
+        <div class="graph">
+          <div class="pie-chart-cont">
+            <center>
+              <h2>Weekly Analysis</h2>
+            </center>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 col-md-8">
+                  <div id="piechart" style="width: 100%; height: 400px;"></div>
+                </div>
+                <div class="col-12 col-md-4">
+                  <div class="pieSummary">
+                    <center>
+                      <h4>Summary</h4>
+                    </center>
+                    <div>
+                      <p style="text-align: justify; padding: 0 .5rem;">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero assumenda perspiciatis nisi
+                        quam laborum ipsa voluptatibus nostrum hic ex vero quibusdam nesciunt quia consectetur
+                        laudantium sint deserunt, tenetur veniam harum ad aliquid alias? Velit dicta facilis placeat ut
+                        recusandae asperiores ipsa quod pariatur, libero nulla iste modi? Similique, aliquid! Eveniet!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- pie chart -->
+          </div>
+        </div>
+        <br>
+        <!-- graph -->
+
+        <div class="catg-summary">
+          <h3>Category Summary <small>(Weekly)</small></h3>
+          <hr />
+          <div class="catg1" id="category1">
+            <div class="d-flex justify-content-between">
+              <h5 style="width: 95%; padding: .5rem; border: 1px solid rgb(184, 17, 134); color: rgb(184, 17, 134);">Properties</h5>
+              <div style="font-size: 1.5rem; z-index: 10; cursor: pointer;" class="catg-sum-caret">
+                <i class="fa fa-caret-right cr1" aria-hidden="true" onclick="expandCatg('1')"></i>
+                <i class="fa fa-caret-down cd1" aria-hidden="true" onclick="compressCatg('1')"></i>
+              </div>
+            </div>
+
+            <table class="table">
+              <tbody class="catgSumBox catgSumBox1">
+                <tr>
+                  <td>
+                    Naration
+                    jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
+                    jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
+                  </th>
+                  <td>
+                    <div>
+                      02/08/2020 04:58 AM.
+                    </div>
+                    <div>
+                      <b>N <span>2,000</span></b>
+                    </div>
+                  </td>
+                </tr>
+                <!-- row 1 -->
+
+                <tr>
+                  <td>
+                    Naration
+                    jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
+                    jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
+                  </th>
+                  <td>
+                    <div>
+                      02/08/2020 04:58 AM.
+                    </div>
+                    <div>
+                      <b>N <span>2,000</span></b>
+                    </div>
+                  </td>
+                </tr>
+                <!-- row 2 -->
+
+              </tbody>
+            </table>
+          </div>
+          <!-- category 1 -->
+
+          <div class="catg2" id="category2">
+            <div class="d-flex justify-content-between">
+              <h5 style="width: 95%; padding: .5rem; border: 1px solid rgb(17, 184, 170); color: rgb(17, 184, 170);">Investment</h5>
+              <div style="font-size: 1.5rem; z-index: 10; cursor: pointer;" class="catg-sum-caret">
+                <i class="fa fa-caret-right cr2" aria-hidden="true" onclick="expandCatg('2')"></i>
+                <i class="fa fa-caret-down cd2" aria-hidden="true" onclick="compressCatg('2')"></i>
+              </div>
+            </div>
+
+            <table class="table">
+              <tbody class="catgSumBox catgSumBox2">
+                <tr>
+                  <td>
+                    Naration
+                    jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
+                    jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
+                  </th>
+                  <td>
+                    <div>
+                      02/08/2020 04:58 AM.
+                    </div>
+                    <div>
+                      <b>N <span>2,000</span></b>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- category 2 -->
+
+          <div class="catg3" id="category3">
+            <div class="d-flex justify-content-between">
+              <h5 style="width: 95%; padding: .5rem; border: 1px solid rgb(184, 181, 17); color: rgb(184, 181, 17);">Food</h5>
+              <div style="font-size: 1.5rem; z-index: 10; cursor: pointer;" class="catg-sum-caret">
+                <i class="fa fa-caret-right cr3" aria-hidden="true" onclick="expandCatg('3')"></i>
+                <i class="fa fa-caret-down cd3" aria-hidden="true" onclick="compressCatg('3')"></i>
+              </div>
+            </div>
+
+            <table class="table">
+              <tbody class="catgSumBox catgSumBox3">
+                <tr>
+                  <td>
+                    Naration
+                    jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
+                    jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
+                  </th>
+                  <td>
+                    <div>
+                      02/08/2020 04:58 AM.
+                    </div>
+                    <div>
+                      <b>N <span>2,000</span></b>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- category 3 -->
+
+          <div class="catg4" id="category4">
+            <div class="d-flex justify-content-between">
+              <h5 style="width: 95%; padding: .5rem; border: 1px solid rgb(17, 184, 128); color: rgb(17, 184, 128);">Shelter</h5>
+              <div style="font-size: 1.5rem; z-index: 10; cursor: pointer;" class="catg-sum-caret">
+                <i class="fa fa-caret-right cr4" aria-hidden="true" onclick="expandCatg('4')"></i>
+                <i class="fa fa-caret-down cd4" aria-hidden="true" onclick="compressCatg('4')"></i>
+              </div>
+            </div>
+
+            <table class="table">
+              <tbody class="catgSumBox catgSumBox4">
+                <tr>
+                  <td>
+                    Naration
+                    jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
+                    jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
+                  </th>
+                  <td>
+                    <div>
+                      02/08/2020 04:58 AM.
+                    </div>
+                    <div>
+                      <b>N <span>2,000</span></b>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- category 4 -->
+
+          <div class="catg5" id="category5">
+            <div class="d-flex justify-content-between">
+              <h5 style="width: 95%; padding: .5rem; border: 1px solid rgb(184, 64, 17); color: rgb(184, 64, 17);">Miseleneous</h5>
+              <div style="font-size: 1.5rem; z-index: 10; cursor: pointer;" class="catg-sum-caret">
+                <i class="fa fa-caret-right cr5" aria-hidden="true" onclick="expandCatg('5')"></i>
+                <i class="fa fa-caret-down cd5" aria-hidden="true" onclick="compressCatg('5')"></i>
+              </div>
+            </div>
+
+            <table class="table">
+              <tbody class="catgSumBox catgSumBox5">
+                <tr>
+                  <td>
+                    Naration
+                    jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
+                    jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
+                  </th>
+                  <td>
+                    <div>
+                      02/08/2020 04:58 AM.
+                    </div>
+                    <div>
+                      <b>N <span>2,000</span></b>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- category 5 -->
+
+        </div>
+        <br />
+        <br />
+        <!-- catg summery -->
+
+        <div class="tips">
+          <h3>Tips</h3>
+          <hr />
+          <ul>
+            <li>
+              <p>
+                jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
+                jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
+              </p>
+            </li>
+            <li>
+              <p>
+                jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
+                jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
+              </p>
+            </li>
+          </ul>
+        </div>
+        <!-- Tips -->
+      </div>
+      <!-- main -->
+
+      <div class="col-md-3 sidebar">
+        <center>
+          <div class="acc-magr">
+            <div class="magr-img" style="margin-right: .5rem;">
+              <img src="images/IMG_20200627_181056.jpg" style="width: 10rem; height: 10rem; border-radius: 50%;" alt="">
+            </div>
+            <caption>
+              <h5>Account Manager</h5>
+              <p>
+                <span>Paul Innocent <i class="fa fa-user" aria-hidden="true"></i></span>
+              </p>
+              <p style="font-size: .7rem;">
+                <a href="wa.me:+234 8112 659 304">+234 8112 659 304 <i class="fa fa-whatsapp"
+                  aria-hidden="true"></i></a>
+              </p>
+              <p style="font-size: .7rem;">
+                <a href="mailto:paulinnocent04@gmail.com">paulinnocent04@gmail.com <i class="fa fa-envelope"
+                  aria-hidden="true"></i></a>
+              </p>
+            </caption>
+          </div>
+          <hr>
+          <br>
+          <br>
+          <!-- account manager -->
+
+          <div class="ads-cont">
+            <div class="ads-header">
+              <small>Ads</small>
+              <div>
+                <span style="cursor: pointer;">!</span>&nbsp;&nbsp;&nbsp;
+                <span style="cursor: pointer;"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
+              </div>
+            </div>
+            <hr style="margin: 0; padding: 0;">
+            <div class="ads-body">
+              <h1>
+                <p>
+                  How to grow your purse within 3 months
+                </p>
+              </h1>
+            </div>
+          </div>
+          <br>
+          <br>
+          <!-- adds 1 -->
+
+          <div class="ads-cont">
+            <div class="ads-header">
+              <small>Ads</small>
+              <div>
+                <span style="cursor: pointer;">!</span>&nbsp;&nbsp;&nbsp;
+                <span style="cursor: pointer;"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
+              </div>
+            </div>
+            <hr style="margin: 0; padding: 0;">
+            <div class="ads-body">
+              <h1>
+                <p>
+                  How to grow your purse within 3 months
+                </p>
+              </h1>
+            </div>
+          </div>
+          <br>
+          <br>
+          <!-- adds 2 -->
+
+          <div class="ads-cont">
+            <div class="ads-header">
+              <small>Ads</small>
+              <div>
+                <span style="cursor: pointer;">!</span>&nbsp;&nbsp;&nbsp;
+                <span style="cursor: pointer;"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
+              </div>
+            </div>
+            <hr style="margin: 0; padding: 0;">
+            <div class="ads-body">
+              <h1>
+                <p>
+                  How to grow your purse within 3 months
+                </p>
+              </h1>
+            </div>
+          </div>
+          <br>
+          <br>
+          <!-- adds  -->
+          <hr>
+        </center>
+      </div>
+      <!-- sidebar -->
+
+    </div>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+
+</html>

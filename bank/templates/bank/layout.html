@@ -1,0 +1,196 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>3NITY BANK NIG. PLC</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{% static 'bank/css/layout.css' %}">
+</head>
+
+<body>
+  <div class="pop-model">
+    <div class="main-model">
+      <div class="model">
+        <div class="model-header">
+          <span class="logo" style="font-weight: 900; font-size: 1.5rem;">LOGO</span>
+          <span onclick="closePopModal()" class="btn-sm btn-danger" style=" cursor:pointer">Close</span>
+        </div>
+
+        <div class="modal-body"></div>
+
+        <div class="modal-footer"></div>
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <center>
+      <h2>Dashboard</h2>
+    </center>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-2 profile-img">
+          <img src="{% static 'bank/images/IMG_20200627_181056.jpg' %}" width="100%" height="100%" alt="sl">
+        </div>
+        <div class="col-10">
+          <div class="row">
+            <div class="col-12 d-flex justify-content-end logo-cont">
+              <h3>LOGO</h3>
+            </div>
+            <div class="col-12">
+              <span>Welcome, <b>Paul Innocent</b></span>
+            </div>
+            <div class="col-12 d-flex justify-content-between">
+              <span style="font-size: .7rem;">Acc. bal. <b>N <span>23, 480 .00</span> K</b></span>
+              <a href="profile.html"
+                style="color:white; padding: 0 .3rem; border:1px solid; font-size: .7rem;"><span>Profile</span> <i
+                  class="fa fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- header -->
+
+  <div class="col-12 main-nav">
+    <ul>
+      <li>
+        <center><i class="fa fa-money" aria-hidden="true"></i>
+          <div>
+            Transfer
+          </div>
+        </center>
+      </li>
+      <li>
+        <center><i class="fa fa-mobile" aria-hidden="true"></i>
+          <div class="d-flex justify-content-center align-items-center">
+            Airtime<i class="fa fa-caret-down" aria-hidden="true"></i>
+          </div>
+        </center>
+      </li>
+      <li>
+        <center><i class="fa fa-paper-plane" aria-hidden="true"></i>
+          <div>
+            Pay&nbsp;Bills
+          </div>
+        </center>
+      </li>
+      <li>
+        <center><i class="fa fa-money" aria-hidden="true"></i>
+          <div>
+            Claim&nbsp;Cheque
+          </div>
+        </center>
+      </li>
+    </ul>
+  </div>
+  <!-- main-nav -->
+
+  <div class="main-body">
+    {% block body %}
+    {% endblock %}
+  </div>
+
+
+  <div class="" id="footer">
+    footer (follow us and newsletter
+  </div>
+  <!-- footer -->
+
+  <div class="col-12 col-md-1 left-sidebar" style="border: 1px solid; display: none;">
+    <ul>
+      <li><a href="">
+          <center>
+            <div>
+              <i class="fa fa-home" aria-hidden="true"></i>
+            </div>
+            Home
+          </center>
+        </a></li>
+      <li>
+        <center>
+          <div>
+            <i class="fa fa-user" aria-hidden="true"></i>
+          </div>
+          Profile
+        </center>
+      </li>
+      <li>
+        <center>
+          <div>
+            <i class="fa fa-share" aria-hidden="true"></i>
+          </div>
+          Refer
+        </center>
+      </li>
+      <li>
+        <center>
+          <div>
+            <i class="fa fa-money" aria-hidden="true"></i>
+          </div>
+          Loan
+        </center>
+      </li>
+      <li>
+        <center>
+          <div>
+            <i class="fa fa-star" aria-hidden="true"></i>
+          </div>
+          <small>Investor Relation</small>
+        </center>
+      </li>
+      <li>
+        <center>
+          <div>
+            <i class="fa fa-phone" aria-hidden="true"></i>
+          </div>
+          Contact Us
+        </center>
+      </li>
+      <li>
+        <center>
+          <div>
+            <i class="fa fa-users" aria-hidden="true"></i>
+          </div>
+          About us
+        </center>
+      </li>
+      <li>
+        <center>
+          <div>
+            <i class="fa fa-gear" aria-hidden="true"></i>
+          </div>
+          Settings
+        </center>
+      </li>
+      <li>
+        <center><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Logout</center>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="{% static 'bank/js/index.js' %}"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
