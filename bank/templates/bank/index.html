@@ -1,33 +1,14 @@
 {% extends "bank/layout.html" %}
 
-<!-- {% block css %} index {% endblock %} -->
+{% block customStyle %}
+<link rel="stylesheet" href="/static/bank/css/index.css">
+{% endblock %}
+
+{% block customJs %}
+<script src="/static/bank/js/index.js"></script>
+{% endblock %}
 
 {% block body %}
-<style>
-  .left-sidebar {
-    border: 1px solid;
-  }
-
-  li {
-    cursor: pointer;
-    z-index: 10;
-  }
-
-  li:hover {
-    transform: scale(1.2);
-  }
-
-  .recent-transaction a {
-    display: block;
-    margin: 1rem 0;
-  }
-
-  .tip ul {
-    list-style-type: disc;
-    margin-left: 1rem;
-  }
-</style>
-
 <div id="main" class="container-fluid">
   <div class="row">
     <div class="col-md-9">

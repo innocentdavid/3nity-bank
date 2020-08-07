@@ -11,9 +11,10 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="{% static 'bank/css/layout.css' %}">
+  {% block customStyle %}{% endblock %}
 </head>
 
 <body>
@@ -51,9 +52,11 @@
             </div>
             <div class="col-12 d-flex justify-content-between">
               <span style="font-size: .7rem;">Acc. bal. <b>N <span>23, 480 .00</span> K</b></span>
-              <a href="profile.html"
-                style="color:white; padding: 0 .3rem; border:1px solid; font-size: .7rem;"><span>Profile</span> <i
-                  class="fa fa-arrow-right"></i></a>
+              <a href="/{{ pdToggle }}"
+                style="color:white; padding: 0 .3rem; border:1px solid; font-size: .7rem;">
+                <span>{{ pdT }} </span>
+                <i class="fa fa-arrow-right"></i>
+              </a>
             </div>
           </div>
         </div>
@@ -96,7 +99,7 @@
   </div>
   <!-- main-nav -->
 
-  <div class="main-body">
+  <div id="main-body">
     {% block body %}
     {% endblock %}
   </div>
@@ -110,13 +113,13 @@
   <div class="col-12 col-md-1 left-sidebar" style="border: 1px solid; display: none;">
     <ul>
       <li><a href="">
-          <center>
-            <div>
-              <i class="fa fa-home" aria-hidden="true"></i>
-            </div>
-            Home
-          </center>
-        </a></li>
+        <center>
+          <div>
+            <i class="fa fa-home" aria-hidden="true"></i>
+          </div>
+          Home
+        </center>
+      </a></li>
       <li>
         <center>
           <div>
@@ -187,7 +190,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
     crossorigin="anonymous"></script>
-  <script src="{% static 'bank/js/index.js' %}"></script>
+  {% block customJs %}{% endblock %}
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
