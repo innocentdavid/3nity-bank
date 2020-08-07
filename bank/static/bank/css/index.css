@@ -1,16 +1,3 @@
-.left-sidebar {
-  border: 1px solid;
-}
-
-li {
-  cursor: pointer;
-  z-index: 10;
-}
-
-li:hover {
-  transform: scale(1.2);
-}
-
 .recent-transaction a {
   display: block;
   margin: 1rem 0;
@@ -20,3 +7,4 @@ li:hover {
   list-style-type: disc;
   margin-left: 1rem;
 }
+/*# sourceMappingURL=index.css.map */

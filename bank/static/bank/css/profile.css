@@ -1,41 +1,8 @@
-* {
-  margin: 0;
-  padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-body {
-  width: 100vw;
-  overflow-x: hidden;
-  padding: auto 0.5rem;
-}
-
 ul {
   list-style-type: none;
 }
 
-header {
-  background: #11b880;
-  color: white;
-  padding: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
-.profile-img {
-  height: 5.5rem;
-  border: 1px solid;
-  padding: 0;
-}
-
 @media (min-width: 767px) {
-  .profile-img {
-    height: 13rem;
-    border: 1px solid;
-  }
-  .logo-cont {
-    height: 10rem;
-  }
   .src-exp {
     padding: 3rem;
   }
@@ -47,45 +14,6 @@ header {
 @media (max-width: 766px) {
   .add-box {
     margin: 1rem 0;
-  }
-}
-
-.top-nav {
-  border-bottom: 1px solid #11b880;
-  padding: 1rem 0.5rem;
-}
-
-.top-nav ul {
-  width: 95vw;
-  margin: auto;
-  padding-left: 1.5rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  overflow: auto;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.top-nav ul li {
-  display: inline-block;
-  border: 1px solid #11b880;
-  padding: 0.2rem 0.5rem;
-  margin: 0 .6rem;
-  border-radius: 10px;
-  width: 100%;
-  cursor: pointer;
-}
-
-@media (max-width: 766px) {
-  .top-nav ul {
-    padding-left: 5.5rem;
-  }
-  .top-nav ul li {
-    border: none;
   }
 }
 
