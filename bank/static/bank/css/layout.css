@@ -1,3 +1,25 @@
+.logout {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+}
+
+.logout a {
+  padding: .2rem;
+  color: white;
+  border: 1px solid;
+}
+
+@media (max-width: 766px) {
+  .logout {
+    top: 1rem;
+    right: 1rem;
+  }
+  .logout a {
+    padding: 0 .2rem;
+  }
+}
+
 .pop-model {
   display: none;
   position: absolute;
@@ -73,6 +95,22 @@ header {
 .profile-img {
   height: 5.5rem;
   border: 1px solid;
+  padding: 0;
+}
+
+.acc-type {
+  display: none;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 2;
+  top: 0;
+  right: 0;
+  padding: 2rem;
+  font-size: .9rem;
+}
+
+.acc-type .form-group {
+  margin: 0;
   padding: 0;
 }
 

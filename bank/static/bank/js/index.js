@@ -1,3 +1,7 @@
+function showAccs() {
+  $('.acc-type').show();
+}
+
 function closePopModal() {
   document.querySelector('.pop-model').style.display = 'none';
 }
@@ -22,4 +26,5 @@ function pageToggle(page) {
   });
 }
 
-window.addEventListener('DOMContentLoaded', function () {})
+window.addEventListener('DOMContentLoaded', function () {
+})

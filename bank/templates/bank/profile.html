@@ -1,4 +1,5 @@
 {% extends "bank/layout.html" %}
+{% load static %}
 
 {% block customStyle %}
 <link rel="stylesheet" href="/static/bank/css/profile.css">
@@ -17,7 +18,7 @@
     <a style="border: 1px solid rgb(17, 184, 170); color: rgb(17, 184, 170);" href="#category2" onclick="expandCatg('2')">Investment</a>
     <a style="border: 1px solid rgb(184, 181, 17); color: rgb(184, 181, 17);" href="#category3" onclick="expandCatg('3')">Food</a>
     <a style="border: 1px solid rgb(17, 184, 128); color: rgb(17, 184, 128);" href="#category4" onclick="expandCatg('4')">Shelter</a>
-    <a style="border: 1px solid rgb(184, 64, 17); color: rgb(184, 64, 17);" href="#category5" onclick="expandCatg('5')">Miseleneous</a>
+    <a style="border: 1px solid rgb(184, 64, 17); color: rgb(184, 64, 17);" href="#category5" onclick="expandCatg('5')">Miscellaneous</a>
   </ul>
 </div>
 <!-- exp-catg -->
@@ -259,7 +260,7 @@
 
         <div class="catg5" id="category5">
           <div class="d-flex justify-content-between">
-            <h5 style="width: 95%; padding: .5rem; border: 1px solid rgb(184, 64, 17); color: rgb(184, 64, 17);">Miseleneous</h5>
+            <h5 style="width: 95%; padding: .5rem; border: 1px solid rgb(184, 64, 17); color: rgb(184, 64, 17);">Miscellaneous</h5>
             <div style="font-size: 1.5rem; z-index: 10; cursor: pointer;" class="catg-sum-caret">
               <i class="fa fa-caret-right cr5" aria-hidden="true" onclick="expandCatg('5')"></i>
               <i class="fa fa-caret-down cd5" aria-hidden="true" onclick="compressCatg('5')"></i>
@@ -319,7 +320,7 @@
       <center>
         <div class="acc-magr">
           <div class="magr-img" style="margin-right: .5rem;">
-            <img src="images/IMG_20200627_181056.jpg" style="width: 10rem; height: 10rem; border-radius: 50%;" alt="">
+            <img src="{% static 'bank/images/IMG_20200627_181056.jpg' %}" style="width: 10rem; height: 10rem; border-radius: 50%;" alt="">
           </div>
           <caption>
             <h5>Account Manager</h5>

@@ -2,6 +2,28 @@ $base-color: rgb(17, 184, 128);
 $test: 1px solid;
 $base-color2: rgb(255, 255, 255);
 
+.logout{
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+
+  a{
+    padding: .2rem;
+    color: white;
+    border: $test;
+  }
+}
+@media (max-width: 766px){
+  .logout{
+    top: 1rem;
+    right: 1rem;
+  
+    a{
+      padding: 0 .2rem;
+    }
+  }
+}
+
 .pop-model {
   display: none;
   position: absolute;
@@ -74,6 +96,25 @@ header {
   height: 5.5rem;
   border: 1px solid;
   padding: 0;
+}
+.logo-cont{
+  // border: $test;
+}
+
+.acc-type{
+  display: none;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 2;
+  top: 0;
+  right: 0;
+  padding: 2rem;
+  font-size: .9rem;
+
+  .form-group{
+    margin: 0;
+    padding: 0;
+  }
 }
 
 @media (min-width: 767px) {
