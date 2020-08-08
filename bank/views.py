@@ -18,15 +18,17 @@ from .models import *
 
 @login_required
 def index(request):
-    user=Customer.objects.get(user=request.user)
-    print(user)
-    # account = Account.objects.get(customer=user)
-    # print(accounnt)
+    rUser = str(request.user).capitalize()
+    
+    user=Customer.objects.get(user=User.objects.get(username=rUser))
+    
+    account = Account.objects.filter(customer=user, accountType="Savings")
+
     pdToggle = 'profile'
     pdT = 'Profile'
     ptitle = 'Dashboard'
 
-    context = {'pdToggle': pdToggle, 'pdT': pdT, 'ptitle': ptitle}
+    context = {'pdToggle': pdToggle, 'pdT': pdT, 'ptitle': ptitle, 'account':account}
     return render(request, 'bank/index.html', context)
 
 @csrf_exempt
@@ -49,11 +51,17 @@ def getAccount(request):
 
 @login_required
 def profile(request):
+    rUser = str(request.user).capitalize()
+    
+    user=Customer.objects.get(user=User.objects.get(username=rUser))
+    
+    account = Account.objects.filter(customer=user, accountType="Savings")
+    
     pdToggle = ''
     pdT = 'Dashboard'
     ptitle = 'Profile'
 
-    context = {'pdToggle': pdToggle, 'pdT': pdT, 'ptitle': ptitle}
+    context = {'account': account,'pdToggle': pdToggle, 'pdT': pdT, 'ptitle': ptitle}
     return render(request, 'bank/profile.html', context)
 
 
