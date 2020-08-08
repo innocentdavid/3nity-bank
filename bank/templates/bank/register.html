@@ -32,6 +32,18 @@
             <input class="form-control" type="text" name="username" placeholder="Username">
         </div>
         <div class="form-group">
+            <div class="form-group">
+              <label for="accountType">Account Type</label>
+              <select class="form-control" name="accountType" id="accountType">
+                <option value="">Select</option>
+                <option value="Savings">Savings</option>
+                <option value="Current">Current</option>
+                <option value="Student">Student</option>
+                <option value="Kid">Kids</option>
+              </select>
+            </div>
+        </div>
+        <div class="form-group">
             <input class="form-control" type="email" name="email" placeholder="Email Address">
         </div>
         <div class="form-group">
@@ -39,6 +51,9 @@
         </div>
         <div class="form-group">
             <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="number" name="transcPin" placeholder="Transaction Pin (4 digit)" minlength="4" maxlength="4">
         </div>
         <div class="form-group">
             <input class="form-control" type="number" name="tel" placeholder="tel">
@@ -49,8 +64,8 @@
         <div class="form-group">
             <input class="form-control" type="date" name="dob" placeholder="Date of reg">
         </div>
-
         <input class="btn btn-primary" type="submit" value="Register">
+        <span>Register and get N10, 000 BONUS!</span>
     </form>
 
     Already have an account? <a href="{% url 'login' %}">Log In here.</a>

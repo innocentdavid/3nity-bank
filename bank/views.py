@@ -1,6 +1,9 @@
 import json
 import random
 
+from random import randint
+
+
 from django.core.files.storage import default_storage
 
 from django.contrib.auth import authenticate, login, logout
@@ -18,51 +21,57 @@ from .models import *
 
 @login_required
 def index(request):
-    rUser = str(request.user).capitalize()
-    
-    user=Customer.objects.get(user=User.objects.get(username=rUser))
-    
-    account = Account.objects.filter(customer=user, accountType="Savings")
-
     pdToggle = 'profile'
     pdT = 'Profile'
     ptitle = 'Dashboard'
 
+    rUser = str(request.user).capitalize()
+    user=Customer.objects.get(user=User.objects.get(username=rUser))
+    account = Account.objects.filter(customer=user)
+
     context = {'pdToggle': pdToggle, 'pdT': pdT, 'ptitle': ptitle, 'account':account}
     return render(request, 'bank/index.html', context)
 
+
+@login_required
 @csrf_exempt
 def getAllAccount(request):
     action = request.POST['getAllAccounts']
     print(action)
 
 
+@login_required
+@csrf_exempt
 def getAccount(request):
     if request.method == 'POST':
-        account = request.POST['account']
-        print(account)
         pdToggle = 'profile'
         pdT = 'Profile'
         ptitle = 'Dashboard'
 
-        context = {'pdToggle': pdToggle, 'pdT': pdT, 'ptitle': ptitle}
-        return render(request, 'bank/index.html', context)
+        accountNum = request.POST['account']
+        rUser = str(request.user).capitalize()
+        user=Customer.objects.get(user=User.objects.get(username=rUser))
+        account = Account.objects.filter(customer=user, accountNum=accountNum)
+
+        context = {'pdToggle': pdToggle, 'pdT': pdT, 'ptitle': ptitle, 'account':account}
+        return render(request, 'bank/profile.html', context)
 
 
 @login_required
 def profile(request):
-    rUser = str(request.user).capitalize()
-    
-    user=Customer.objects.get(user=User.objects.get(username=rUser))
-    
-    account = Account.objects.filter(customer=user, accountType="Savings")
-    
     pdToggle = ''
     pdT = 'Dashboard'
     ptitle = 'Profile'
 
+    rUser = str(request.user).capitalize()
+    user=Customer.objects.get(user=User.objects.get(username=rUser))
+    account = Account.objects.filter(customer=user)
     context = {'account': account,'pdToggle': pdToggle, 'pdT': pdT, 'ptitle': ptitle}
-    return render(request, 'bank/profile.html', context)
+    for a in account:
+        if a.accountType == "Savings":
+            return render(request, 'bank/profile.html', context)
+        else:
+            return HttpResponseRedirect(reverse("index"))
 
 
 @csrf_exempt
@@ -101,19 +110,26 @@ def logout_view(request):
     return HttpResponseRedirect(reverse("index"))
 
 
+def random_with_N_digits(n):
+    range_start = 10**(n-1)
+    range_end = (10**n)-1
+    return randint(range_start, range_end)
+
+
 @csrf_exempt
 def register_view(request):
     if request.method == "POST":
-        fname = request.POST["fname"]
-        lname = request.POST["lname"]
+        fname = (request.POST["fname"]).capitalize()
+        lname = (request.POST["lname"]).capitalize()
         email = request.POST["email"]
+        accountType = request.POST['accountType']
+        transcPin = request.POST['transcPin']
         dob = request.POST["dob"]
         tel = request.POST["tel"]
         address = request.POST["address"]
         # photo = request.FILES["photo"]
 
-        uname = request.POST["username"]
-        username = uname.capitalize()
+        username = (request.POST["username"]).capitalize()
         # Ensure password matches confirmation
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
@@ -144,9 +160,15 @@ def register_view(request):
                             lname=lname, email=email, dob=dob, tel=tel, address=address)
         customer.save()
 
+        accountNum = random_with_N_digits(10)
+        print(accountNum)
+        rUser = str(request.user).capitalize()
+        user=Customer.objects.get(user=User.objects.get(username=rUser))
+        account = Account(customer=user, accountNum=accountNum, accountType=accountType, balance=10000, transactionPin=transcPin)
+        account.save()
+
         staffs = Staff.objects.filter(
             name=User.objects.get(username=str(manager)))
-        print(staffs)
         for staff in staffs:
             staff.totalCustomer = int(staff.totalCustomer)+1
             staff.save()

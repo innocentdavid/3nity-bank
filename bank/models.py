@@ -24,7 +24,7 @@ class Customer(models.Model):
         return self.user.username
 
 class Account(models.Model):
-    customer = models.ManyToManyField("Customer", related_name="customer")
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True, related_name="customer")
     accountNum = models.IntegerField(null=True, blank=True)
     accountType = models.CharField(default="Savings", max_length=200)
     balance = models.FloatField(default=0.00)
