@@ -2,13 +2,14 @@ from django.contrib.auth.models import User
 from django.db import models
 
 class Staff(models.Model):
-    name = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    fullName = models.CharField(max_length=200, null=True, blank=True)
     role = models.CharField(max_length=200, default="manager")
-    tel = models.CharField(max_length=200, null=True)
+    email = models.CharField(max_length=200, null=True)
+    whatsappNum = models.CharField(max_length=200, null=True)
     totalCustomer = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.name.username
+        return self.fullName
         
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)

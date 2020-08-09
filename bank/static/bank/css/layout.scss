@@ -2,66 +2,31 @@ $base-color: rgb(17, 184, 128);
 $test: 1px solid;
 $base-color2: rgb(255, 255, 255);
 
-.logout{
+.logout {
   position: absolute;
   top: 2rem;
   right: 2rem;
   z-index: 90;
 
-  a{
-    padding: .2rem;
+  a {
+    padding: 0.2rem;
     color: white;
     border: $test;
   }
 }
-@media (max-width: 766px){
-  .logout{
-    top: 1rem;
-    right: 1rem;
-  
-    a{
-      padding: 0 .2rem;
+@media (max-width: 766px) {
+  .logout {
+    top: 0.3rem;
+    right: 0.3rem;
+    font-size: 0.8rem;
+
+    a {
+      padding: 0 0.2rem;
     }
   }
-}
-
-.pop-model {
-  display: none;
-  position: absolute;
-  min-height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  z-index: 9999999;
-
-  .main-model {
-    width: 100vw;
-    height: 100vh;
-
-    .model {
-      width: 30%;
-      height: 90%;
-      margin: auto;
-      margin-top: 2.5%;
-      border: 5px solid;
-      border-radius: 10px;
-
-      .model-header {
-        display: flex;
-        justify-content: space-between;
-        padding: .5rem 1rem;
-        width: 100%;
-        border-bottom: 1px solid;
-      }
-    }
-  }
-}
-@media (max-width: 767px){
-  .pop-model{
-    .model{
-      width: 90%!important;
-      height: 95%!important;
-      margin-top: 5%!important;
-    }
+  .ptitle {
+    margin-top: .8rem;
+    font-size: 2rem;
   }
 }
 
@@ -93,55 +58,61 @@ header {
   padding-bottom: 0.5rem;
 }
 
-.profile-img {
-  height: 5.5rem;
-  border: 1px solid;
-  padding: 0;
-}
-.logo-cont{
-  // border: $test;
-}
-
-.acc-type{
-  display: none;
-  position: fixed;
-  background: rgba(0, 0, 0, 0.9);
-  z-index: 2;
-  top: 0;
-  right: 0;
-  padding: 2rem;
-  font-size: .9rem;
-
-  .form-group{
-    margin: 0;
+.header{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.3rem;
+  padding-right: 16.666667%!important;
+  
+  .profile-img {
+    height: 5.5rem;
+    border: 1px solid;
     padding: 0;
   }
-}
-
-@media (min-width: 767px) {
-  .profile-img {
-    height: 13rem;
-    border: 1px solid;
+  
+  .acc-type {
+    display: none;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 200;
+    top: 0;
+    right: 0;
+    padding: 2rem;
+    font-size: 0.9rem;
+  
+    .form-group {
+      margin: 0;
+      padding: 0;
+    }
   }
-
-  .logo-cont {
-    margin-top: 1rem;
-    margin-bottom: 6rem;
+}
+@media (min-width: 767px) {
+  .header{
+    .profile-img {
+      border: 1px solid;
+    }
+  
+    .logo-cont {
+      margin-top: 1rem;
+      margin-bottom: 6rem;
+    }
   }
 }
 
 .main-nav {
-    border-bottom: 1px solid $base-color;
-    padding: 1rem 0.5rem;
-    ul {
-      width: 95vw;
-      margin: auto;
-      display: flex;
-      overflow: auto;
-      justify-content: space-around;
-      align-items: center;
-  
-      li {
+  border-bottom: 1px solid $base-color;
+  padding: 1rem 0.5rem;
+  ul {
+    width: 95vw;
+    margin: auto;
+    display: flex;
+    overflow: auto;
+    justify-content: space-around;
+    align-items: center;
+
+    li {
+      a {
         display: inline-block;
         border: 1px solid $base-color;
         padding: 0.2rem 0.5rem;
@@ -149,34 +120,46 @@ header {
         border-radius: 10px;
         padding: 0.1rem 1.5rem;
         cursor: pointer;
+        color: inherit;
       }
     }
   }
-  @media (max-width: 766px) {
-    body {
-      padding: 0;
-    }
-    .main-nav {
-      ul {
-        padding-left: 13rem;
-        width: 90vw;
-        li {
-          border: none;
-        }
+}
+@media (max-width: 766px) {
+  body {
+    padding: 0;
+  }
+  .main-nav {
+    ul {
+      padding-left: 13rem;
+      width: 90vw;
+      li {
+        border: none;
       }
     }
-  
-    .recent-transaction {
-      ul {
+  }
+
+  .recent-transaction {
+    ul {
+      display: flex;
+      width: 88vw;
+      overflow: auto;
+      a {
         display: flex;
-        width: 88vw;
-        overflow: auto;
-        a {
-          display: flex;
-          margin: 0;
-          margin-bottom: 1rem;
-          padding: 0 1rem;
-        }
+        margin: 0;
+        margin-bottom: 1rem;
+        padding: 0 1rem;
       }
     }
   }
+}
+
+.tips {
+  ul {
+    list-style-type: disc;
+
+    li {
+      margin-left: 1rem;
+    }
+  }
+}

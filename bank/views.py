@@ -24,14 +24,15 @@ def index(request):
     pdToggle = 'profile'
     pdT = 'Profile'
     ptitle = 'Dashboard'
+    
+    try:
+        user=Customer.objects.get(user=User.objects.get(username=request.user))
+        account = Account.objects.filter(customer=user)
 
-    rUser = str(request.user).capitalize()
-    user=Customer.objects.get(user=User.objects.get(username=rUser))
-    account = Account.objects.filter(customer=user)
-
-    context = {'pdToggle': pdToggle, 'pdT': pdT, 'ptitle': ptitle, 'account':account}
-    return render(request, 'bank/index.html', context)
-
+        context = {'pdToggle': pdToggle, 'pdT': pdT, 'ptitle': ptitle, 'account':account}
+        return render(request, 'bank/index.html', context)
+    except:
+        return HttpResponseRedirect(reverse("login"))
 
 @login_required
 @csrf_exempt
@@ -49,8 +50,7 @@ def getAccount(request):
         ptitle = 'Dashboard'
 
         accountNum = request.POST['account']
-        rUser = str(request.user).capitalize()
-        user=Customer.objects.get(user=User.objects.get(username=rUser))
+        user=Customer.objects.get(user=User.objects.get(username=request.user))
         account = Account.objects.filter(customer=user, accountNum=accountNum)
 
         context = {'pdToggle': pdToggle, 'pdT': pdT, 'ptitle': ptitle, 'account':account}
@@ -63,9 +63,11 @@ def profile(request):
     pdT = 'Dashboard'
     ptitle = 'Profile'
 
-    rUser = str(request.user).capitalize()
-    user=Customer.objects.get(user=User.objects.get(username=rUser))
+    user=Customer.objects.get(user=User.objects.get(username=request.user))
+    print(user)
     account = Account.objects.filter(customer=user)
+    print(account)
+    # return HttpResponse('skd')
     context = {'account': account,'pdToggle': pdToggle, 'pdT': pdT, 'ptitle': ptitle}
     for a in account:
         if a.accountType == "Savings":
@@ -77,7 +79,7 @@ def profile(request):
 @csrf_exempt
 @login_required
 def page(request, file_name):
-    f = default_storage.open(f"bank/templates/bank/{file_name}.html")
+    f = default_storage.open(f"pages/{file_name}.html")
     page = f.read().decode("utf-8")
 
     return JsonResponse({"page": page}, status=200)
@@ -88,10 +90,9 @@ def login_view(request):
     if request.method == "POST":
 
         # Attempt to sign user in
-        uname = request.POST["username"]
-        username = uname.capitalize()
+        email = request.POST["email"]
         password = request.POST["password"]
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username=email, password=password)
 
         # Check if authentication successful
         if user is not None:
@@ -99,7 +100,7 @@ def login_view(request):
             return HttpResponseRedirect(reverse("index"))
         else:
             return render(request, "bank/login.html", {
-                "message": "Invalid username and/or password."
+                "message": "Invalid email and/or password."
             })
     else:
         return render(request, "bank/login.html")
@@ -121,7 +122,7 @@ def register_view(request):
     if request.method == "POST":
         fname = (request.POST["fname"]).capitalize()
         lname = (request.POST["lname"]).capitalize()
-        email = request.POST["email"]
+        username = request.POST["email"]
         accountType = request.POST['accountType']
         transcPin = request.POST['transcPin']
         dob = request.POST["dob"]
@@ -129,7 +130,6 @@ def register_view(request):
         address = request.POST["address"]
         # photo = request.FILES["photo"]
 
-        username = (request.POST["username"]).capitalize()
         # Ensure password matches confirmation
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
@@ -140,13 +140,14 @@ def register_view(request):
 
         # Attempt to create new user
         try:
+            email=''
             user = User.objects.create_user(username, email, password)
             user.save()
 
         except IntegrityError as e:
             print(e)
             return render(request, "bank/register.html", {
-                "message": "username address already taken."
+                "message": "Email address already taken."
             })
         login(request, user)
 
