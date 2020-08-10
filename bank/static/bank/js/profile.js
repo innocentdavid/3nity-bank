@@ -1,3 +1,4 @@
+
 function addSrc() {
   $('.add-exp').css('background', 'rgb(17, 184, 128)');
   $('.add-src').css('background', 'black');
@@ -56,6 +57,5 @@ google.charts.load('current', {
   'packages': ['corechart']});
 google.charts.setOnLoadCallback(drawChart);
 
-// $(document).ready(function () {
-
-// })
+$(document).ready(function () {
+})

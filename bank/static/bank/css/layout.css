@@ -1,25 +1,4 @@
-.logout {
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  z-index: 90;
-}
-
-.logout a {
-  padding: 0.2rem;
-  color: white;
-  border: 1px solid;
-}
-
 @media (max-width: 766px) {
-  .logout {
-    top: 0.3rem;
-    right: 0.3rem;
-    font-size: 0.8rem;
-  }
-  .logout a {
-    padding: 0 0.2rem;
-  }
   .ptitle {
     margin-top: .8rem;
     font-size: 2rem;

@@ -19,17 +19,14 @@ from .models import *
 # Create your views here.
 
 
-@login_required
+# @login_required
 def index(request):
-    pdToggle = 'profile'
-    pdT = 'Profile'
-    ptitle = 'Dashboard'
     
     try:
         user=Customer.objects.get(user=User.objects.get(username=request.user))
         account = Account.objects.filter(customer=user)
 
-        context = {'pdToggle': pdToggle, 'pdT': pdT, 'ptitle': ptitle, 'account':account}
+        context = {'account':account}
         return render(request, 'bank/index.html', context)
     except:
         return HttpResponseRedirect(reverse("login"))
@@ -64,9 +61,7 @@ def profile(request):
     ptitle = 'Profile'
 
     user=Customer.objects.get(user=User.objects.get(username=request.user))
-    print(user)
     account = Account.objects.filter(customer=user)
-    print(account)
     # return HttpResponse('skd')
     context = {'account': account,'pdToggle': pdToggle, 'pdT': pdT, 'ptitle': ptitle}
     for a in account:
