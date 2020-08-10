@@ -81,6 +81,32 @@ def page(request, file_name):
 
 
 @csrf_exempt
+@login_required
+def check(request):
+    data = json.loads(request.body)
+    check = data.get('check')
+    if check == 'accountNumber':
+        x = Account.objects.filter(accountNum=data.get('accNum')).count()
+        print(x)
+        if x == 1:
+            res = Account.objects.filter(accountNum=data.get('accNum'))
+            for res in res:
+                fname = res.customer.fname
+                lname = res.customer.lname
+                accName = f"{lname} {fname}"
+                return JsonResponse({"accName": accName}, status=200)
+        else:
+            return JsonResponse({"accName": "None"}, status=404)
+
+    elif check == 'transPin':
+        x = Account.objects.filter(customer=Customer.objects.get(user=request.user), transactionPin=data.get('transPin')).count()
+        if x == 1:
+            res = Account.objects.filter(customer=Customer.objects.get(user=request.user), transactionPin=data.get('transPin'))
+            return JsonResponse({"message": 'ok'}, status=200)
+        else:
+            return JsonResponse({"message": 'None'}, status=404)
+
+@csrf_exempt
 def login_view(request):
     if request.method == "POST":
 

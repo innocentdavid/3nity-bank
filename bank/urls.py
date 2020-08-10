@@ -10,6 +10,7 @@ urlpatterns = [
 
     # all route
     path('profile', views.profile, name="profile"),
+    path('check', views.check, name="check"),
     path('getAllAccount', views.getAllAccount, name="getAllAccount"),
     path('getAccount', views.getAccount, name="getAccount"),
     path('page/<str:file_name>', views.page, name='page'),

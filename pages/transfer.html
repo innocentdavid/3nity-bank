@@ -11,7 +11,7 @@
         <i style="border-bottom: 2px solid; width: 100%; height: 1px;"></i>
         <br>
         <div style="width: 100%; padding: 0 5%;">
-            <form action="" method="get" onsubmit="">
+            <form action="" method="get" onsubmit="return false" id="transferForm">
                 <div class="form-group">
                     <label for="bank">Bank</label>
                     <select name="bank" id="bank" class="form-control">
@@ -20,7 +20,8 @@
                 </div>
                 <div class="form-group">
                     <label for="accountNum">Account Number</label>
-                    <input type="number" name="accountNum" class="form-control" minlength="10" id="accountNum" onkeyup="checkAccNum()" required>
+                    <input type="number" name="accountNum" class="form-control" id="accountNum" onkeyup="checkAccNum()" autocomplete required>
+                    <div id="accNumError" class="help-text" style="color: red;"></div>
                 </div>
                 <div class="form-group">
                     <label for="accountName">Account Name</label>
@@ -31,18 +32,39 @@
                     <input type="number" name="amount" class="form-control" id="amount" minlength="10" required>
                 </div>
                 <div class="form-group">
+                    <label for="naration">Naration (For your account analysis)</label>
+                    <input type="text" name="naration" id="naration" class="form-control" placeholder="Be sincere with the Naration for it will be used to analyse your account" id="naration" required>
+                </div>
+                <div class="form-group">
                     <label for="transPin">Transaction Pin</label>
-                    <input type="number" name="transPin" class="form-control" id="transPin" minlength="4" required>
+                    <input type="number" name="transPin" class="form-control" id="transPin" placeholder="4 digit pin" minlength="4" onkeyup="checkTransPin()" required>
+                    <div id="transPinError" class="help-text" style="color: red;"></div>
                 </div>
                 <div class="form-group">
-                    <label for="naration">Naration</label>
-                    <input type="text" name="naration" class="form-control" id="naration" required>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="confirm" class="form-control btn-success">
+                    <input type="submit" value="confirm" id="transferFormSubmit" onclick="transferFormSubmit()" class="form-control btn-success">
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<!-- transfer success card -->
+    <div class="tsc">
+<div class="tsc-main">
+    <div class="tsc-head">
+        <b>LOGO</b>
+        <div class="success">Transaction successfull <i class="fa fa-check-circle" aria-hidden="true"></i></div>
+    </div>
+    <div class="tsc-body">
+        <div class="transNum"><b>Transaction No:</b> 932989109892</div>
+        <div class="amount"><b>Amount:</b> N <span>12, 928 .0</span></div>
+        <div class="to"><b>To:</b> Paul Innocent</div>
+        <div class="toBank"><b>Bank:</b> 3NITY BANK NIG. LTD</div>
+        <div class="date"><b>Date:</b> 2020/08/10 04:08 PM</div>
+        <div class="close-tsc" onclick="closeTsc()"><b>Close</b></div>
+    </div>
+</div>
+    </div>
+<!-- transfer success card -->
+
 <br>

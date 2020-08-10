@@ -34,7 +34,7 @@ function getPage(page) {
 
       document.querySelector('#main-body').innerHTML = response.page;
       // history.pushState({'page':page}, "title", "to be pushed to the url");
-      history.pushState({'page':page}, "", `#${page}`);
+      history.pushState({ 'page': page }, "", `#${page}`);
     });
 }
 
@@ -45,7 +45,7 @@ window.addEventListener('DOMContentLoaded', function () {
   }
 })
 
-window.onpopstate = function(event) {
+window.onpopstate = function (event) {
   getPage(event.state.page);
 }
 
@@ -75,14 +75,14 @@ function toggleAddBox() {
 }
 
 function expandCatg(catgId) {
-  document.getElementsByClassName('cr'+catgId)[0].style.display = 'none';
-  document.getElementsByClassName('cd'+catgId)[0].style.display = 'block';
-  document.getElementsByClassName('catgSumBox'+catgId)[0].style.display = 'block';
+  document.getElementsByClassName('cr' + catgId)[0].style.display = 'none';
+  document.getElementsByClassName('cd' + catgId)[0].style.display = 'block';
+  document.getElementsByClassName('catgSumBox' + catgId)[0].style.display = 'block';
 }
 function compressCatg(catgId) {
-  document.getElementsByClassName('cd'+catgId)[0].style.display = 'none';
-  document.getElementsByClassName('cr'+catgId)[0].style.display = 'block';
-  document.getElementsByClassName('catgSumBox'+catgId)[0].style.display = 'none';
+  document.getElementsByClassName('cd' + catgId)[0].style.display = 'none';
+  document.getElementsByClassName('cr' + catgId)[0].style.display = 'block';
+  document.getElementsByClassName('catgSumBox' + catgId)[0].style.display = 'none';
 }
 
 function drawChart() {
@@ -107,13 +107,16 @@ function drawChart() {
 }
 
 google.charts.load('current', {
-  'packages': ['corechart']});
+  'packages': ['corechart']
+});
 google.charts.setOnLoadCallback(drawChart);
 
 $(document).ready(function () {
 })
 
 // profile js end
+
+
 
 // transfer js start
 
@@ -125,11 +128,94 @@ $(document).ready(function () {
 //   })
 // }
 
+
+// all this wiil only work if bank == 3nity bank
 function checkAccNum() {
   let accNum = document.querySelector('#accountNum').value;
-  if (accNum.length >= 10){
+  if (accNum.length >= 10) {
     // send a fetch requsts
+    fetch('/check', {
+      method: 'POST',
+      body: JSON.stringify({
+        check: "accountNumber",
+        accNum: accNum
+      })
+    })
+      .then(response => response.json())
+      .then(response => {
+        if (response.accName == 'None') {
+          document.querySelector('#accountName').value = '';
+          document.querySelector('#accNumError').innerHTML = "Account Number Not Found! (Hint: Account Number must be 10!)";
+        } else {
+          document.querySelector('#accNumError').innerHTML = '';
+          document.querySelector('#accountName').value = response.accName;
+        }
+      })
   }
+}
+
+function checkTransPin() {
+  let transPin = document.querySelector('#transPin').value;
+  if (transPin.length >= 4) {
+    // send a fetch requsts
+    fetch('/check', {
+      method: 'POST',
+      body: JSON.stringify({
+        check: "transPin",
+        transPin: transPin
+      })
+    })
+      .then(response => response.json())
+      .then(response => {
+        if (response.message == "ok") {
+          document.querySelector('#transPinError').innerHTML = "";
+          // ok
+          setInterval(() => {
+            stf();
+          }, 500)
+        }
+        else {
+          document.querySelector('#transPinError').innerHTML = "Incorrect Transaction Pin";
+        }
+      })
+  }
+}
+
+function stf() {
+  let bank = document.querySelector('#bank').value;
+  let accNum = document.querySelector('#accountNum').value;
+  let accName = document.querySelector('#accountName').value;
+  let amount = document.querySelector('#amount').value;
+  let naration = document.querySelector('#naration').value;
+  let transPin = document.querySelector('#transPin').value;
+
+  if (accNum.length == 10) {
+    if (accName != '') {
+      if (amount != '') {
+        if (naration != '') {
+          if (transPin.length == 4) {
+            if(document.querySelector('#transPinError').innerHTML != ''){document.querySelector('#transPinError').innerHTML != '';$('#transferFormSubmit').show()} else {$('#transferFormSubmit').hide();document.querySelector('#transPinError').innerHTML = "Incorrect Transaction Pin";}
+          }else{$('#transferFormSubmit').hide();}
+        } else {$('#transferFormSubmit').hide()}
+      } else {$('#transferFormSubmit').hide()}
+    } else {$('#transferFormSubmit').hide(); document.querySelector('#accNumError').innerHTML = "Account Number Not Found! (Hint: Account Number must be 10!)";}
+  } else {$('#transferFormSubmit').hide(); document.querySelector('#accNumError').innerHTML = "Account Number Not Found! (Hint: Account Number must be 10!)";}
+}
+
+$('#transferForm').on('submit', function () {
+  alert('sdk');
+})
+
+document.querySelector('#transferFormSubmit').addEventListener('click', function () {
+  alert();
+})
+
+function transferFormSubmit() {
+  alert();
+}
+
+function closeTsc() {
+  $('.tsc').hide();
 }
 
 // transfer js end

@@ -21,6 +21,7 @@ body {
   position: relative;
   width: 100vw;
   overflow-x: hidden;
+  background: linear-gradient(45deg, #83776a, #0f547f);
 }
 
 ul {
@@ -28,7 +29,7 @@ ul {
 }
 
 header {
-  background: #11b880;
+  background: linear-gradient(45deg, #83776a, #0f547f);
   color: white;
   padding: 0.5rem;
   padding-bottom: 0.5rem;
@@ -51,7 +52,7 @@ header {
 
 .header .profile-img {
   height: 5.5rem;
-  border: 1px solid;
+  border: 10px solid !important;
   padding: 0;
 }
 
@@ -114,6 +115,9 @@ header {
 @media (max-width: 766px) {
   body {
     padding: 0;
+  }
+  .profile-img img {
+    height: 40%;
   }
   .main-nav ul {
     padding-left: 13rem;
