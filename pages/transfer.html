@@ -1,4 +1,48 @@
 <br>
-<center>
-    <h3>Transfer Money Page</h3>
-</center>
+<div class="container" style="padding: 0 10%;">
+    <div class="row" style="box-shadow: 0px 8px 20px 2px #11b880;">
+        <div class="col-5 to-home-nav" style="padding: 0;">
+            <a href="/" class="btn btn-success">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                <span> Home / Transfer</span>
+            </a>
+        </div>
+        <div class="col"><h4 class="page-title"><i class="fa fa-money" aria-hidden="true"></i> Money Transfer</h4></div>
+        <i style="border-bottom: 2px solid; width: 100%; height: 1px;"></i>
+        <br>
+        <div style="width: 100%; padding: 0 5%;">
+            <form action="" method="get" onsubmit="">
+                <div class="form-group">
+                    <label for="bank">Bank</label>
+                    <select name="bank" id="bank" class="form-control">
+                        <option value="3NITY">3NITY | <span>3nity Bank Nigeria Limited</span></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="accountNum">Account Number</label>
+                    <input type="number" name="accountNum" class="form-control" minlength="10" id="accountNum" onkeyup="checkAccNum()" required>
+                </div>
+                <div class="form-group">
+                    <label for="accountName">Account Name</label>
+                    <input type="text" name="accountName" class="form-control" id="accountName" disabled required>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount</label>
+                    <input type="number" name="amount" class="form-control" id="amount" minlength="10" required>
+                </div>
+                <div class="form-group">
+                    <label for="transPin">Transaction Pin</label>
+                    <input type="number" name="transPin" class="form-control" id="transPin" minlength="4" required>
+                </div>
+                <div class="form-group">
+                    <label for="naration">Naration</label>
+                    <input type="text" name="naration" class="form-control" id="naration" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="confirm" class="form-control btn-success">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br>

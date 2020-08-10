@@ -1,1 +1,18 @@
-/* No CSS *//*# sourceMappingURL=transfer.css.map */
+.to-home-nav a {
+  margin: 1rem;
+}
+
+.page-title {
+  margin-top: 1.3rem;
+}
+
+@media (max-width: 766px) {
+  .to-home-nav a {
+    font-size: 0.6rem;
+  }
+  .page-title {
+    text-align: center;
+    font-size: 1rem;
+  }
+}
+/*# sourceMappingURL=transfer.css.map */
