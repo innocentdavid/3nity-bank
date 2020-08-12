@@ -1,4 +1,3 @@
-
 function showAccs() {
   $('.acc-type').show();
 }
@@ -19,24 +18,26 @@ function getPage(page) {
       file_name: 'page'
     })
   })
-    .then(response => response.json())
-    .then(response => {
-      // console.log(response);
+  .then(response => response.json())
+  .then(response => {
+    // console.log(response);
 
-      let style = `<link rel="stylesheet" href="././static/bank/css/${page}.css">`;
-      $('#customCss').html(style);
-      // js not working
-      // let js = `<script src="././static/bank/js/${page}.js">`;
-      // $('body').append(js);
+    let style = `<link rel="stylesheet" href="././static/bank/css/${page}.css">`;
+    $('#customCss').html(style);
+    // js not working
+    // let js = `<script src="././static/bank/js/${page}.js">`;
+    // $('body').append(js);
 
-      let pdToggle = '<a href="/" style="color:white; padding: 0 .3rem; border:1px solid; font-size: 1rem;">';
-      pdToggle += '<i class="fa fa-arrow-left"></i><span> Dashboard </span></a>';
-      $('#pdToggle').html(pdToggle);
+    let pdToggle = '<a href="/" style="color:white; padding: 0 .3rem; border:1px solid; font-size: 1rem;">';
+    pdToggle += '<i class="fa fa-arrow-left"></i><span> Dashboard </span></a>';
+    $('#pdToggle').html(pdToggle);
 
-      document.querySelector('#main-body').innerHTML = response.page;
-      // history.pushState({'page':page}, "title", "to be pushed to the url");
-      history.pushState({ 'page': page }, "", `#${page}`);
-    });
+    document.querySelector('#main-body').innerHTML = response.page;
+    // history.pushState({'page':page}, "title", "to be pushed to the url");
+    history.pushState({
+      'page': page
+    }, "", `#${page}`);
+  });
 }
 
 window.addEventListener('DOMContentLoaded', function () {
@@ -54,25 +55,40 @@ window.onpopstate = function (event) {
 // profile js start
 
 function addSrc() {
-  $('.add-exp').css('background', 'rgb(17, 184, 128)');
-  $('.add-src').css('background', 'black');
-  $('.add-exp-box').css('display', 'none');
-  $('.toggle-add-box').css('display', 'block');
-  $('.add-src-box').css('display', 'block');
+  $('.add-exp').css('background',
+    'rgb(17, 184, 128)');
+  $('.add-src').css('background',
+    'black');
+  $('.add-exp-box').css('display',
+    'none');
+  $('.toggle-add-box').css('display',
+    'block');
+  $('.add-src-box').css('display',
+    'block');
 }
 function addExp() {
-  $('.add-src').css('background', 'rgb(17, 184, 128)');
-  $('.add-exp').css('background', 'black');
-  $('.add-src-box').css('display', 'none');
-  $('.toggle-add-box').css('display', 'block');
-  $('.add-exp-box').css('display', 'block');
+  $('.add-src').css('background',
+    'rgb(17, 184, 128)');
+  $('.add-exp').css('background',
+    'black');
+  $('.add-src-box').css('display',
+    'none');
+  $('.toggle-add-box').css('display',
+    'block');
+  $('.add-exp-box').css('display',
+    'block');
 }
 function toggleAddBox() {
-  $('.add-exp').css('background', 'rgb(17, 184, 128)');
-  $('.add-src').css('background', 'rgb(17, 184, 128)');
-  $('.add-exp-box').css('display', 'none');
-  $('.add-src-box').css('display', 'none');
-  $('.toggle-add-box').css('display', 'none');
+  $('.add-exp').css('background',
+    'rgb(17, 184, 128)');
+  $('.add-src').css('background',
+    'rgb(17, 184, 128)');
+  $('.add-exp-box').css('display',
+    'none');
+  $('.add-src-box').css('display',
+    'none');
+  $('.toggle-add-box').css('display',
+    'none');
 }
 
 function expandCatg(catgId) {
@@ -89,22 +105,31 @@ function compressCatg(catgId) {
 function drawChart() {
 
   var data = google.visualization.arrayToDataTable([
-    ['Task', 'total expenditure'],
-    ['Work', 40],
-    ['Nap', 10],
-    ['Eat', 11],
-    ['Eat', 11],
-    ['Watch TV', 14],
-    ['Watch TV', 14],
-    ['Sleep', 15]
+    ['Task',
+      'total expenditure'],
+    ['Work',
+      40],
+    ['Nap',
+      10],
+    ['Eat',
+      11],
+    ['Eat',
+      11],
+    ['Watch TV',
+      14],
+    ['Watch TV',
+      14],
+    ['Sleep',
+      15]
   ]);
 
   var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
-  chart.draw(data, {
-    title: 'My Weekly Expenditures',
-    is3D: true,
-  });
+  chart.draw(data,
+    {
+      title: 'My Weekly Expenditures',
+      is3D: true,
+    });
 }
 
 google.charts.load('current', {
@@ -112,8 +137,7 @@ google.charts.load('current', {
 });
 google.charts.setOnLoadCallback(drawChart);
 
-$(document).ready(function () {
-})
+$(document).ready(function () {})
 
 // profile js end
 
@@ -142,16 +166,16 @@ function checkAccNum() {
         accNum: accNum
       })
     })
-      .then(response => response.json())
-      .then(response => {
-        if (response.accName == 'None') {
-          document.querySelector('#accountName').value = '';
-          document.querySelector('#accNumError').innerHTML = "Account Number Not Found! (Hint: Account Number must be 10!)";
-        } else {
-          document.querySelector('#accNumError').innerHTML = '';
-          document.querySelector('#accountName').value = response.accName;
-        }
-      })
+    .then(response => response.json())
+    .then(response => {
+      if (response.accName == 'None') {
+        document.querySelector('#accountName').value = '';
+        document.querySelector('#accNumError').innerHTML = "Account Number Not Found! (Hint: Account Number must be 10!)";
+      } else {
+        document.querySelector('#accNumError').innerHTML = '';
+        document.querySelector('#accountName').value = response.accName;
+      }
+    })
   }
 }
 
@@ -166,19 +190,18 @@ function checkTransPin() {
         transPin: transPin
       })
     })
-      .then(response => response.json())
-      .then(response => {
-        if (response.message == "ok") {
-          document.querySelector('#transPinError').innerHTML = "";
-          // ok
-          setInterval(() => {
-            stf();
-          }, 500)
-        }
-        else {
-          document.querySelector('#transPinError').innerHTML = "Incorrect Transaction Pin";
-        }
-      })
+    .then(response => response.json())
+    .then(response => {
+      if (response.message == "ok") {
+        document.querySelector('#transPinError').innerHTML = "";
+        // ok
+        setInterval(() => {
+          stf();
+        }, 500)
+      } else {
+        document.querySelector('#transPinError').innerHTML = "Incorrect Transaction Pin";
+      }
+    })
   }
 }
 
@@ -193,48 +216,49 @@ function stf() {
   let accNumError = document.querySelector('#accNumError').innerHTML;
 
   if (accNum.length == 10) {
-    if(transPin.length == 4){
-      if (accNumError == '') {
-        if (transPinError == '') {
-          $('#transferFormSubmit').show()
-        }else{$('#transferFormSubmit').hide()}
-      }else{$('#transferFormSubmit').hide()}
-    }else{$('#transferFormSubmit').hide()}
-  }else{$('#transferFormSubmit').hide()}
-
+    if (transPin.length == 4) {
+      if (naration != '') {
+        if (accNumError == '') {
+          if (transPinError == '') {
+            $('#transferFormSubmit').show()
+          } else {
+            $('#transferFormSubmit').hide()}
+        } else {
+          $('#transferFormSubmit').hide()}
+      } else {
+        $('#transferFormSubmit').hide()}
+    } else {
+      $('#transferFormSubmit').hide()}
+  } else {
+    $('#transferFormSubmit').hide()}
 }
 
 
 function transferFormSubmit() {
-  let bank = document.querySelector('#bank').value;
-  let accNum = document.querySelector('#accountNum').value;
-  let accName = document.querySelector('#accountName').value;
-  let amount = document.querySelector('#amount').value;
-  let naration = document.querySelector('#naration').value;
-  let transPin = document.querySelector('#transPin').value;
 
   fetch('/transfer', {
     method: 'POST',
     body: JSON.stringify({
-      bank: bank,
-      accNum: accNum,
-      accName: accName,
-      amount: amount,
-      naration: naration,
-      transPin: transPin
+      bank: document.querySelector('#bank').value,
+      accNum: document.querySelector('#accountNum').value,
+      accName: document.querySelector('#accountName').value,
+      amount: document.querySelector('#amount').value,
+      catg: document.querySelector('#catg').value,
+      naration: document.querySelector('#naration').value,
+      transPin: document.querySelector('#transPin').value
     })
   })
-    .then(response => response.json())
-    .then(response => {
-      bank = '';
-      accNum = '';
-      accName = '';
-      amount = '';
-      naration = '';
-      transPin = '';
+  .then(response => response.json())
+  .then(response => {
+    alert(response.message);
+    document.querySelector('#accountNum').value = '';
+    document.querySelector('#accountName').value = '';
+    document.querySelector('#amount').value = '';
+    document.querySelector('#naration').value = '';
+    document.querySelector('#transPin').value = '';
 
-      $('.tsc').show();
-    }) 
+    $('.tsc').show();
+  })
 }
 
 function closeTsc() {

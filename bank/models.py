@@ -51,7 +51,7 @@ class History(models.Model):
     )
 
     account = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True, blank=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
+    category = models.CharField(max_length=200, null=True, blank=True)
     transcType = models.CharField(max_length=20, choices=TRANSC_TYPE)
     amount = models.FloatField(default=0.00)
     naration = models.TextField(blank=True)

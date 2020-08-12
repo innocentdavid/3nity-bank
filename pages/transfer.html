@@ -1,86 +1,99 @@
 <br>
 <div class="container" style="padding: 0 10%;">
-    <div class="row" style="box-shadow: 0px 8px 20px 2px #11b880;">
-        <div class="col-5 to-home-nav" style="padding: 0;">
-            <a href="/" class="btn btn-success">
-                <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                <span> Home / Transfer</span>
-            </a>
-        </div>
-        <div class="col"><h4 class="page-title"><i class="fa fa-money" aria-hidden="true"></i> Money Transfer</h4></div>
-        <i style="border-bottom: 2px solid; width: 100%; height: 1px;"></i>
-        <!-- <br>
-        <form action="" method="post" id="tform">
-            <input type="text">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form> -->
-        <br>
-        <div style="width: 100%; padding: 0 5%;">
-            <form action="" method="get" onsubmit="return false" id="transferForm">
-                <div class="form-group">
-                    <label for="bank">Bank</label>
-                    <select name="bank" id="bank" class="form-control">
-                        <option value="3NITY">3NITY | <span>3nity Bank Nigeria Limited</span></option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="accountNum">Account Number</label>
-                    <input type="number" name="accountNum" class="form-control" id="accountNum" onkeyup="checkAccNum()" min="999999999" max="9999999999" autocomplete required>
-                    <div id="accNumError" class="help-text" style="color: red;"></div>
-                </div>
-                <div class="form-group">
-                    <label for="accountName">Account Name</label>
-                    <input type="text" name="accountName" class="form-control" id="accountName" disabled required>
-                </div>
-                <div class="form-group">
-                    <label for="amount">Amount</label>
-                    <input type="number" name="amount" class="form-control" id="amount" value="0" required>
-                </div>
-                <div class="form-group">
-                    <label for="naration">Expenses Category</label>
-                    <select name="expCatg" id="expCatg" class="form-control">
-                        <option value="Miscellaneous">Miscellaneous</option>
-                        <option value="Properties">Properties</option>
-                        <option value="Investment">Investment</option>
-                        <option value="Food">Food</option>
-                        <option value="Shelter">Shelter</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="naration">Naration (For your account analysis)</label>
-                    <input type="text" name="naration" id="naration" class="form-control" placeholder="Naration For account analyses" id="naration" required>
-                </div>
-                <div class="form-group">
-                    <label for="transPin">Transaction Pin</label>
-                    <input type="number" name="transPin" class="form-control" id="transPin" placeholder="4 digit pin" min="999" max="9999" onkeyup="checkTransPin()" required>
-                    <div id="transPinError" class="help-text" style="color: red;"></div>
-                </div>
-                <div class="form-group">
-                    <div value="confirm" id="transferFormSubmit" onclick="transferFormSubmit()" class="form-control btn-success text-center" style="cursor: pointer;">Submit</div>
-                </div>
-                <input type="submit" value="" class="d-none">
-            </form>
-        </div>
+  <div class="row" style="box-shadow: 0px 8px 20px 2px #11b880;">
+    <div class="col-5 to-home-nav" style="padding: 0;">
+      <a href="/" class="btn btn-success">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        <span> Home / Transfer</span>
+      </a>
     </div>
+    <div class="col">
+      <h4 class="page-title"><i class="fa fa-money" aria-hidden="true"></i> Money Transfer</h4>
+    </div>
+    <i style="border-bottom: 2px solid; width: 100%; height: 1px;"></i>
+    <br>
+    <div style="width: 100%; padding: 0 5%;">
+      <form action="" method="get" onsubmit="return false" id="transferForm">
+        <div class="form-group">
+          <label for="bank">Bank</label>
+          <select name="bank" id="bank" class="form-control">
+            <option value="3NITY">3NITY | <span>3nity Bank Nigeria Limited</span></option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="accountNum">Account Number</label>
+          <input type="number" name="accountNum" class="form-control" id="accountNum" onkeyup="checkAccNum()" min="999999999" max="9999999999" autocomplete required>
+          <div id="accNumError" class="help-text" style="color: red;"></div>
+        </div>
+        <div class="form-group">
+          <label for="accountName">Account Name</label>
+          <input type="text" name="accountName" class="form-control" id="accountName" disabled required>
+        </div>
+        <div class="form-group">
+          <label for="amount">Amount</label>
+          <input type="number" name="amount" class="form-control" id="amount" value="0" required>
+        </div>
+        <div class="form-group">
+          <label for="naration">Expenses Category</label>
+          <select name="expCatg" id="Catg" class="form-control">
+            <option value="Miscellaneous">Miscellaneous</option>
+            <option value="Properties">Properties</option>
+            <option value="Investment">Investment</option>
+            <option value="Food">Food</option>
+            <option value="Shelter">Shelter</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="naration">Naration (For your account analysis)</label>
+          <input type="text" name="naration" id="naration" class="form-control" placeholder="Naration For account analyses" id="naration" required>
+        </div>
+        <div class="form-group">
+          <label for="transPin">Transaction Pin</label>
+          <input type="number" name="transPin" class="form-control" id="transPin" placeholder="4 digit pin" min="999" max="9999" onkeyup="checkTransPin()" required>
+          <div id="transPinError" class="help-text" style="color: red;"></div>
+        </div>
+        <div class="form-group">
+          <div value="confirm" id="transferFormSubmit" onclick="transferFormSubmit()" class="form-control btn-success text-center" style="cursor: pointer;">
+            Submit
+          </div>
+        </div>
+        <input type="submit" value="" class="d-none">
+      </form>
+    </div>
+  </div>
 </div>
 
 <!-- transfer success card -->
-    <div class="tsc">
-<div class="tsc-main">
+<div class="tsc">
+  <div class="tsc-main">
     <div class="tsc-head">
-        <b>LOGO</b>
-        <div class="success">Transaction successfull <i class="fa fa-check-circle" aria-hidden="true"></i></div>
+      <b>LOGO</b>
+      <div class="success">
+        Transaction successfull <i class="fa fa-check-circle" aria-hidden="true"></i>
+      </div>
     </div>
     <div class="tsc-body">
-        <div class="transNum"><b>Transaction No:</b> 932989109892</div>
-        <div class="amount"><b>Amount:</b> N <span>12, 928 .0</span></div>
-        <div class="to"><b>To:</b> Paul Innocent</div>
-        <div class="toBank"><b>Bank:</b> 3NITY BANK NIG. LTD</div>
-        <div class="date"><b>Date:</b> 2020/08/10 04:08 PM</div>
-        <div class="close-tsc" onclick="closeTsc()"><b>Close</b></div>
+      <div class="transNum">
+        <b>Transaction No:</b> 932989109892
+      </div>
+      <div class="amount">
+        <b>Amount:</b> N <span>12, 928 .0</span>
+      </div>
+      <div class="to">
+        <b>To:</b> Paul Innocent
+      </div>
+      <div class="toBank">
+        <b>Bank:</b> 3NITY BANK NIG. LTD
+      </div>
+      <div class="date">
+        <b>Date:</b> 2020/08/10 04:08 PM
+      </div>
+      <div class="close-tsc" onclick="closeTsc()">
+        <b>Close</b>
+      </div>
     </div>
+  </div>
 </div>
-    </div>
 <!-- transfer success card -->
 
 <br>

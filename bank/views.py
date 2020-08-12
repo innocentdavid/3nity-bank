@@ -53,6 +53,7 @@ def getAccount(request):
         context = {'pdToggle': pdToggle, 'pdT': pdT, 'ptitle': ptitle, 'account':account}
         return render(request, 'bank/profile.html', context)
 
+@csrf_exempt
 def transfer(request):
     if request.method != 'POST':
         return HttpResponseRedirect(reverse('index'))
@@ -62,12 +63,22 @@ def transfer(request):
     accNum = data.get('accNum')
     accName = data.get('accName')
     amount = data.get('amount')
+    category = data.get('catg')
     naration = data.get('naration')
     transPin = data.get('transPin')
+    user=Customer.objects.get(user=User.objects.get(username=request.user))
     
-    acc = Account.objects.filter(accountNum=accNum)
+    acc = Account.objects.filter(customer=user, accountNum=accNum, transactionPin=transPin)
+    for a in acc:
+      newAmount = a.balance - float(amount)
+      a.balance = newAmount
+      a.save()
+      
+      history = History(account=Account.objects.get(accountNum=accNum), category=category, transcType='Expenditure', amount=amount, naration=naration)
+      history.save()
 
-    return JsonResponse({"message":'ok'}, status=200)
+      return JsonResponse({"message":'ok'}, status=200)
+    return JsonResponse({"message":'error'}, status=500)
 
 
 @login_required
