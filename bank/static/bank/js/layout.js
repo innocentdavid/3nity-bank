@@ -22,11 +22,10 @@ function getPage(page) {
     .then(response => {
       // console.log(response);
 
-      let style = `<link rel="stylesheet" href="././static/bank/css/${page}.css">`;
+      let style = `<link rel="stylesheet" href="././static/bank/css/mainNav.css">`;
       $('#customCss').html(style);
-      // js not working
-      // let js = `<script src="././static/bank/js/${page}.js">`;
-      // $('body').append(js);
+      // let style = `<link rel="stylesheet" href="././static/bank/css/${page}.css">`;
+      // $('#customCss').html(style);
 
       let pdToggle = '<a href="/" style="color:white; padding: 0 .3rem; border:1px solid; font-size: 1rem;">';
       pdToggle += '<i class="fa fa-arrow-left"></i><span> Dashboard </span></a>';
@@ -159,17 +158,15 @@ function checkAccNum() {
     })
       .then(response => response.json())
       .then(response => {
-        if (response.accName == 'error'){
+        if (response.accName == 'error') {
           document.querySelector('#accountName').value = '';
-          document.querySelector('#accNumError').innerHTML = "You cannot transfer money to yourself!";
-        }else{
-          if (response.accName == 'None') {
-            document.querySelector('#accountName').value = '';
-            document.querySelector('#accNumError').innerHTML = "Account Number Not Found! (Hint: Account Number must be 10!)";
-          } else {
-            document.querySelector('#accNumError').innerHTML = '';
-            document.querySelector('#accountName').value = response.accName;
-          }
+          document.querySelector('#accNumError').innerHTML = "You cannot transfer money to yourself";
+        }else if (response.accName == 'None') {
+          document.querySelector('#accountName').value = '';
+          document.querySelector('#accNumError').innerHTML = "Account Number Not Found! (Hint: Account Number must be 10!)";
+        }else {
+          document.querySelector('#accNumError').innerHTML = '';
+          document.querySelector('#accountName').value = response.accName;
         }
       })
   }
@@ -277,3 +274,58 @@ function closeTsc() {
 }
 
 // transfer js end
+
+
+// airtime js start
+
+function buyAirtimeFormSubmit() {
+  const networkP = $('#networkP').val();
+  const baTel = $('#ba-tel').val();
+  const baTransPin = $('#ba-transPin').val();
+  if (networkP != '') {
+    if (baTel != '') {
+      if (baTransPin == '') {
+        baTransPin = 0;
+        fetch('/check', {
+          method: 'POST',
+          body: JSON.stringify({
+            check: "transPin",
+              transPin: baTransPin
+          })
+        })
+          .then(response => response.json())
+          .then(response => {
+            if (response.message == 'ok') {
+              $('#ba-transPinError').text('');
+              $('#ba-transPinOk').html('<i class="fa fa-check-circle" aria-hidden="true"></i>');
+
+              fetch('/airtime', {
+                method: 'POST',
+                body: JSON.stringify({
+                  networkP: networkP,
+                  baTel: baTel,
+                  baTransPin: baTransPin,
+                })
+              })
+                .then(response => response.json())
+                .then(response => {
+                  if (response.message == 'ok') {
+                    $('#networkP').val('');
+                    $('#ba-tel').val('');
+                    $('#ba-transPin').val('');
+                    
+                    $('#tsc').show();
+                  } else {
+                    
+                  }
+                })
+            } else {
+              $('#ba-transPinError').text('Incorrect Transaction Pin!'); 
+            }
+          })
+      }
+    } else {}
+  } else {}
+}
+
+// airtime js end

@@ -67,7 +67,7 @@
               </div>
             </div>
             <div>
-              <span>Acc. bal. <b>N <span>{{ account.balance }}</span> K</b></span>
+              <span>Acc. bal. <b>N<span>{{ account.balance | floatformat:2 }}</span></b></span>
             </div>
             <div id="pdToggle" style="margin-top: 1rem;">
               <a href="/logout" style="color:white; padding: 0 .3rem; border:1px solid; font-size: 1rem;">
@@ -108,15 +108,6 @@
           <center><i class="fa fa-paper-plane" aria-hidden="true"></i>
             <div>
               Pay&nbsp;Bills
-            </div>
-          </center>
-        </a>
-      </li>
-      <li>
-        <a href="#main-body" onclick="mainNav('cheque')">
-          <center><i class="fa fa-money" aria-hidden="true"></i>
-            <div>
-              Claim&nbsp;Cheque
             </div>
           </center>
         </a>

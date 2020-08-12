@@ -1,4 +1,83 @@
 <br>
-<center>
-    <h3>Pay Bills Page</h3>
-</center>
+<div class="container" style="padding: 0 10%;">
+    <div class="row" style="box-shadow: 0px 8px 20px 2px #11b880;">
+        <div class="col-5 to-home-nav" style="padding: 0;">
+            <a href="/" class="btn btn-success">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                <span> Home / Buy Airtime</span>
+            </a>
+        </div>
+        <div class="col">
+            <h4 class="page-title"><i class="fa fa-money" aria-hidden="true"></i> Buy Airtime</h4>
+        </div>
+        <i style="border-bottom: 2px solid; width: 100%; height: 1px;"></i>
+        <br>
+        <div style="width: 100%; padding: 0 5%;">
+            <form action="" onsubmit="return false" method="post">
+                <div class="form-group">
+                    <label for="bill">Bill</label>
+                    <select name="bill" id="bill" class="form-control">
+                        <option value="electricity">Electricity</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="bill-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" name="address" id="bill-address" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount</label>
+                    <input type="number" name="amount" id="bill-amount" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="transPin">Transaction Pin</label>
+                    <input type="text" name="transPin" id="bill-transPin" class="form-control" placeholder="4 digit pin"
+                        required>
+                </div>
+                <div id="billFormSubmit" onclick="billFormSubmit()"
+                    class="form-control btn-success text-center" style="cursor: pointer;">
+                    Buy Now
+                </div>
+                <br>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- buy airtime success card -->
+<div class="tsc">
+    <div class="tsc-main">
+        <div class="tsc-head">
+            <b>LOGO</b>
+            <div class="success">
+                Transaction successfull <i class="fa fa-check-circle" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="tsc-body">
+            <div class="transNum">
+                <b>Transaction No:</b> <span id="transcId"></span>
+            </div>
+            <div class="amount">
+                <b>Amount:</b> N <span id="tsc-amount"></span>
+            </div>
+            <div class="to">
+                <b>To:</b> <span id="tsc-tel"></span>
+            </div>
+            <div class="toBank">
+                <b>Naration:</b> <span id="tsc-naration">Airtime</span>
+            </div>
+            <div class="date">
+                <b>Date:</b> <span id="tsc-date"></span>
+            </div>
+            <div class="close-tsc" onclick="closeTsc()">
+                <b>Close</b>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- buy airtime success card -->
+
+<br>

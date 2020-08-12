@@ -1,4 +1,79 @@
 <br>
-<center>
-    <h3>Buy Airtime Page</h3>
-</center>
+<div class="container" style="padding: 0 10%;">
+    <div class="row" style="box-shadow: 0px 8px 20px 2px #11b880;">
+        <div class="col-5 to-home-nav" style="padding: 0;">
+            <a href="/" class="btn btn-success">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                <span> Home / Buy Airtime</span>
+            </a>
+        </div>
+        <div class="col">
+            <h4 class="page-title"><i class="fa fa-money" aria-hidden="true"></i> Buy Airtime</h4>
+        </div>
+        <i style="border-bottom: 2px solid; width: 100%; height: 1px;"></i>
+        <br>
+        <div style="width: 100%; padding: 0 5%;">
+            <form action="" onsubmit="return false" method="post">
+                <div class="form-group">
+                    <label for="networkP">Network Provider</label>
+                    <select type="text" name="networkP" id="networkP" class="form-control">
+                        <option value="glo">GLO</option>
+                        <option value="mtn">MTN</option>
+                        <option value="airtel">AIRTEL</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="ba-tel">Phone Number</label>
+                    <input type="number" class="form-control" name="tel" id="ba-tel" placeholder="09000000000" required>
+                </div>
+                <div class="form-group">
+                    <label for="transPin">Transaction Pin</label>
+                    <input type="text" name="transPin" id="ba-transPin" class="form-control" placeholder="4 digit pin"
+                        required>
+                        <div id="ba-transPinError" class="help-text" style="color: red;"></div>
+                        <div id="ba-transPinOk" class="help-text" style="color: lightgreen;"></div>
+                </div>
+                <div id="airtimeFormSubmit" onclick="buyAirtimeFormSubmit()"
+                    class="form-control btn-success text-center" style="cursor: pointer;">
+                    Buy Now
+                </div>
+                <br>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- buy airtime success card -->
+<div class="tsc">
+    <div class="tsc-main">
+        <div class="tsc-head">
+            <b>LOGO</b>
+            <div class="success">
+                Transaction successfull <i class="fa fa-check-circle" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="tsc-body">
+            <div class="transNum">
+                <b>Transaction No:</b> <span id="transcId"></span>
+            </div>
+            <div class="amount">
+                <b>Amount:</b> N <span id="tsc-amount"></span>
+            </div>
+            <div class="to">
+                <b>To:</b> <span id="tsc-tel"></span>
+            </div>
+            <div class="toBank">
+                <b>Naration:</b> <span id="tsc-naration">Airtime</span>
+            </div>
+            <div class="date">
+                <b>Date:</b> <span id="tsc-date"></span>
+            </div>
+            <div class="close-tsc" onclick="closeTsc()">
+                <b>Close</b>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- buy airtime success card -->
+
+<br>
