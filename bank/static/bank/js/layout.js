@@ -18,26 +18,26 @@ function getPage(page) {
       file_name: 'page'
     })
   })
-  .then(response => response.json())
-  .then(response => {
-    // console.log(response);
+    .then(response => response.json())
+    .then(response => {
+      // console.log(response);
 
-    let style = `<link rel="stylesheet" href="././static/bank/css/${page}.css">`;
-    $('#customCss').html(style);
-    // js not working
-    // let js = `<script src="././static/bank/js/${page}.js">`;
-    // $('body').append(js);
+      let style = `<link rel="stylesheet" href="././static/bank/css/${page}.css">`;
+      $('#customCss').html(style);
+      // js not working
+      // let js = `<script src="././static/bank/js/${page}.js">`;
+      // $('body').append(js);
 
-    let pdToggle = '<a href="/" style="color:white; padding: 0 .3rem; border:1px solid; font-size: 1rem;">';
-    pdToggle += '<i class="fa fa-arrow-left"></i><span> Dashboard </span></a>';
-    $('#pdToggle').html(pdToggle);
+      let pdToggle = '<a href="/" style="color:white; padding: 0 .3rem; border:1px solid; font-size: 1rem;">';
+      pdToggle += '<i class="fa fa-arrow-left"></i><span> Dashboard </span></a>';
+      $('#pdToggle').html(pdToggle);
 
-    document.querySelector('#main-body').innerHTML = response.page;
-    // history.pushState({'page':page}, "title", "to be pushed to the url");
-    history.pushState({
-      'page': page
-    }, "", `#${page}`);
-  });
+      document.querySelector('#main-body').innerHTML = response.page;
+      // history.pushState({'page':page}, "title", "to be pushed to the url");
+      history.pushState({
+        'page': page
+      }, "", `#${page}`);
+    });
 }
 
 window.addEventListener('DOMContentLoaded', function () {
@@ -137,7 +137,7 @@ google.charts.load('current', {
 });
 google.charts.setOnLoadCallback(drawChart);
 
-$(document).ready(function () {})
+$(document).ready(function () { })
 
 // profile js end
 
@@ -166,16 +166,16 @@ function checkAccNum() {
         accNum: accNum
       })
     })
-    .then(response => response.json())
-    .then(response => {
-      if (response.accName == 'None') {
-        document.querySelector('#accountName').value = '';
-        document.querySelector('#accNumError').innerHTML = "Account Number Not Found! (Hint: Account Number must be 10!)";
-      } else {
-        document.querySelector('#accNumError').innerHTML = '';
-        document.querySelector('#accountName').value = response.accName;
-      }
-    })
+      .then(response => response.json())
+      .then(response => {
+        if (response.accName == 'None') {
+          document.querySelector('#accountName').value = '';
+          document.querySelector('#accNumError').innerHTML = "Account Number Not Found! (Hint: Account Number must be 10!)";
+        } else {
+          document.querySelector('#accNumError').innerHTML = '';
+          document.querySelector('#accountName').value = response.accName;
+        }
+      })
   }
 }
 
@@ -190,26 +190,23 @@ function checkTransPin() {
         transPin: transPin
       })
     })
-    .then(response => response.json())
-    .then(response => {
-      if (response.message == "ok") {
-        document.querySelector('#transPinError').innerHTML = "";
-        // ok
-        setInterval(() => {
-          stf();
-        }, 500)
-      } else {
-        document.querySelector('#transPinError').innerHTML = "Incorrect Transaction Pin";
-      }
-    })
+      .then(response => response.json())
+      .then(response => {
+        if (response.message == "ok") {
+          document.querySelector('#transPinError').innerHTML = "";
+          // ok
+          setInterval(() => {
+            stf();
+          }, 500)
+        } else {
+          document.querySelector('#transPinError').innerHTML = "Incorrect Transaction Pin";
+        }
+      })
   }
 }
 
 function stf() {
-  let bank = document.querySelector('#bank').value;
   let accNum = document.querySelector('#accountNum').value;
-  let accName = document.querySelector('#accountName').value;
-  let amount = document.querySelector('#amount').value;
   let naration = document.querySelector('#naration').value;
   let transPin = document.querySelector('#transPin').value;
   let transPinError = document.querySelector('#transPinError').innerHTML;
@@ -222,43 +219,61 @@ function stf() {
           if (transPinError == '') {
             $('#transferFormSubmit').show()
           } else {
-            $('#transferFormSubmit').hide()}
+            $('#transferFormSubmit').hide()
+          }
         } else {
-          $('#transferFormSubmit').hide()}
+          $('#transferFormSubmit').hide()
+        }
       } else {
-        $('#transferFormSubmit').hide()}
+        $('#transferFormSubmit').hide()
+      }
     } else {
-      $('#transferFormSubmit').hide()}
+      $('#transferFormSubmit').hide()
+    }
   } else {
-    $('#transferFormSubmit').hide()}
+    $('#transferFormSubmit').hide()
+  }
 }
 
 
 function transferFormSubmit() {
 
+  const bank = document.querySelector('#bank').value;
+  const accNum = document.querySelector('#accountNum').value;
+  const accName = document.querySelector('#accountName').value;
+  const amount = document.querySelector('#amount').value;
+  const catg = document.querySelector('#catg').value;
+  const naration = document.querySelector('#naration').value;
+  const transPin = document.querySelector('#transPin').value;
+
   fetch('/transfer', {
     method: 'POST',
     body: JSON.stringify({
-      bank: document.querySelector('#bank').value,
-      accNum: document.querySelector('#accountNum').value,
-      accName: document.querySelector('#accountName').value,
-      amount: document.querySelector('#amount').value,
-      catg: document.querySelector('#catg').value,
-      naration: document.querySelector('#naration').value,
-      transPin: document.querySelector('#transPin').value
+      bank: bank,
+      accNum: accNum,
+      accName: accName,
+      amount: amount,
+      catg: catg,
+      naration: naration,
+      transPin: transPin,
+
     })
   })
-  .then(response => response.json())
-  .then(response => {
-    alert(response.message);
-    document.querySelector('#accountNum').value = '';
-    document.querySelector('#accountName').value = '';
-    document.querySelector('#amount').value = '';
-    document.querySelector('#naration').value = '';
-    document.querySelector('#transPin').value = '';
-
-    $('.tsc').show();
-  })
+    .then(response => response.json())
+    .then(response => {
+      if (response.message == 'ok') {
+        $('#transcId').text(response.transcId);
+        $('#tsc-amount').text(amount);
+        $('#tsc-accName').text(accName);
+        $('#tsc-bank').text(bank);
+        $('.tsc').show();
+        document.querySelector('#accountNum').value = '';
+        document.querySelector('#accountName').value = '';
+        document.querySelector('#amount').value = '';
+        document.querySelector('#naration').value = '';
+        document.querySelector('#transPin').value = '';
+      }
+    })
 }
 
 function closeTsc() {

@@ -35,7 +35,7 @@
         </div>
         <div class="form-group">
           <label for="naration">Expenses Category</label>
-          <select name="expCatg" id="Catg" class="form-control">
+          <select name="expCatg" id="catg" class="form-control">
             <option value="Miscellaneous">Miscellaneous</option>
             <option value="Properties">Properties</option>
             <option value="Investment">Investment</option>
@@ -74,19 +74,19 @@
     </div>
     <div class="tsc-body">
       <div class="transNum">
-        <b>Transaction No:</b> 932989109892
+        <b>Transaction No:</b> <span id="transcId"></span>
       </div>
       <div class="amount">
-        <b>Amount:</b> N <span>12, 928 .0</span>
+        <b>Amount:</b> N <span id="tsc-amount">12, 928 .0</span>
       </div>
       <div class="to">
-        <b>To:</b> Paul Innocent
+        <b>To:</b> <span id="tsc-accName"></span>
       </div>
       <div class="toBank">
-        <b>Bank:</b> 3NITY BANK NIG. LTD
+        <b>Bank:</b> <span id="tsc-bank"></span>
       </div>
       <div class="date">
-        <b>Date:</b> 2020/08/10 04:08 PM
+        <b>Date:</b> <span id="tsc-date"></span>
       </div>
       <div class="close-tsc" onclick="closeTsc()">
         <b>Close</b>

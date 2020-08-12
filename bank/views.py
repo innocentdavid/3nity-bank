@@ -77,7 +77,9 @@ def transfer(request):
       history = History(account=Account.objects.get(accountNum=accNum), category=category, transcType='Expenditure', amount=amount, naration=naration)
       history.save()
 
-      return JsonResponse({"message":'ok'}, status=200)
+      transcId = random_with_N_digits(12)
+
+      return JsonResponse({"message":'ok',"transcId":transcId}, status=200)
     return JsonResponse({"message":'error'}, status=500)
 
 
@@ -210,7 +212,6 @@ def register_view(request):
         customer.save()
 
         accountNum = random_with_N_digits(10)
-        print(accountNum)
         rUser = str(request.user).capitalize()
         user=Customer.objects.get(user=User.objects.get(username=rUser))
         account = Account(customer=user, accountNum=accountNum, accountType=accountType, balance=10000, transactionPin=transcPin)
