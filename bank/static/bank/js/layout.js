@@ -159,13 +159,17 @@ function checkAccNum() {
     })
       .then(response => response.json())
       .then(response => {
-        if response.accName == 
-        if (response.accName == 'None') {
+        if (response.accName == 'error'){
           document.querySelector('#accountName').value = '';
-          document.querySelector('#accNumError').innerHTML = "Account Number Not Found! (Hint: Account Number must be 10!)";
-        } else {
-          document.querySelector('#accNumError').innerHTML = '';
-          document.querySelector('#accountName').value = response.accName;
+          document.querySelector('#accNumError').innerHTML = "You cannot transfer money to yourself!";
+        }else{
+          if (response.accName == 'None') {
+            document.querySelector('#accountName').value = '';
+            document.querySelector('#accNumError').innerHTML = "Account Number Not Found! (Hint: Account Number must be 10!)";
+          } else {
+            document.querySelector('#accNumError').innerHTML = '';
+            document.querySelector('#accountName').value = response.accName;
+          }
         }
       })
   }
