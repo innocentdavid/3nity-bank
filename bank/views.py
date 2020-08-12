@@ -66,8 +66,9 @@ def transfer(request):
     category = data.get('catg')
     naration = data.get('naration')
     transPin = data.get('transPin')
+
+    # deduct from user's account
     user=Customer.objects.get(user=User.objects.get(username=request.user))
-    
     acc = Account.objects.filter(customer=user, accountNum=accNum, transactionPin=transPin)
     for a in acc:
       newAmount = a.balance - float(amount)
@@ -76,6 +77,12 @@ def transfer(request):
       
       history = History(account=Account.objects.get(accountNum=accNum), category=category, transcType='Expenditure', amount=amount, naration=naration)
       history.save()
+
+      to = Account.objects.filter(accountNum=accNum)
+      for acc in to:
+          newAmount = acc.balance + float(amount)
+          acc.balance = newAmount
+          acc.save()
 
       transcId = random_with_N_digits(12)
 
@@ -115,6 +122,10 @@ def check(request):
     data = json.loads(request.body)
     check = data.get('check')
     if check == 'accountNumber':
+        y = Account.objects.filter(customer=Customer.objects.get(user=request.user)).count()
+        if y == 1:
+            return JsonResponse({"accName": 'error'}, status=404)
+
         x = Account.objects.filter(accountNum=data.get('accNum')).count()
         print(x)
         if x == 1:

@@ -145,15 +145,6 @@ $(document).ready(function () { })
 
 // transfer js start
 
-// let accNum = document.querySelector('#accountNum');
-// alert(accNum);
-// if (accNum != Null){
-//   accNum.addEventListener('keyup',function () {
-//     alert('keyup');
-//   })
-// }
-
-
 // all this wiil only work if bank == 3nity bank
 function checkAccNum() {
   let accNum = document.querySelector('#accountNum').value;
@@ -168,6 +159,7 @@ function checkAccNum() {
     })
       .then(response => response.json())
       .then(response => {
+        if response.accName == 
         if (response.accName == 'None') {
           document.querySelector('#accountName').value = '';
           document.querySelector('#accNumError').innerHTML = "Account Number Not Found! (Hint: Account Number must be 10!)";
