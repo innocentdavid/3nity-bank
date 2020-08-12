@@ -27,7 +27,7 @@ def index(request):
         account = Account.objects.filter(customer=user)
 
         context = {'account':account}
-        return render(request, 'bank/index.html', context)
+        return render(request, 'bank/profile.html', context)
     except:
         return HttpResponseRedirect(reverse("login"))
 
@@ -52,6 +52,22 @@ def getAccount(request):
 
         context = {'pdToggle': pdToggle, 'pdT': pdT, 'ptitle': ptitle, 'account':account}
         return render(request, 'bank/profile.html', context)
+
+def transfer(request):
+    if request.method != 'POST':
+        return HttpResponseRedirect(reverse('index'))
+    data = json.loads(request.body)
+
+    bank = data.get('bank')
+    accNum = data.get('accNum')
+    accName = data.get('accName')
+    amount = data.get('amount')
+    naration = data.get('naration')
+    transPin = data.get('transPin')
+    
+    acc = Account.objects.filter(accountNum=accNum)
+
+    return JsonResponse({"message":'ok'}, status=200)
 
 
 @login_required

@@ -1,3 +1,4 @@
+
 function showAccs() {
   $('.acc-type').show();
 }
@@ -188,30 +189,52 @@ function stf() {
   let amount = document.querySelector('#amount').value;
   let naration = document.querySelector('#naration').value;
   let transPin = document.querySelector('#transPin').value;
+  let transPinError = document.querySelector('#transPinError').innerHTML;
+  let accNumError = document.querySelector('#accNumError').innerHTML;
 
   if (accNum.length == 10) {
-    if (accName != '') {
-      if (amount != '') {
-        if (naration != '') {
-          if (transPin.length == 4) {
-            if(document.querySelector('#transPinError').innerHTML != ''){document.querySelector('#transPinError').innerHTML != '';$('#transferFormSubmit').show()} else {$('#transferFormSubmit').hide();document.querySelector('#transPinError').innerHTML = "Incorrect Transaction Pin";}
-          }else{$('#transferFormSubmit').hide();}
-        } else {$('#transferFormSubmit').hide()}
-      } else {$('#transferFormSubmit').hide()}
-    } else {$('#transferFormSubmit').hide(); document.querySelector('#accNumError').innerHTML = "Account Number Not Found! (Hint: Account Number must be 10!)";}
-  } else {$('#transferFormSubmit').hide(); document.querySelector('#accNumError').innerHTML = "Account Number Not Found! (Hint: Account Number must be 10!)";}
+    if(transPin.length == 4){
+      if (accNumError == '') {
+        if (transPinError == '') {
+          $('#transferFormSubmit').show()
+        }else{$('#transferFormSubmit').hide()}
+      }else{$('#transferFormSubmit').hide()}
+    }else{$('#transferFormSubmit').hide()}
+  }else{$('#transferFormSubmit').hide()}
+
 }
 
-$('#transferForm').on('submit', function () {
-  alert('sdk');
-})
-
-document.querySelector('#transferFormSubmit').addEventListener('click', function () {
-  alert();
-})
 
 function transferFormSubmit() {
-  alert();
+  let bank = document.querySelector('#bank').value;
+  let accNum = document.querySelector('#accountNum').value;
+  let accName = document.querySelector('#accountName').value;
+  let amount = document.querySelector('#amount').value;
+  let naration = document.querySelector('#naration').value;
+  let transPin = document.querySelector('#transPin').value;
+
+  fetch('/transfer', {
+    method: 'POST',
+    body: JSON.stringify({
+      bank: bank,
+      accNum: accNum,
+      accName: accName,
+      amount: amount,
+      naration: naration,
+      transPin: transPin
+    })
+  })
+    .then(response => response.json())
+    .then(response => {
+      bank = '';
+      accNum = '';
+      accName = '';
+      amount = '';
+      naration = '';
+      transPin = '';
+
+      $('.tsc').show();
+    }) 
 }
 
 function closeTsc() {
