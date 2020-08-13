@@ -69,25 +69,32 @@ def transfer(request):
 
     # deduct from user's account
     user=Customer.objects.get(user=User.objects.get(username=request.user))
-    acc = Account.objects.filter(customer=user, accountNum=accNum, transactionPin=transPin)
+    acc = Account.objects.filter(customer=user, transactionPin=transPin)
     for a in acc:
-      newAmount = a.balance - float(amount)
-      a.balance = newAmount
-      a.save()
+        newAmount = a.balance - float(amount)
+        a.balance = newAmount
+        a.save()
+        
+        history1 = History(account=Account.objects.get(accountNum=accNum), category='', transcType='Income', amount=amount, naration=naration)
+        history2 = History(account=Account.objects.get(customer=Customer.objects.get(user=request.user)), category=category, transcType='Expenditure', amount=amount, naration=naration)
+        history1.save()
+        history2.save()
+        date = history2.timestamp
+        print(date)
+  
+        accTo = Account.objects.filter(accountNum=accNum)
+        for to in accTo:
+            newAmount = to.balance + float(amount)
+            to.balance = newAmount
+            to.save()
+  
+            transcId = random_with_N_digits(12)
+  
+            return JsonResponse({"message":'ok',"transcId":transcId, "date":date}, status=200)
+            
+        return JsonResponse({"message":'error'}, status=200)
       
-      history = History(account=Account.objects.get(accountNum=accNum), category=category, transcType='Expenditure', amount=amount, naration=naration)
-      history.save()
-
-      to = Account.objects.filter(accountNum=accNum)
-      for acc in to:
-          newAmount = acc.balance + float(amount)
-          acc.balance = newAmount
-          acc.save()
-
-      transcId = random_with_N_digits(12)
-
-      return JsonResponse({"message":'ok',"transcId":transcId}, status=200)
-    return JsonResponse({"message":'error'}, status=500)
+    return JsonResponse({"message":'error'}, status=200)
 
 
 @login_required
@@ -122,9 +129,9 @@ def check(request):
     data = json.loads(request.body)
     check = data.get('check')
     if check == 'accountNumber':
-        y = Account.objects.filter(customer=Customer.objects.get(user=request.user)).count()
+        y = Account.objects.filter(customer=Customer.objects.get(user=request.user), accountNum=data.get('accNum')).count()
         if y == 1:
-            return JsonResponse({"accName": 'error'}, status=404)
+            return JsonResponse({"accName": 'error'}, status=200)
 
         x = Account.objects.filter(accountNum=data.get('accNum')).count()
         print(x)

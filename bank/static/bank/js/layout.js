@@ -39,7 +39,7 @@ function getPage(page) {
     });
 }
 
-window.addEventListener('DOMContentLoaded', function () {
+  window.addEventListener('DOMContentLoaded', function () {
   let page = (window.location.hash).slice(1);
   if (page != "main-body") {
     getPage(page);
@@ -136,7 +136,7 @@ google.charts.load('current', {
 });
 google.charts.setOnLoadCallback(drawChart);
 
-$(document).ready(function () { })
+$(document).ready(function () {})
 
 // profile js end
 
@@ -149,26 +149,27 @@ function checkAccNum() {
   let accNum = document.querySelector('#accountNum').value;
   if (accNum.length >= 10) {
     // send a fetch requsts
-    fetch('/check', {
-      method: 'POST',
-      body: JSON.stringify({
-        check: "accountNumber",
-        accNum: accNum
+    fetch('/check',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          check: "accountNumber",
+          accNum: accNum
+        })
       })
+    .then(response => response.json())
+    .then(response => {
+      if (response.accName == 'error') {
+        document.querySelector('#accountName').value = '';
+        document.querySelector('#accNumError').innerHTML = "You cannot transfer money to yourself!";
+      } else if (response.accName == 'None') {
+        document.querySelector('#accountName').value = '';
+        document.querySelector('#accNumError').innerHTML = "Account Number Not Found! (Hint: Account Number must be 10!)";
+      } else {
+        document.querySelector('#accNumError').innerHTML = '';
+        document.querySelector('#accountName').value = response.accName;
+      }
     })
-      .then(response => response.json())
-      .then(response => {
-        if (response.accName == 'error') {
-          document.querySelector('#accountName').value = '';
-          document.querySelector('#accNumError').innerHTML = "You cannot transfer money to yourself";
-        }else if (response.accName == 'None') {
-          document.querySelector('#accountName').value = '';
-          document.querySelector('#accNumError').innerHTML = "Account Number Not Found! (Hint: Account Number must be 10!)";
-        }else {
-          document.querySelector('#accNumError').innerHTML = '';
-          document.querySelector('#accountName').value = response.accName;
-        }
-      })
   }
 }
 
@@ -183,18 +184,18 @@ function checkTransPin() {
         transPin: transPin
       })
     })
-      .then(response => response.json())
-      .then(response => {
-        if (response.message == "ok") {
-          document.querySelector('#transPinError').innerHTML = "";
-          // ok
-          setInterval(() => {
-            stf();
-          }, 500)
-        } else {
-          document.querySelector('#transPinError').innerHTML = "Incorrect Transaction Pin";
-        }
-      })
+    .then(response => response.json())
+    .then(response => {
+      if (response.message == "ok") {
+        document.querySelector('#transPinError').innerHTML = "";
+        // ok
+        setInterval(() => {
+          stf();
+        }, 500)
+      } else {
+        document.querySelector('#transPinError').innerHTML = "Incorrect Transaction Pin";
+      }
+    })
   }
 }
 
@@ -249,24 +250,24 @@ function transferFormSubmit() {
       catg: catg,
       naration: naration,
       transPin: transPin,
-
     })
   })
-    .then(response => response.json())
-    .then(response => {
-      if (response.message == 'ok') {
-        $('#transcId').text(response.transcId);
-        $('#tsc-amount').text(amount);
-        $('#tsc-accName').text(accName);
-        $('#tsc-bank').text(bank);
-        $('.tsc').show();
-        document.querySelector('#accountNum').value = '';
-        document.querySelector('#accountName').value = '';
-        document.querySelector('#amount').value = '';
-        document.querySelector('#naration').value = '';
-        document.querySelector('#transPin').value = '';
-      }
-    })
+  .then(response => response.json())
+  .then(response => {
+    if (response.message == 'ok') {
+      $('#tsc-date').text(response.date);
+      $('#transcId').text(response.transcId);
+      $('#tsc-amount').text(amount);
+      $('#tsc-accName').text(accName);
+      $('#tsc-bank').text(bank);
+      $('.tsc').show();
+      document.querySelector('#accountNum').value = '';
+      document.querySelector('#accountName').value = '';
+      document.querySelector('#amount').value = '';
+      document.querySelector('#naration').value = '';
+      document.querySelector('#transPin').value = '';
+    }
+  })
 }
 
 function closeTsc() {
