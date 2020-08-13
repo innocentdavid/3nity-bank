@@ -1,0 +1,85 @@
+$ase-color: rgb(17, 184, 128);
+$base-color: linear-gradient(45deg, #83776a, #0f547f);
+$test: 1px solid;
+$base-color2: rgb(255, 255, 255);
+
+@media (max-width: 766px) {
+    .ptitle {
+      margin-top: .8rem;
+      font-size: 2rem;
+    }
+  }
+  
+  *,
+  p {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  
+  body {
+    position: relative;
+    width: 100vw;
+    overflow-x: hidden;
+    background: linear-gradient(45deg, #83776a, #0f547f);
+  }
+  
+  ul {
+    list-style-type: none;
+  }
+  
+  header {
+    background: $base-color;
+    color: white;
+    padding: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  
+  .header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.3rem;
+    padding-right: 16.666667%!important;
+    
+    .profile-img {
+      height: 5.5rem;
+      border: 10px solid!important;
+      padding: 0;
+    }
+    
+    .acc-type {
+      display: none;
+      position: fixed;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 200;
+      top: 0;
+      right: 0;
+      padding: 2rem;
+      font-size: 0.9rem;
+    
+      .form-group {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+  @media (min-width: 767px) {
+    .header{
+      .profile-img {
+        border: 1px solid;
+      }
+    
+      .logo-cont {
+        margin-top: 1rem;
+        margin-bottom: 6rem;
+      }
+    }
+  }
+
+
+//   header

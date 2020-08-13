@@ -10,6 +10,7 @@ urlpatterns = [
 
     # all route
     path('profile', views.profile, name="profile"),
+    path('staff', views.staff, name="staff"),
     path('check', views.check, name="check"),
     path('getAllAccount', views.getAllAccount, name="getAllAccount"),
     path('getAccount', views.getAccount, name="getAccount"),

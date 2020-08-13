@@ -114,6 +114,11 @@ def profile(request):
             return HttpResponseRedirect(reverse("index"))
 
 
+@login_required
+def staff(request):
+    return render(request, 'bank/staff.html')
+
+
 @csrf_exempt
 @login_required
 def page(request, file_name):

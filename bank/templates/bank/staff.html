@@ -1,0 +1,56 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>3NITY BANK NIG LTD</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- custom css -->
+    <link rel="stylesheet" href="{% static 'bank/css/staff.css' %}">
+  </head>
+  <body>
+    <header>
+        <div class="container-fluid">
+          <div class="row" style="margin-right: -35px; margin-left: -35px;">
+            <div title="Profile Page" class="col-2 profile-img" style="cursor: pointer;">
+              <img src="{% static 'bank/images/IMG_20200627_181056.jpg' %}" width="100%" height="100%" alt="profile image">
+            </div>
+    
+            <div class="col-10 header">
+              <center>
+                <h1 class="ptitle" style="margin-bottom: 1rem;">3NITY BANK NIG. PLC</h1>
+                <div title="Profile Page" style="cursor: pointer;">Welcome, <b>Staff</b></div>
+                <div>ID: <b>29829832</b></div>
+                <div>Total Customers: <b>20</b></div>
+                <i class="fa fa-bell-o" aria-hidden="true"><span style="color: lightgreen;">5</span></i>
+                <div>
+                </div>
+                <div id="pdToggle" style="margin-top: 1rem;">
+                  <a href="/logout" style="color:white; padding: 0 .3rem; border:1px solid; font-size: 1rem;">
+                    <i class="fa fa-arrow-left"></i>
+                    <span>Logout </span>
+                  </a>
+                </div>
+              </center>
+            </div>
+    
+          </div>
+        </div>
+      </header>
+      <!-- header -->
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="{% static 'bank/js/staff.js' %}"></script>
+  </body>
+</html>

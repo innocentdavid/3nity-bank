@@ -1,0 +1,84 @@
+@media (max-width: 766px) {
+  .ptitle {
+    margin-top: .8rem;
+    font-size: 2rem;
+  }
+}
+
+*,
+p {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+body {
+  position: relative;
+  width: 100vw;
+  overflow-x: hidden;
+  background: linear-gradient(45deg, #83776a, #0f547f);
+}
+
+ul {
+  list-style-type: none;
+}
+
+header {
+  background: linear-gradient(45deg, #83776a, #0f547f);
+  color: white;
+  padding: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 1.3rem;
+  padding-right: 16.66667% !important;
+}
+
+.header .profile-img {
+  height: 5.5rem;
+  border: 10px solid !important;
+  padding: 0;
+}
+
+.header .acc-type {
+  display: none;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 200;
+  top: 0;
+  right: 0;
+  padding: 2rem;
+  font-size: 0.9rem;
+}
+
+.header .acc-type .form-group {
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 767px) {
+  .header .profile-img {
+    border: 1px solid;
+  }
+  .header .logo-cont {
+    margin-top: 1rem;
+    margin-bottom: 6rem;
+  }
+}
+/*# sourceMappingURL=staff.css.map */
