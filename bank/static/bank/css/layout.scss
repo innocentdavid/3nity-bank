@@ -5,7 +5,7 @@ $base-color2: rgb(255, 255, 255);
 
 @media (max-width: 766px) {
   .ptitle {
-    margin-top: .8rem;
+    margin-top: 0.8rem;
     font-size: 2rem;
   }
 }
@@ -39,19 +39,19 @@ header {
   padding-bottom: 0.5rem;
 }
 
-.header{
+.header {
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: 1.3rem;
-  padding-right: 16.666667%!important;
-  
+  padding-right: 16.666667% !important;
+
   .profile-img {
     height: 5.5rem;
-    border: 10px solid!important;
+    border: 10px solid !important;
     padding: 0;
   }
-  
+
   .acc-type {
     display: none;
     position: fixed;
@@ -61,7 +61,7 @@ header {
     right: 0;
     padding: 2rem;
     font-size: 0.9rem;
-  
+
     .form-group {
       margin: 0;
       padding: 0;
@@ -69,11 +69,11 @@ header {
   }
 }
 @media (min-width: 767px) {
-  .header{
+  .header {
     .profile-img {
       border: 1px solid;
     }
-  
+
     .logo-cont {
       margin-top: 1rem;
       margin-bottom: 6rem;
@@ -110,8 +110,8 @@ header {
   body {
     padding: 0;
   }
-  .profile-img{
-    img{
+  .profile-img {
+    img {
       height: 40%;
     }
   }
@@ -148,4 +148,25 @@ header {
       margin-left: 1rem;
     }
   }
+}
+
+// notification
+.notification-bell {
+  position: fixed;
+  top: 0;
+  right: 1rem;
+  z-index: 999999999;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.notification {
+  display: none;
+  position: fixed;
+  top: 5.5vh;
+  right: 1rem;
+  z-index: 99999999;
+  background: linear-gradient(45deg, #83776a, #0f547f);
+  color: white;
+  box-shadow: 0px 8px 20px 2px #294a5d;
+  width: 30%;
 }

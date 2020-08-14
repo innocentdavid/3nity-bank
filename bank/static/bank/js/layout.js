@@ -1,15 +1,10 @@
-function showAccs() {
-  $('.acc-type').show();
-}
 
+// get extra pages on click on the nav buttons
 function mainNav(page) {
   getPage(page);
 }
 
-function closePopModal() {
-  document.querySelector('.pop-model').style.display = 'none';
-}
-
+// get page function
 function getPage(page) {
 
   fetch('/page/' + page, {
@@ -39,45 +34,114 @@ function getPage(page) {
     });
 }
 
+// get the same page even when the page is reloaded
 window.addEventListener('DOMContentLoaded', function () {
   let page = (window.location.hash).slice(1);
   if (page != "main-body") {
-    getPage(page);
+    if (page.includes('category')) {} else {
+      getPage(page);
+    }
   }
 })
 
+// onpopstate
 window.onpopstate = function (event) {
   getPage(event.state.page);
 }
 
-// profile js start
-function getExpSumr(catg) {
-  let naration = 'Narationjndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr'
-  let date = '02/08/2020 04:58 AM.'
-  let amount = '2, 000 .00'
-
-  let result = '<tr><td>';
-  result += naration;
-  result += '<td><div>';
-  result += date;
-  result += '</div> <div> <b>N <span>';
-  result += amount;
-  result += '</span></b></div></td></tr>';
-  $('#'+catg).html(result);
+// show Notification
+function notification() {
+  $('#notification').show()
 }
+
+// hide notification
+$('.close').on('click', function () {
+  $('#notification').hide()
+})
+
+// get notification every 2sec
+setInterval(() => {
+  getNotification();
+}, 2000);
+
+function getNotification() {
+  fetch('/getNotification', {
+    method:'POST',
+    body:JSON.stringify({
+      getNotification:1
+    })
+  })
+  .then(response => response.json())
+  .then(response => {
+    let result = '';
+    // response.forEach(notification => {
+    //   result +=  `<div class="row">`;
+    //   result +=  `<div class="col-7">${notification.body}</div>`;
+    //   result +=  `<div class="col-3">${notification.timestamp}</div>`;
+    //   result +=  `<div class="col-2"> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>`;
+    //   result +=  `</div>`;
+    // });
+    $('#getNotification').html(result);
+  })
+}
+
+// profile js start
+
+// get Expenses Category summary
+function getExpSumr(catg) {
+  fetch('/getExpSumr',
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        expCatg: catg
+      })
+    })
+    .then(response => response.json())
+    .then(histories => {
+      console.log(histories);
+      if (histories.message != "No history for this category") {
+        let result = '';
+        histories.forEach(history => {
+          let naration = history.naration;
+          let date = history.timestamp;
+          let amount = history.amount;
+
+          result += '<tr><td>';
+          result += naration;
+          result += '<td><div>';
+          result += date;
+          result += '</div> <div> <b>NGN <span>';
+          result += amount;
+          result += '</span></b></div></td></tr>';
+        });
+        $('#' + catg).html(result);
+      } else {
+        $('#' + catg).text(histories.message);
+      }
+    })
+
+  // let naration = 'Narationjndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr'
+  // let date = '02/08/2020 04:58 AM.'
+  // let amount = '2, 000 .00'
+}
+
+// show Expenses Category summary
 function expandCatg(catg) {
   getExpSumr(catg);
-  $('.cr'+catg).css('display','none');
-  $('.cd'+catg).css('display','block');
-  $('#'+catg).css('display','block');
-}
-function compressCatg(catg) {
-  $('.cd'+catg).css('display','none');
-  $('.cr'+catg).css('display','block');
-  $('#'+catg).css('display','none');
-  $('#'+catg).html('');
+  $('.cr' + catg).css('display', 'none');
+  $('.cd' + catg).css('display', 'block');
+  $('#' + catg).css('display', 'block');
 }
 
+// hide Expenses Category summary
+function compressCatg(catg) {
+  $('.cd' + catg).css('display', 'none');
+  $('.cr' + catg).css('display', 'block');
+  $('#' + catg).css('display', 'none');
+  $('#' + catg).html('');
+}
+
+// pie chart to illustrate customer's expenditure
 function drawChart() {
 
   var data = google.visualization.arrayToDataTable([
@@ -107,21 +171,18 @@ function drawChart() {
       is3D: true,
     });
 }
-
 google.charts.load('current', {
   'packages': ['corechart']
 });
 google.charts.setOnLoadCallback(drawChart);
 
-$(document).ready(function () { })
-
 // profile js end
-
-
 
 // transfer js start
 
-// all this wiil only work if bank == 3nity bank
+// all this wiil only work if bank == 3nity bank for now
+
+// Check Account Number
 function checkAccNum() {
   let accNum = document.querySelector('#accountNum').value;
   if (accNum.length >= 10) {
@@ -150,6 +211,7 @@ function checkAccNum() {
   }
 }
 
+// check Transaction Pin
 function checkTransPin() {
   let transPin = document.querySelector('#transPin').value;
   if (transPin.length >= 4) {
@@ -176,6 +238,7 @@ function checkTransPin() {
   }
 }
 
+// show/hide submit transfer form button
 function stf() {
   let accNum = document.querySelector('#accountNum').value;
   let naration = document.querySelector('#naration').value;
@@ -206,7 +269,7 @@ function stf() {
   }
 }
 
-
+// submit transfer form
 function transferFormSubmit() {
 
   const bank = document.querySelector('#bank').value;
@@ -247,15 +310,14 @@ function transferFormSubmit() {
     })
 }
 
+// close transaction success
 function closeTsc() {
   $('.tsc').hide();
 }
 
 // transfer js end
 
-
-// airtime js start
-
+// Submit buy Airtime Form
 function buyAirtimeFormSubmit() {
   const networkP = $('#networkP').val();
   const baTel = $('#ba-tel').val();
@@ -316,10 +378,8 @@ function buyAirtimeFormSubmit() {
     } else { $('#ba-phNum').text('Please fill this field and must be 11') }
   } else { alert('Please select a Network provider') }
 }
-
 // airtime js end
 
-// bill js start
 
 function billFormSubmit() {
   let bill = $('#bill').val();
@@ -350,7 +410,7 @@ function billFormSubmit() {
           fetch('/bill', {
             method: 'POST',
             body: JSON.stringify({
-              bill : bill,
+              bill: bill,
               billId: billId,
               billAmount: billAmount,
               billTransPin: billTransPin,
@@ -368,7 +428,7 @@ function billFormSubmit() {
                 $('#tsc-bill').text(bill)
                 $('#tsc-naration').text('Bill')
                 $('#transctsc-dateId').text(response.date)
-      
+
                 $('#tsc').show();
               } else {
                 alert('Error somthing went wrong, Please refresh and try again');
@@ -378,5 +438,4 @@ function billFormSubmit() {
       })
   }
 }
-
 // bill js end

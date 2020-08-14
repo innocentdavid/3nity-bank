@@ -58,27 +58,37 @@ class History(models.Model):
     transactionId = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
     seen = models.BooleanField(default=False)
-    
-    def __str__(self):
-        return f"{self.transactionId}"
-
-class Notification(models.Model):
-    user = models.ForeignKey("Customer", on_delete=models.CASCADE, null=True, blank=True, related_name="note_user")
-    sender = models.ForeignKey("Staff", on_delete=models.PROTECT, null=True, blank=True, related_name="note_sent")
-    recipients = models.ManyToManyField("Customer", related_name="note_received")
-    subject = models.CharField(max_length=255, null=True, blank=True)
-    body = models.TextField(blank=True)
-    timestamp = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    read = models.BooleanField(default=False)
 
     def serialize(self):
         return {
             "id": self.id,
-            "sender": self.sender.email,
-            "recipients": [user.email for user in self.recipients.all()],
+            "account": self.account.accountNum,
+            "transcType": self.transcType,
+            "amount": self.amount,
+            "naration": self.naration,
+            "transactionId": self.transactionId,
+            "timestamp": self.timestamp.strftime("%d/%b/%Y, %H:%M %p"),
+            "seen": self.seen
+        }
+    
+    # def __str__(self):
+    #     return f"{self.transactionId}"
+
+class Notification(models.Model):
+    account = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True, blank=True)
+    sender = models.CharField(max_length=200, default='3NITY BANK')
+    subject = models.CharField(max_length=255, null=True, blank=True)
+    body = models.TextField(blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    seen = models.BooleanField(default=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            # "account": self.account.accountNum,
+            "sender": self.sender
             "subject": self.subject,
             "body": self.body,
-            # "timestamp": self.timestamp,
-            "timestamp": self.timestamp.strftime("%b %-d %Y, %-I:%M %p"),
-            "read": self.read
+            "timestamp": self.timestamp.strftime("%d/%b/%Y, %H:%M %p"),
+            "seen": self.seen
         }

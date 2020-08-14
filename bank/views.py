@@ -31,27 +31,13 @@ def index(request):
     except:
         return HttpResponseRedirect(reverse("login"))
 
-@login_required
-@csrf_exempt
-def getAllAccount(request):
-    action = request.POST['getAllAccounts']
-    print(action)
-
-
-@login_required
-@csrf_exempt
-def getAccount(request):
-    if request.method == 'POST':
-        pdToggle = 'profile'
-        pdT = 'Profile'
-        ptitle = 'Dashboard'
-
-        accountNum = request.POST['account']
-        user=Customer.objects.get(user=User.objects.get(username=request.user))
-        account = Account.objects.filter(customer=user, accountNum=accountNum)
-
-        context = {'pdToggle': pdToggle, 'pdT': pdT, 'ptitle': ptitle, 'account':account}
-        return render(request, 'bank/profile.html', context)
+def getNotification(request):
+    
+    user=Customer.objects.get(user=User.objects.get(username=request.user))
+    account = Account.objects.get(customer=user)
+    h = History.objects.filter(account=account, seen=False)
+    for h in h:
+        h.
 
 @csrf_exempt
 def transfer(request):
@@ -105,26 +91,27 @@ def profile(request):
     user=Customer.objects.get(user=User.objects.get(username=request.user))
     account = Account.objects.filter(customer=user)
     context = {'account': account,'pdToggle': pdToggle, 'pdT': pdT, 'ptitle': ptitle}
-    for a in account:
-        if a.accountType == "Savings":
-            return render(request, 'bank/profile.html', context)
-        else:
-            return HttpResponseRedirect(reverse("index"))
+    
+    return render(request, 'bank/profile.html', context)
+
 
 @csrf_exempt
 @login_required
 def getExpSumr(request):
     data = json.loads(request.body)
-    expCatg = data.get('expCatg')
+    x = data.get('expCatg')
+    expCatg = x.capitalize()
 
     user=Customer.objects.get(user=User.objects.get(username=request.user))
-    account = Account.objects.filter(customer=user)
+    account = Account.objects.get(customer=user)
     h = History.objects.filter(account=account, category=expCatg, transcType='Expenditure').count()
-    if h == 1:
-        history = History.objects.filter(account=account, category=expCatg, transcType='Expenditure')
-        return JsonResponse({"message":'ok', "history":history}, status=200)
+    if h >= 1:
+        histories = History.objects.filter(account=account, category=expCatg, transcType='Expenditure')
+        print(histories)
+        a = [history.serialize() for history in histories]
+        print(a)
+        return JsonResponse([history.serialize() for history in histories], safe=False)
     else:
-        print(h)
         return JsonResponse({"message":'No history for this category'}, status=200)
 
 

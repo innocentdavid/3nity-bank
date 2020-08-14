@@ -1,6 +1,6 @@
 @media (max-width: 766px) {
   .ptitle {
-    margin-top: .8rem;
+    margin-top: 0.8rem;
     font-size: 2rem;
   }
 }
@@ -47,7 +47,7 @@ header {
       -ms-flex-align: center;
           align-items: center;
   font-size: 1.3rem;
-  padding-right: 16.66667% !important;
+  padding-right: 16.666667% !important;
 }
 
 .header .profile-img {
@@ -149,5 +149,26 @@ header {
 
 .tips ul li {
   margin-left: 1rem;
+}
+
+.notification-bell {
+  position: fixed;
+  top: 0;
+  right: 1rem;
+  z-index: 999999999;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.notification {
+  display: none;
+  position: fixed;
+  top: 5.5vh;
+  right: 1rem;
+  z-index: 99999999;
+  background: linear-gradient(45deg, #83776a, #0f547f);
+  color: white;
+  -webkit-box-shadow: 0px 8px 20px 2px #294a5d;
+          box-shadow: 0px 8px 20px 2px #294a5d;
+  width: 30%;
 }
 /*# sourceMappingURL=layout.css.map */
