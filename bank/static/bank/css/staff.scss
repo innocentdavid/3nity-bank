@@ -83,3 +83,17 @@ $base-color2: rgb(255, 255, 255);
 
 
 //   header
+
+.search{
+    padding: 0 10%;
+}
+
+main{
+    padding: 0 2%;
+}
+
+.thead, .tbody{
+    div{
+        text-align: center;
+    }
+}

@@ -39,7 +39,7 @@ function getPage(page) {
     });
 }
 
-  window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('DOMContentLoaded', function () {
   let page = (window.location.hash).slice(1);
   if (page != "main-body") {
     getPage(page);
@@ -50,55 +50,32 @@ window.onpopstate = function (event) {
   getPage(event.state.page);
 }
 
-
 // profile js start
+function getExpSumr(catg) {
+  let naration = 'Narationjndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr'
+  let date = '02/08/2020 04:58 AM.'
+  let amount = '2, 000 .00'
 
-function addSrc() {
-  $('.add-exp').css('background',
-    'rgb(17, 184, 128)');
-  $('.add-src').css('background',
-    'black');
-  $('.add-exp-box').css('display',
-    'none');
-  $('.toggle-add-box').css('display',
-    'block');
-  $('.add-src-box').css('display',
-    'block');
+  let result = '<tr><td>';
+  result += naration;
+  result += '<td><div>';
+  result += date;
+  result += '</div> <div> <b>N <span>';
+  result += amount;
+  result += '</span></b></div></td></tr>';
+  $('#'+catg).html(result);
 }
-function addExp() {
-  $('.add-src').css('background',
-    'rgb(17, 184, 128)');
-  $('.add-exp').css('background',
-    'black');
-  $('.add-src-box').css('display',
-    'none');
-  $('.toggle-add-box').css('display',
-    'block');
-  $('.add-exp-box').css('display',
-    'block');
+function expandCatg(catg) {
+  getExpSumr(catg);
+  $('.cr'+catg).css('display','none');
+  $('.cd'+catg).css('display','block');
+  $('#'+catg).css('display','block');
 }
-function toggleAddBox() {
-  $('.add-exp').css('background',
-    'rgb(17, 184, 128)');
-  $('.add-src').css('background',
-    'rgb(17, 184, 128)');
-  $('.add-exp-box').css('display',
-    'none');
-  $('.add-src-box').css('display',
-    'none');
-  $('.toggle-add-box').css('display',
-    'none');
-}
-
-function expandCatg(catgId) {
-  document.getElementsByClassName('cr' + catgId)[0].style.display = 'none';
-  document.getElementsByClassName('cd' + catgId)[0].style.display = 'block';
-  document.getElementsByClassName('catgSumBox' + catgId)[0].style.display = 'block';
-}
-function compressCatg(catgId) {
-  document.getElementsByClassName('cd' + catgId)[0].style.display = 'none';
-  document.getElementsByClassName('cr' + catgId)[0].style.display = 'block';
-  document.getElementsByClassName('catgSumBox' + catgId)[0].style.display = 'none';
+function compressCatg(catg) {
+  $('.cd'+catg).css('display','none');
+  $('.cr'+catg).css('display','block');
+  $('#'+catg).css('display','none');
+  $('#'+catg).html('');
 }
 
 function drawChart() {
@@ -136,7 +113,7 @@ google.charts.load('current', {
 });
 google.charts.setOnLoadCallback(drawChart);
 
-$(document).ready(function () {})
+$(document).ready(function () { })
 
 // profile js end
 
@@ -157,19 +134,19 @@ function checkAccNum() {
           accNum: accNum
         })
       })
-    .then(response => response.json())
-    .then(response => {
-      if (response.accName == 'error') {
-        document.querySelector('#accountName').value = '';
-        document.querySelector('#accNumError').innerHTML = "You cannot transfer money to yourself!";
-      } else if (response.accName == 'None') {
-        document.querySelector('#accountName').value = '';
-        document.querySelector('#accNumError').innerHTML = "Account Number Not Found! (Hint: Account Number must be 10!)";
-      } else {
-        document.querySelector('#accNumError').innerHTML = '';
-        document.querySelector('#accountName').value = response.accName;
-      }
-    })
+      .then(response => response.json())
+      .then(response => {
+        if (response.accName == 'error') {
+          document.querySelector('#accountName').value = '';
+          document.querySelector('#accNumError').innerHTML = "You cannot transfer money to yourself!";
+        } else if (response.accName == 'None') {
+          document.querySelector('#accountName').value = '';
+          document.querySelector('#accNumError').innerHTML = "Account Number Not Found! (Hint: Account Number must be 10!)";
+        } else {
+          document.querySelector('#accNumError').innerHTML = '';
+          document.querySelector('#accountName').value = response.accName;
+        }
+      })
   }
 }
 
@@ -184,18 +161,18 @@ function checkTransPin() {
         transPin: transPin
       })
     })
-    .then(response => response.json())
-    .then(response => {
-      if (response.message == "ok") {
-        document.querySelector('#transPinError').innerHTML = "";
-        // ok
-        setInterval(() => {
-          stf();
-        }, 500)
-      } else {
-        document.querySelector('#transPinError').innerHTML = "Incorrect Transaction Pin";
-      }
-    })
+      .then(response => response.json())
+      .then(response => {
+        if (response.message == "ok") {
+          document.querySelector('#transPinError').innerHTML = "";
+          // ok
+          setInterval(() => {
+            stf();
+          }, 500)
+        } else {
+          document.querySelector('#transPinError').innerHTML = "Incorrect Transaction Pin";
+        }
+      })
   }
 }
 
@@ -252,22 +229,22 @@ function transferFormSubmit() {
       transPin: transPin,
     })
   })
-  .then(response => response.json())
-  .then(response => {
-    if (response.message == 'ok') {
-      $('#tsc-date').text(response.date);
-      $('#transcId').text(response.transcId);
-      $('#tsc-amount').text(amount);
-      $('#tsc-accName').text(accName);
-      $('#tsc-bank').text(bank);
-      $('.tsc').show();
-      document.querySelector('#accountNum').value = '';
-      document.querySelector('#accountName').value = '';
-      document.querySelector('#amount').value = '';
-      document.querySelector('#naration').value = '';
-      document.querySelector('#transPin').value = '';
-    }
-  })
+    .then(response => response.json())
+    .then(response => {
+      if (response.message == 'ok') {
+        $('#tsc-date').text(response.date);
+        $('#transcId').text(response.transcId);
+        $('#tsc-amount').text(amount);
+        $('#tsc-accName').text(accName);
+        $('#tsc-bank').text(bank);
+        $('.tsc').show();
+        document.querySelector('#accountNum').value = '';
+        document.querySelector('#accountName').value = '';
+        document.querySelector('#amount').value = '';
+        document.querySelector('#naration').value = '';
+        document.querySelector('#transPin').value = '';
+      }
+    })
 }
 
 function closeTsc() {
@@ -282,16 +259,20 @@ function closeTsc() {
 function buyAirtimeFormSubmit() {
   const networkP = $('#networkP').val();
   const baTel = $('#ba-tel').val();
+  const baAmount = $('#ba-amount').val();
   const baTransPin = $('#ba-transPin').val();
+
   if (networkP != '') {
-    if (baTel != '') {
-      if (baTransPin == '') {
-        baTransPin = 0;
+    if (baTel != '' && baTel.length == 11) {
+      $('#ba-phNum').text('')
+      if (baTransPin != '') {
+        $('#ba-transPinError').text('');
+
         fetch('/check', {
           method: 'POST',
           body: JSON.stringify({
             check: "transPin",
-              transPin: baTransPin
+            transPin: baTransPin
           })
         })
           .then(response => response.json())
@@ -305,6 +286,7 @@ function buyAirtimeFormSubmit() {
                 body: JSON.stringify({
                   networkP: networkP,
                   baTel: baTel,
+                  baAmount: baAmount,
                   baTransPin: baTransPin,
                 })
               })
@@ -314,19 +296,87 @@ function buyAirtimeFormSubmit() {
                     $('#networkP').val('');
                     $('#ba-tel').val('');
                     $('#ba-transPin').val('');
-                    
+
+                    $('#transcId').text(response.transcId)
+                    $('#tsc-amount').text(baAmount)
+                    $('#tsc-tel').text(baTel)
+                    $('#tsc-naration').text('Airtime')
+                    $('#tsc-date').text(response.date)
+
                     $('#tsc').show();
                   } else {
-                    
+
                   }
                 })
             } else {
-              $('#ba-transPinError').text('Incorrect Transaction Pin!'); 
+              $('#ba-transPinError').text('Incorrect Transaction Pin!');
             }
           })
-      }
-    } else {}
-  } else {}
+      } else { $('#ba-transPinError').text('You have not entered your Transaction Pin!') }
+    } else { $('#ba-phNum').text('Please fill this field and must be 11') }
+  } else { alert('Please select a Network provider') }
 }
 
 // airtime js end
+
+// bill js start
+
+function billFormSubmit() {
+  let bill = $('#bill').val();
+  let billId = $('#bill-id').val();
+  let billAmount = $('#bill-amount').val();
+  let billTransPin = $('#bill-transPin').val();
+
+  if (billId == '') { $('#billIdError').text('Please fill this field!') } else { $('#billIdError').text('') }
+  if (billAmount == '') { $('#billAmountError').text('Please fill this field!') } else { $('#billAmountError').text('') }
+  if (billTransPin == '') { $('#billTpError').text('Please fill this field!') } else {
+    fetch('/check', {
+      method: 'POST',
+      body: JSON.stringify({
+        check: "transPin",
+        transPin: billTransPin
+      })
+    })
+      .then(response => response.json())
+      .then(response => {
+        if (response.message == 'ok') {
+          $('#billTpError').text('');
+        } else {
+          $('#billTpError').text('Incorrect Transaction Pin!');
+        }
+
+        if ($('#billIdError').text() == '' && $('#billAmountError').text() == '' && $('#billTpError').text() == '') {
+
+          fetch('/bill', {
+            method: 'POST',
+            body: JSON.stringify({
+              bill : bill,
+              billId: billId,
+              billAmount: billAmount,
+              billTransPin: billTransPin,
+            })
+          })
+            .then(response => response.json())
+            .then(response => {
+              if (response.message == 'ok') {
+                $('#bill-id').val('');
+                $('#bill-amount').val('');
+                $('#bill-transPin').val('');
+
+                $('#transcId').text(response.transcId)
+                $('#tsc-amount').text(billAmount)
+                $('#tsc-bill').text(bill)
+                $('#tsc-naration').text('Bill')
+                $('#transctsc-dateId').text(response.date)
+      
+                $('#tsc').show();
+              } else {
+                alert('Error somthing went wrong, Please refresh and try again');
+              }
+            })
+        }
+      })
+  }
+}
+
+// bill js end

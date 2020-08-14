@@ -81,4 +81,16 @@ header {
     margin-bottom: 6rem;
   }
 }
+
+.search {
+  padding: 0 10%;
+}
+
+main {
+  padding: 0 2%;
+}
+
+.thead div, .tbody div {
+  text-align: center;
+}
 /*# sourceMappingURL=staff.css.map */

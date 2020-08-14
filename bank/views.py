@@ -80,7 +80,6 @@ def transfer(request):
         history1.save()
         history2.save()
         date = history2.timestamp
-        print(date)
   
         accTo = Account.objects.filter(accountNum=accNum)
         for to in accTo:
@@ -105,13 +104,28 @@ def profile(request):
 
     user=Customer.objects.get(user=User.objects.get(username=request.user))
     account = Account.objects.filter(customer=user)
-    # return HttpResponse('skd')
     context = {'account': account,'pdToggle': pdToggle, 'pdT': pdT, 'ptitle': ptitle}
     for a in account:
         if a.accountType == "Savings":
             return render(request, 'bank/profile.html', context)
         else:
             return HttpResponseRedirect(reverse("index"))
+
+@csrf_exempt
+@login_required
+def getExpSumr(request):
+    data = json.loads(request.body)
+    expCatg = data.get('expCatg')
+
+    user=Customer.objects.get(user=User.objects.get(username=request.user))
+    account = Account.objects.filter(customer=user)
+    h = History.objects.filter(account=account, category=expCatg, transcType='Expenditure').count()
+    if h == 1:
+        history = History.objects.filter(account=account, category=expCatg, transcType='Expenditure')
+        return JsonResponse({"message":'ok', "history":history}, status=200)
+    else:
+        print(h)
+        return JsonResponse({"message":'No history for this category'}, status=200)
 
 
 @login_required
@@ -157,6 +171,46 @@ def check(request):
             return JsonResponse({"message": 'ok'}, status=200)
         else:
             return JsonResponse({"message": 'None'}, status=404)
+
+@csrf_exempt
+@login_required
+def airtime(request):
+    data = json.loads(request.body)
+    user=Customer.objects.get(user=User.objects.get(username=request.user))
+    account = Account.objects.filter(customer=user)
+    for a in account:
+        newBal = a.balance - float(data.get('baAmount'))
+        a.balance = newBal
+        a.save()
+
+        transcId = random_with_N_digits(12)
+        naration = f"Airtime to: {data.get('networkP')} | {data.get('baTel')} | transaction id: {transcId}"
+        history = History(account=Account.objects.get(customer=Customer.objects.get(user=request.user)), category='Miscellaneous', transcType='Expenditure', amount=data.get('baAmount'), naration=naration, transactionId=transcId)
+        history.save()
+        date = history.timestamp
+
+        return JsonResponse({"message": 'ok', "transcId": transcId, "date": date}, status=200)
+
+
+@csrf_exempt
+@login_required
+def bill(request):
+    data = json.loads(request.body)
+    print(data.get('billAmount'))
+    user=Customer.objects.get(user=User.objects.get(username=request.user))
+    account = Account.objects.filter(customer=user)
+    for a in account:
+        newBal = a.balance - float(data.get('billAmount'))
+        a.balance = newBal
+        a.save()
+
+        transcId = random_with_N_digits(12)
+        naration = f"Bill for: {data.get('bill')} | {data.get('billId')} | transaction id: {transcId}"
+        history = History(account=Account.objects.get(customer=Customer.objects.get(user=request.user)), category='Shelter', transcType='Expenditure', amount=data.get('billAmount'), naration=naration, transactionId=transcId)
+        history.save()
+        date = history.timestamp
+        
+        return JsonResponse({"message": 'ok', "transcId": transcId, "date": date}, status=200)
 
 @csrf_exempt
 def login_view(request):

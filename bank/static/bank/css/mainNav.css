@@ -16,6 +16,11 @@
   }
 }
 
+.main-card {
+  -webkit-box-shadow: 0px 8px 20px 2px #294a5d;
+          box-shadow: 0px 8px 20px 2px #294a5d;
+}
+
 #transferFormSubmit {
   display: none;
 }

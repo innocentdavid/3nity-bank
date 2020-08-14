@@ -16,4 +16,7 @@ urlpatterns = [
     path('getAccount', views.getAccount, name="getAccount"),
     path('page/<str:file_name>', views.page, name='page'),
     path('transfer', views.transfer, name='transfer'),
+    path('airtime', views.airtime, name='airtime'),
+    path('bill', views.bill, name='bill'),
+    path('getExpSumr', views.getExpSumr, name='getExpSumr'),
 ]

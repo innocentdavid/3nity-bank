@@ -55,11 +55,12 @@ class History(models.Model):
     transcType = models.CharField(max_length=20, choices=TRANSC_TYPE)
     amount = models.FloatField(default=0.00)
     naration = models.TextField(blank=True)
+    transactionId = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
     seen = models.BooleanField(default=False)
     
     def __str__(self):
-        return f"{self.transcType}"
+        return f"{self.transactionId}"
 
 class Notification(models.Model):
     user = models.ForeignKey("Customer", on_delete=models.CASCADE, null=True, blank=True, related_name="note_user")

@@ -16,72 +16,18 @@
     <hr />
     <ul>
       <a style="border: 1px solid rgb(184, 17, 134); color: rgb(184, 17, 134);" href="#category1"
-        onclick="expandCatg('1')">Properties</a>
+        onclick="expandCatg('properties')">Properties</a>
       <a style="border: 1px solid rgb(17, 184, 170); color: rgb(17, 184, 170);" href="#category2"
-        onclick="expandCatg('2')">Investment</a>
+        onclick="expandCatg('investment')">Investment</a>
       <a style="border: 1px solid rgb(184, 181, 17); color: rgb(184, 181, 17);" href="#category3"
-        onclick="expandCatg('3')">Food</a>
+        onclick="expandCatg('food')">Food</a>
       <a style="border: 1px solid rgb(17, 184, 128); color: rgb(17, 184, 128);" href="#category4"
-        onclick="expandCatg('4')">Shelter</a>
+        onclick="expandCatg('shelter')">Shelter</a>
       <a style="border: 1px solid rgb(184, 64, 17); color: rgb(184, 64, 17);" href="#category5"
-        onclick="expandCatg('5')">Miscellaneous</a>
+        onclick="expandCatg('miscellaneous')">Miscellaneous</a>
     </ul>
   </div>
   <!-- exp-catg -->
-
-
-  <div class="src-exp d-flex justify-content-around">
-    <div class="add-src" onclick="addSrc()">
-      <i class="fa fa-plus"></i> Add source
-    </div>
-    <div class="add-exp" onclick="addExp()">
-      <i class="fa fa-plus"></i> Add expenses
-    </div>
-  </div>
-  <!-- src-exp -->
-
-  <div class="add-box-cont">
-    <div class="toggle-add-box" onclick="toggleAddBox()">
-      <i class="fa fa-times-circle" aria-hidden="true"></i>
-    </div>
-    <div class="add-box add-src-box">
-      <form id="add-src" action="" method="get" accept-charset="utf-8">
-        <div class="form-group">
-          <label for="Source">Source</label>
-          <input type="text" name="source" id="Source" placeholder="Source" class="form-control" />
-        </div>
-        <div class="form-group">
-          <label for="Source">Amount</label>
-          <input type="number" name="amount" id="Amount" placeholder="Amount" class="form-control" />
-        </div>
-        <button type="submit" class="btn btn-primary" style="margin: 1rem;">Submit</button>
-      </form>
-    </div>
-    <!-- add-src-box -->
-
-    <div class="add-box add-exp-box">
-      <form id="add-exp-form" action="" method="get" accept-charset="utf-8">
-        <div class="form-group">
-          <label for="Category">Category</label>
-          <select name="Category" id="Category" class="form-control">
-            <option value="">Select</option>
-            <option value="1">Catg1</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="Expenses">Expenses</label>
-          <input type="text" name="expenses" id="Expenses" placeholder="Expenses" class="form-control" />
-        </div>
-        <div class="form-group">
-          <label for="Source">Amount</label>
-          <input type="number" name="amount" id="Amount" placeholder="Amount" class="form-control" />
-        </div>
-        <button type="submit" class="btn btn-primary" style="margin: 1rem;">Submit</button>
-      </form>
-    </div>
-    <!-- add-exp-box -->
-  </div>
-  <!-- add box -->
 
   <div class="graph">
     <div class="pie-chart-cont">
@@ -124,46 +70,15 @@
         <h5 style="width: 95%; padding: .5rem; border: 1px solid rgb(184, 17, 134); color: rgb(184, 17, 134);">
           Properties</h5>
         <div style="font-size: 1.5rem; z-index: 10; cursor: pointer;" class="catg-sum-caret">
-          <i class="fa fa-caret-right cr1" aria-hidden="true" onclick="expandCatg('1')"></i>
-          <i class="fa fa-caret-down cd1" aria-hidden="true" onclick="compressCatg('1')"></i>
+          <i class="fa fa-caret-right crproperties" aria-hidden="true" onclick="expandCatg('properties')"></i>
+          <i class="fa fa-caret-down cdproperties" aria-hidden="true" onclick="compressCatg('properties')"></i>
         </div>
       </div>
 
       <table class="table">
-        <tbody class="catgSumBox catgSumBox1">
-          <tr>
-            <td>
-              Naration
-              jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
-              jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
-              </th>
-            <td>
-              <div>
-                02/08/2020 04:58 AM.
-              </div>
-              <div>
-                <b>N <span>2,000</span></b>
-              </div>
-            </td>
-          </tr>
-          <!-- row 1 -->
+        <tbody class="catgSumBox" id="properties">
 
-          <tr>
-            <td>
-              Naration
-              jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
-              jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
-              </th>
-            <td>
-              <div>
-                02/08/2020 04:58 AM.
-              </div>
-              <div>
-                <b>N <span>2,000</span></b>
-              </div>
-            </td>
-          </tr>
-          <!-- row 2 -->
+          <!-- row 1 -->
 
         </tbody>
       </table>
@@ -175,19 +90,18 @@
         <h5 style="width: 95%; padding: .5rem; border: 1px solid rgb(17, 184, 170); color: rgb(17, 184, 170);">
           Investment</h5>
         <div style="font-size: 1.5rem; z-index: 10; cursor: pointer;" class="catg-sum-caret">
-          <i class="fa fa-caret-right cr2" aria-hidden="true" onclick="expandCatg('2')"></i>
-          <i class="fa fa-caret-down cd2" aria-hidden="true" onclick="compressCatg('2')"></i>
+          <i class="fa fa-caret-right crinvestment" aria-hidden="true" onclick="expandCatg('investment')"></i>
+          <i class="fa fa-caret-down cdinvestment" aria-hidden="true" onclick="compressCatg('investment')"></i>
         </div>
       </div>
 
       <table class="table">
-        <tbody class="catgSumBox catgSumBox2">
-          <tr>
+        <tbody class="catgSumBox" id="investment">
+          <!-- <tr>
             <td>
               Naration
               jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
               jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
-              </th>
             <td>
               <div>
                 02/08/2020 04:58 AM.
@@ -196,7 +110,7 @@
                 <b>N <span>2,000</span></b>
               </div>
             </td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>
@@ -206,19 +120,18 @@
       <div class="d-flex justify-content-between">
         <h5 style="width: 95%; padding: .5rem; border: 1px solid rgb(184, 181, 17); color: rgb(184, 181, 17);">Food</h5>
         <div style="font-size: 1.5rem; z-index: 10; cursor: pointer;" class="catg-sum-caret">
-          <i class="fa fa-caret-right cr3" aria-hidden="true" onclick="expandCatg('3')"></i>
-          <i class="fa fa-caret-down cd3" aria-hidden="true" onclick="compressCatg('3')"></i>
+          <i class="fa fa-caret-right crfood" aria-hidden="true" onclick="expandCatg('food')"></i>
+          <i class="fa fa-caret-down cdfood" aria-hidden="true" onclick="compressCatg('food')"></i>
         </div>
       </div>
 
       <table class="table">
-        <tbody class="catgSumBox catgSumBox3">
-          <tr>
+        <tbody class="catgSumBox" id="food">
+          <!-- <tr>
             <td>
               Naration
               jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
               jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
-              </th>
             <td>
               <div>
                 02/08/2020 04:58 AM.
@@ -227,7 +140,7 @@
                 <b>N <span>2,000</span></b>
               </div>
             </td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>
@@ -238,19 +151,18 @@
         <h5 style="width: 95%; padding: .5rem; border: 1px solid rgb(17, 184, 128); color: rgb(17, 184, 128);">Shelter
         </h5>
         <div style="font-size: 1.5rem; z-index: 10; cursor: pointer;" class="catg-sum-caret">
-          <i class="fa fa-caret-right cr4" aria-hidden="true" onclick="expandCatg('4')"></i>
-          <i class="fa fa-caret-down cd4" aria-hidden="true" onclick="compressCatg('4')"></i>
+          <i class="fa fa-caret-right crshelter" aria-hidden="true" onclick="expandCatg('shelter')"></i>
+          <i class="fa fa-caret-down cdshelter" aria-hidden="true" onclick="compressCatg('shelter')"></i>
         </div>
       </div>
 
       <table class="table">
-        <tbody class="catgSumBox catgSumBox4">
-          <tr>
+        <tbody class="catgSumBox" id="shelter">
+          <!-- <tr>
             <td>
               Naration
               jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
               jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
-              </th>
             <td>
               <div>
                 02/08/2020 04:58 AM.
@@ -259,7 +171,7 @@
                 <b>N <span>2,000</span></b>
               </div>
             </td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>
@@ -270,19 +182,18 @@
         <h5 style="width: 95%; padding: .5rem; border: 1px solid rgb(184, 64, 17); color: rgb(184, 64, 17);">
           Miscellaneous</h5>
         <div style="font-size: 1.5rem; z-index: 10; cursor: pointer;" class="catg-sum-caret">
-          <i class="fa fa-caret-right cr5" aria-hidden="true" onclick="expandCatg('5')"></i>
-          <i class="fa fa-caret-down cd5" aria-hidden="true" onclick="compressCatg('5')"></i>
+          <i class="fa fa-caret-right crmiscellaneous" aria-hidden="true" onclick="expandCatg('miscellaneous')"></i>
+          <i class="fa fa-caret-down cdmiscellaneous" aria-hidden="true" onclick="compressCatg('miscellaneous')"></i>
         </div>
       </div>
 
       <table class="table">
-        <tbody class="catgSumBox catgSumBox5">
-          <tr>
+        <tbody class="catgSumBox" id="miscellaneous">
+          <!-- <tr>
             <td>
               Naration
               jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
               jndodno hs hs hsishd usgeie shsir sisis susisjeid eue sue eu cyduehr dud eucuri orjr
-              </th>
             <td>
               <div>
                 02/08/2020 04:58 AM.
@@ -291,7 +202,7 @@
                 <b>N <span>2,000</span></b>
               </div>
             </td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>

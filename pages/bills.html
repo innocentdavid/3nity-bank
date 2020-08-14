@@ -1,6 +1,6 @@
 <br>
 <div class="container" style="padding: 0 10%;">
-    <div class="row" style="box-shadow: 0px 8px 20px 2px #11b880;">
+    <div class="row main-card">
         <div class="col-5 to-home-nav" style="padding: 0;">
             <a href="/" class="btn btn-success">
                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
@@ -8,7 +8,7 @@
             </a>
         </div>
         <div class="col">
-            <h4 class="page-title"><i class="fa fa-money" aria-hidden="true"></i> Buy Airtime</h4>
+            <h4 class="page-title"><i class="fa fa-money" aria-hidden="true"></i> Pay Bill</h4>
         </div>
         <i style="border-bottom: 2px solid; width: 100%; height: 1px;"></i>
         <br>
@@ -18,20 +18,24 @@
                     <label for="bill">Bill</label>
                     <select name="bill" id="bill" class="form-control">
                         <option value="electricity">Electricity</option>
+                        <option value="network">Network</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="bill-id">ID</label>
+                    <label for="bill-id">BILL ID</label>
                     <input type="text" name="bill-id" id="bill-id" class="form-control" required>
+                    <div id="billIdError" style="color: red;"></div>
                 </div>
                 <div class="form-group">
                     <label for="amount">Amount</label>
-                    <input type="number" name="amount" id="bill-amount" class="form-control" required>
+                    <input type="number" name="amount" id="bill-amount" class="form-control" value="0">
+                    <div id="billAmountError" style="color: red;"></div>
                 </div>
                 <div class="form-group">
                     <label for="transPin">Transaction Pin</label>
                     <input type="text" name="transPin" id="bill-transPin" class="form-control" placeholder="4 digit pin"
                         required>
+                        <div id="billTpError" style="color: red;"></div>
                 </div>
                 <div id="billFormSubmit" onclick="billFormSubmit()"
                     class="form-control btn-success text-center" style="cursor: pointer;">
@@ -44,7 +48,7 @@
 </div>
 
 <!-- buy airtime success card -->
-<div class="tsc">
+<div class="tsc" id="tsc">
     <div class="tsc-main">
         <div class="tsc-head">
             <b>LOGO</b>
@@ -54,16 +58,16 @@
         </div>
         <div class="tsc-body">
             <div class="transNum">
-                <b>Transaction No:</b> <span id="transcId"></span>
+                <b>Transaction ID:</b> <span id="transcId"></span>
             </div>
             <div class="amount">
-                <b>Amount:</b> N <span id="tsc-amount"></span>
+                <b>Amount:</b> NGN <span id="tsc-amount"></span>
             </div>
             <div class="to">
-                <b>To:</b> <span id="tsc-tel"></span>
+                <b>For:</b> <span id="tsc-bill"></span>
             </div>
             <div class="toBank">
-                <b>Naration:</b> <span id="tsc-naration">Airtime</span>
+                <b>Naration:</b> <span id="tsc-naration"></span>
             </div>
             <div class="date">
                 <b>Date:</b> <span id="tsc-date"></span>
