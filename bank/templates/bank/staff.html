@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{% static 'bank/css/staff.css' %}">
 </head>
 
-<body>
+<body style="width: 100vw;">
     <header>
         <div class="container-fluid">
             <div class="row" style="margin-right: -35px; margin-left: -35px;">
@@ -29,13 +29,9 @@
                 <div class="col-10 header">
                     <center>
                         <h1 class="ptitle" style="margin-bottom: 1rem;">3NITY BANK NIG. PLC</h1>
-                        <div title="Profile Page" style="cursor: pointer;">Welcome, <b>Staff</b></div>
-                        <div>ID: <b>29829832</b></div>
-                        <div>Total Customers: <b>20</b></div>
-                        <i class="fa fa-bell-o" aria-hidden="true" style="position: relative;"><span
-                                style="background-color: black; color: white; padding: .1rem .3rem; font-size: 1rem; border-radius: 50%; position: absolute; top: -5px; right: -5px; z-index: 2;">5</span></i>
-                        <div>
-                        </div>
+                        <div title="Profile Page" style="cursor: pointer;">Welcome, <b>{{ staff }}</b></div>
+                        <div>ID: <b>{{ staff.id }}</b></div>
+                        <div>Total Customers: <b>{{ staff.totalCustomer }}</b></div>
                         <div id="pdToggle" style="margin-top: 1rem;">
                             <a href="/logout" style="color:white; padding: 0 .3rem; border:1px solid; font-size: 1rem;">
                                 <i class="fa fa-arrow-left"></i>
@@ -65,38 +61,40 @@
     <!-- search -->
 
     <main>
-        <div class="container-fluid" style="padding: 2rem 10%;">
+        <div class="container-fluid" style="padding: 2rem 5%;">
             <div class="row thead">
-                <div class="col-2"></div>
-                <div class="col-3"><b>Transfer</b></div>
-                <div class="col-3"><b>Receive</b></div>
-                <div class="col-4"><b>Complaints</b></div>
+                <div class="col-3"></div>
+                <div class="col-2"><b>Transfer</b></div>
+                <div class="col-2"><b>Receive</b></div>
+                <div class="col-3"><b>Complaints</b></div>
             </div>
             <br>
-            <!-- order by time group by user -->
-            <!-- <div class="row tbody">
-                <div class="col-2">username</div>
-                <div class="col-3">NGN <span>1,000 .00</span></div>
-                <div class="col-3">NGN <span>2,000 .00</span></div>
-                <div class="col-4"><p>I can't access my account</p></div>
-            </div> -->
+            {% for customer in customers %}
             <div class="row tbody" id="tbody">
-                <div class="col-2" id="user" style="color: beige;"></div>
-                <div class="col-3">
-                    NGN <span id="transfer"></span>
+                <div class="col-3" style="color: beige; display: flex; justify-content: space-between;">
+                    <span id="user" data-user="{{ customer }}">{{ customer.lname }} {{ customer.fname }}</span>
+                    <span>
+                        <a href="tel:{{ customer.tel }}" style="color: black;"><i class="fa fa-phone" aria-hidden="true"></i></a>
+                        &nbsp;&nbsp;&nbsp;
+                        <a href="mailto:{{ customer }}"><i class="btn-danger fa fa-envelope" aria-hidden="true"></i></a>
+                    </span>
+                </div>
+                <div class="col-2">
+                    <span id="transfer"></span>
                     <span id="transferDate"></span>
                 </div>
-                <div class="col-3">
-                    NGN <span id="receive"></span>
+                <div class="col-2">
+                    <span id="receive"></span>
                     <span id="receiveDate"></span>
                 </div>
-                <div class="col-4">
+                <div class="col-5">
                     <span id="complaints"></span>
                     <span id="complaintDate"></span>
                 </div>
-                
             </div>
+            {% empty %}
             <div class="d-flex justify-content-center align-items-center"><h1>No Customer Yet!</h1></div>
+            {% endfor %}
         </div>
     </main>
 

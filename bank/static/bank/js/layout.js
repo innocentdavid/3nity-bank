@@ -38,7 +38,7 @@ function getPage(page) {
 window.addEventListener('DOMContentLoaded', function () {
   let page = (window.location.hash).slice(1);
   if (page != "main-body") {
-    if (page.includes('category')) {} else {
+    if (page.includes('category')) { } else {
       getPage(page);
     }
   }
@@ -51,7 +51,8 @@ window.onpopstate = function (event) {
 
 // show Notification
 function notification() {
-  $('#notification').show()
+  getNotification();
+  $('#notification').show();
 }
 
 // hide notification
@@ -61,28 +62,48 @@ $('.close').on('click', function () {
 
 // get notification every 2sec
 setInterval(() => {
-  getNotification();
-}, 2000);
+  getNotificationCount();
+}, 5000);
 
-function getNotification() {
-  fetch('/getNotification', {
+// Notification count
+function getNotificationCount() {
+  fetch('getNotificationCount', {
     method:'POST',
     body:JSON.stringify({
-      getNotification:1
+      getNotificationCount:1
     })
   })
   .then(response => response.json())
   .then(response => {
-    let result = '';
-    // response.forEach(notification => {
-    //   result +=  `<div class="row">`;
-    //   result +=  `<div class="col-7">${notification.body}</div>`;
-    //   result +=  `<div class="col-3">${notification.timestamp}</div>`;
-    //   result +=  `<div class="col-2"> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>`;
-    //   result +=  `</div>`;
-    // });
-    $('#getNotification').html(result);
+    if(response.message == 'Not found!'){}else{
+      console.log(response.result);
+      $('#notification-count').html(response.result);
+    }
   })
+}
+
+// get Notification
+function getNotification() {
+  fetch('/getNotification', {
+    method: 'POST',
+    body: JSON.stringify({
+      getNotification: 1
+    })
+  })
+    .then(response => response.json())
+    .then(response => {
+      if (response.message != '') { } else {
+        let result = '';
+        response.forEach(notification => {
+          result +=  `<div class="row">`;
+          result +=  `<div class="col-7">${notification.body}</div>`;
+          result +=  `<div class="col-3">${notification.timestamp}</div>`;
+          result +=  `<div class="col-2"> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>`;
+          result +=  `</div>`;
+        });
+        $('#getNotification').html(result);
+      }
+    })
 }
 
 // profile js start

@@ -18,4 +18,5 @@ urlpatterns = [
     path('bill', views.bill, name='bill'),
     path('getExpSumr', views.getExpSumr, name='getExpSumr'),
     path('getNotification', views.getNotification, name='getNotification'),
+    path('getNotificationCount', views.getNotificationCount, name='getNotificationCount'),
 ]

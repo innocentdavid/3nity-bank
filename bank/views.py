@@ -18,6 +18,11 @@ from .models import *
 
 # Create your views here.
 
+# random transaction id and account number
+def random_with_N_digits(n):
+    range_start = 10**(n-1)
+    range_end = (10**n)-1
+    return randint(range_start, range_end)
 
 # @login_required
 def index(request):
@@ -31,13 +36,29 @@ def index(request):
     except:
         return HttpResponseRedirect(reverse("login"))
 
+@csrf_exempt
+def getNotificationCount(request):
+    
+    user=Customer.objects.get(user=User.objects.get(username=request.user))
+    account = Account.objects.get(customer=user)
+    count = Notification.objects.filter(account=account, seen=False).count()
+    if count >= 1:
+        return JsonResponse({"result":count})
+    else:
+        return JsonResponse({"message":'Not found!'})
+
+@csrf_exempt
 def getNotification(request):
     
     user=Customer.objects.get(user=User.objects.get(username=request.user))
     account = Account.objects.get(customer=user)
-    h = History.objects.filter(account=account, seen=False)
-    for h in h:
-        h.
+    count = Notification.objects.filter(account=account, seen=False).count()
+    if count >= 1:
+        result = Notification.objects.filter(account=account, seen=False)
+    
+        return JsonResponse([notification.serialize() for notification in result])
+    else:
+        return JsonResponse({"message":'Not found!'})
 
 @csrf_exempt
 def transfer(request):
@@ -117,7 +138,15 @@ def getExpSumr(request):
 
 @login_required
 def staff(request):
-    return render(request, 'bank/staff.html')
+    user=User.objects.get(username=request.user)
+    count = Staff.objects.filter(user=user).count()
+    if count >= 1:
+        staff = Staff.objects.get(user=user)
+        customers = Customer.objects.filter(manager= staff)
+        context = {"staff":staff, "customers":customers}
+        return render(request, 'bank/staff.html', context)
+    else:
+        return HttpResponseRedirect(reverse('index'))
 
 
 @csrf_exempt
@@ -223,13 +252,6 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
-
-
-def random_with_N_digits(n):
-    range_start = 10**(n-1)
-    range_end = (10**n)-1
-    return randint(range_start, range_end)
-
 
 @csrf_exempt
 def register_view(request):
