@@ -1,15 +1,50 @@
 function allCustomers() {
-    document.querySelectorAll('#user').forEach(user => {
-        // console.log(user);
-        let userz = user.dataset.user;
-        console.log(userz);
-    });
-    // fetch('allUser', {
-    //     method:'POST',
-    //     body:JSON.stringify({
+    document.querySelectorAll('#user').forEach(users => {
+        let user = users.dataset.user;
+        let fname = String(users.dataset.fname);
+        if (user == '') { } else {
+            fetch('/allCustomerTransfer', {
+                method: 'POST',
+                body: JSON.stringify({
+                    user: user
+                })
+            })
+                .then(response => response.json())
+                .then(response => {
+                    if (response.message == undefined) {
+                        let result = '';
+                        response.forEach(history => {
+                            result += `<div> NGN ${history.amount}</div>`;
+                            result += `<div>${history.timestamp}</div>`;
+                        });
+                        $('#transfer' + fname).html(result);
+                    } else {
+                        document.querySelector('#transfer' + fname).innerHTML = response.message;
+                    }
+                })
 
-    //     })
-    // })
+            // receive
+            fetch('/allCustomerReceive', {
+                method: 'POST',
+                body: JSON.stringify({
+                    user: user
+                })
+            })
+                .then(response => response.json())
+                .then(response => {
+                    if (response.message == undefined) {
+                        let result = '';
+                        response.forEach(history => {
+                            result += `<div> NGN ${history.amount}</div>`;
+                            result += `<div>${history.timestamp}</div>`;
+                        });
+                        $('#receive' + fname).html(result);
+                    } else {
+                        document.querySelector('#receive' + fname).innerHTML = response.message;
+                    }
+                })
+        }
+    });
     $('#transfer').text('NGN 2, 000 .00');
     $('#transferDate').text('08:43 AM 13|08|2020');
     $('#receive').text('NGN 1, 000 .00');
@@ -23,6 +58,9 @@ function allCustomers() {
     // $('#tbody').append('<br/><br/><br/><div class="btn btn-primary" style="width: 100%;">More</div>')
 }
 
-$('document').ready(function () {
+document.addEventListener('DOMContentLoaded', function () {
     allCustomers();
+})
+$('document').ready(function () {
+    // allCustomers();
 })

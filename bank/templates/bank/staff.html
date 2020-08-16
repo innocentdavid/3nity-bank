@@ -61,7 +61,7 @@
     <!-- search -->
 
     <main>
-        <div class="container-fluid" style="padding: 2rem 5%;">
+        <div class="container-fluid" style="padding: 2rem 0;">
             <div class="row thead">
                 <div class="col-3"></div>
                 <div class="col-2"><b>Transfer</b></div>
@@ -70,28 +70,20 @@
             </div>
             <br>
             {% for customer in customers %}
-            <div class="row tbody" id="tbody">
-                <div class="col-3" style="color: beige; display: flex; justify-content: space-between;">
-                    <span id="user" data-user="{{ customer }}">{{ customer.lname }} {{ customer.fname }}</span>
+            <div class="row tbody" id="tbody" style="color: white;">
+                <div class="col-2" style="color: beige; display: flex; justify-content: space-between;">
+                    <span id="user" data-user="{{ customer }}" data-fname="{{ customer.fname }}">{{ customer.lname }} {{ customer.fname }}</span>
                     <span>
                         <a href="tel:{{ customer.tel }}" style="color: black;"><i class="fa fa-phone" aria-hidden="true"></i></a>
                         &nbsp;&nbsp;&nbsp;
                         <a href="mailto:{{ customer }}"><i class="btn-danger fa fa-envelope" aria-hidden="true"></i></a>
                     </span>
                 </div>
-                <div class="col-2">
-                    <span id="transfer"></span>
-                    <span id="transferDate"></span>
-                </div>
-                <div class="col-2">
-                    <span id="receive"></span>
-                    <span id="receiveDate"></span>
-                </div>
-                <div class="col-5">
-                    <span id="complaints"></span>
-                    <span id="complaintDate"></span>
-                </div>
+                <div id="transfer{{ customer.fname }}" class="col-3"></div>
+                <div class="col-3" id="receive{{ customer.fname }}"></div>
+                <div class="col-4" id="complaints{{ customer.fname }}"></div>
             </div>
+            <br>
             {% empty %}
             <div class="d-flex justify-content-center align-items-center"><h1>No Customer Yet!</h1></div>
             {% endfor %}

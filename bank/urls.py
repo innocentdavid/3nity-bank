@@ -19,4 +19,7 @@ urlpatterns = [
     path('getExpSumr', views.getExpSumr, name='getExpSumr'),
     path('getNotification', views.getNotification, name='getNotification'),
     path('getNotificationCount', views.getNotificationCount, name='getNotificationCount'),
+    path('allCustomerTransfer', views.allCustomerTransfer, name='allCustomerTransfer'),
+    path('allCustomerReceive', views.allCustomerReceive, name='allCustomerReceive'),
+    path('allCustomerComplaints', views.allCustomeComplaints, name='allCustomComplaints'),
 ]

@@ -148,6 +148,42 @@ def staff(request):
     else:
         return HttpResponseRedirect(reverse('index'))
 
+@csrf_exempt
+@login_required
+def allCustomerTransfer(request):
+    data = json.loads(request.body)
+    user = Customer.objects.get(user=User.objects.get(username=data.get('user')))
+    account = Account.objects.get(customer=user)
+    count = History.objects.filter(account=account).count()
+    if count == 0:
+        return JsonResponse({"message":'No recent transaction!'})
+    else:
+        user = Customer.objects.get(user=User.objects.get(username=data.get('user')))
+        account = Account.objects.get(customer=user)
+        histories = History.objects.filter(account=account, transcType='Expenditure')[:5]
+
+        return JsonResponse([history.serialize() for history in histories], safe=False)
+
+@csrf_exempt
+@login_required
+def allCustomerReceive(request):
+    data = json.loads(request.body)
+    user = Customer.objects.get(user=User.objects.get(username=data.get('user')))
+    account = Account.objects.get(customer=user)
+    count = History.objects.filter(account=account).count()
+    if count == 0:
+        return JsonResponse({"message":'No recent transaction!'})
+    else:
+        user = Customer.objects.get(user=User.objects.get(username=data.get('user')))
+        account = Account.objects.get(customer=user)
+        histories = History.objects.filter(account=account, transcType='Income')[:5]
+
+        return JsonResponse([history.serialize() for history in histories], safe=False)
+
+@csrf_exempt
+@login_required
+def allCustomeComplaints(request):
+    return JsonResponse({"message":'No recent transaction!'})
 
 @csrf_exempt
 @login_required
