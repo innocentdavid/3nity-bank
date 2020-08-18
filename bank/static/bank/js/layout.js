@@ -1,4 +1,6 @@
-
+$(document).ready(() => {
+  let globalAccountBalance = $('#globalAccountBalance')[0].value;
+})
 // get extra pages on click on the nav buttons
 function mainNav(page) {
   getPage(page);
@@ -39,7 +41,9 @@ window.addEventListener('DOMContentLoaded', function () {
   let page = (window.location.hash).slice(1);
   if (page != "main-body") {
     if (page.includes('category')) { } else {
-      getPage(page);
+      if (window.location.hash === '#') { } else {
+        getPage(page);
+      }
     }
   }
 })
@@ -60,26 +64,26 @@ $('.close').on('click', function () {
   $('#notification').hide()
 })
 
-// get notification every 2sec
-setInterval(() => {
-  getNotificationCount();
-}, 5000);
+// get notification every 5sec
+// setInterval(() => {
+// }, 5000);
+getNotificationCount();
 
 // Notification count
 function getNotificationCount() {
   fetch('getNotificationCount', {
-    method:'POST',
-    body:JSON.stringify({
-      getNotificationCount:1
+    method: 'POST',
+    body: JSON.stringify({
+      getNotificationCount: 1
     })
   })
-  .then(response => response.json())
-  .then(response => {
-    if(response.message == 'Not found!'){}else{
-      console.log(response.result);
-      $('#notification-count').html(response.result);
-    }
-  })
+    .then(response => response.json())
+    .then(response => {
+      if (response.message == 'Not found!') { } else {
+        console.log(response.result);
+        $('#notification-count').html(response.result);
+      }
+    })
 }
 
 // get Notification
@@ -95,11 +99,11 @@ function getNotification() {
       if (response.message != '') { } else {
         let result = '';
         response.forEach(notification => {
-          result +=  `<div class="row">`;
-          result +=  `<div class="col-7">${notification.body}</div>`;
-          result +=  `<div class="col-3">${notification.timestamp}</div>`;
-          result +=  `<div class="col-2"> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>`;
-          result +=  `</div>`;
+          result += `<div class="row">`;
+          result += `<div class="col-7">${notification.body}</div>`;
+          result += `<div class="col-3">${notification.timestamp}</div>`;
+          result += `<div class="col-2"> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>`;
+          result += `</div>`;
         });
         $('#getNotification').html(result);
       }
@@ -248,7 +252,6 @@ function checkTransPin() {
       .then(response => {
         if (response.message == "ok") {
           document.querySelector('#transPinError').innerHTML = "";
-          // ok
           setInterval(() => {
             stf();
           }, 500)
@@ -266,13 +269,25 @@ function stf() {
   let transPin = document.querySelector('#transPin').value;
   let transPinError = document.querySelector('#transPinError').innerHTML;
   let accNumError = document.querySelector('#accNumError').innerHTML;
+  let amount = document.querySelector('#amount').value;
+  if (amount == '') {
+    $('#ammountError').text('Please fill this field!')
+  } else if (amount >= globalAccountBalance.value) {
+    $('#ammountError').text('You cannot transfer more than you have ):')
+  } else {
+    $('#ammountError').text('')
+  }
 
   if (accNum.length == 10) {
     if (transPin.length == 4) {
       if (naration != '') {
         if (accNumError == '') {
           if (transPinError == '') {
-            $('#transferFormSubmit').show()
+            if ($('#ammountError').text() == '') {
+              $('#transferFormSubmit').show()
+            } else {
+              $('#transferFormSubmit').hide()
+            }
           } else {
             $('#transferFormSubmit').hide()
           }
@@ -308,6 +323,7 @@ function transferFormSubmit() {
       accNum: accNum,
       accName: accName,
       amount: amount,
+      Gamount: globalAccountBalance.value,
       catg: catg,
       naration: naration,
       transPin: transPin,
@@ -344,58 +360,63 @@ function buyAirtimeFormSubmit() {
   const baTel = $('#ba-tel').val();
   const baAmount = $('#ba-amount').val();
   const baTransPin = $('#ba-transPin').val();
+  if (baAmount >= globalAccountBalance.value) {
+    $('#ba-amountError').text('You cannot spend more than you have ):');
+  }
 
   if (networkP != '') {
     if (baTel != '' && baTel.length == 11) {
       $('#ba-phNum').text('')
-      if (baTransPin != '') {
-        $('#ba-transPinError').text('');
+      if ($('#ba-amountError').text() == '') {
+        if (baTransPin != '') {
+          $('#ba-transPinError').text('');
 
-        fetch('/check', {
-          method: 'POST',
-          body: JSON.stringify({
-            check: "transPin",
-            transPin: baTransPin
+          fetch('/check', {
+            method: 'POST',
+            body: JSON.stringify({
+              check: "transPin",
+              transPin: baTransPin
+            })
           })
-        })
-          .then(response => response.json())
-          .then(response => {
-            if (response.message == 'ok') {
-              $('#ba-transPinError').text('');
-              $('#ba-transPinOk').html('<i class="fa fa-check-circle" aria-hidden="true"></i>');
+            .then(response => response.json())
+            .then(response => {
+              if (response.message == 'ok') {
+                $('#ba-transPinError').text('');
+                $('#ba-transPinOk').html('<i class="fa fa-check-circle" aria-hidden="true"></i>');
 
-              fetch('/airtime', {
-                method: 'POST',
-                body: JSON.stringify({
-                  networkP: networkP,
-                  baTel: baTel,
-                  baAmount: baAmount,
-                  baTransPin: baTransPin,
+                fetch('/airtime', {
+                  method: 'POST',
+                  body: JSON.stringify({
+                    networkP: networkP,
+                    baTel: baTel,
+                    baAmount: baAmount,
+                    baTransPin: baTransPin,
+                  })
                 })
-              })
-                .then(response => response.json())
-                .then(response => {
-                  if (response.message == 'ok') {
-                    $('#networkP').val('');
-                    $('#ba-tel').val('');
-                    $('#ba-transPin').val('');
+                  .then(response => response.json())
+                  .then(response => {
+                    if (response.message == 'ok') {
+                      $('#networkP').val('');
+                      $('#ba-tel').val('');
+                      $('#ba-transPin').val('');
 
-                    $('#transcId').text(response.transcId)
-                    $('#tsc-amount').text(baAmount)
-                    $('#tsc-tel').text(baTel)
-                    $('#tsc-naration').text('Airtime')
-                    $('#tsc-date').text(response.date)
+                      $('#transcId').text(response.transcId)
+                      $('#tsc-amount').text(baAmount)
+                      $('#tsc-tel').text(baTel)
+                      $('#tsc-naration').text('Airtime')
+                      $('#tsc-date').text(response.date)
 
-                    $('#tsc').show();
-                  } else {
+                      $('#tsc').show();
+                    } else {
 
-                  }
-                })
-            } else {
-              $('#ba-transPinError').text('Incorrect Transaction Pin!');
-            }
-          })
-      } else { $('#ba-transPinError').text('You have not entered your Transaction Pin!') }
+                    }
+                  })
+              } else {
+                $('#ba-transPinError').text('Incorrect Transaction Pin!');
+              }
+            })
+        } else { $('#ba-transPinError').text('You have not entered your Transaction Pin!') }
+      } else { alert('Check and fix Errors') }
     } else { $('#ba-phNum').text('Please fill this field and must be 11') }
   } else { alert('Please select a Network provider') }
 }
@@ -406,10 +427,14 @@ function billFormSubmit() {
   let bill = $('#bill').val();
   let billId = $('#bill-id').val();
   let billAmount = $('#bill-amount').val();
+  if (billAmount >= globalAccountBalance.value) {
+    $('#billAmountError').text('You cannont spend more than you have!');
+    billAmount = '';
+  }
   let billTransPin = $('#bill-transPin').val();
 
   if (billId == '') { $('#billIdError').text('Please fill this field!') } else { $('#billIdError').text('') }
-  if (billAmount == '') { $('#billAmountError').text('Please fill this field!') } else { $('#billAmountError').text('') }
+  if (billAmount == '') { $('#billAmountError').text('Amount more than what you have / Empty!') } else { $('#billAmountError').text('') }
   if (billTransPin == '') { $('#billTpError').text('Please fill this field!') } else {
     fetch('/check', {
       method: 'POST',

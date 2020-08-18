@@ -54,41 +54,121 @@
                     style="border-radius: 30px; outline: none; padding: .3rem 1rem;" name="search-customer"
                     id="search-customer" class="form-control">
                 &nbsp;&nbsp;
-                <button type="submit" style="border: none; background: none;"><i class="fa fa-search" style="color: beige;" aria-hidden="true"></i></button>
+                <button type="submit" style="border: none; background: none;"><i class="fa fa-search"
+                        style="color: beige;" aria-hidden="true"></i></button>
             </div>
         </form>
     </div>
     <!-- search -->
 
     <main>
-        <div class="container-fluid" style="padding: 2rem 0;">
-            <div class="row thead">
-                <div class="col-3"></div>
-                <div class="col-2"><b>Transfer</b></div>
-                <div class="col-2"><b>Receive</b></div>
-                <div class="col-3"><b>Complaints</b></div>
-            </div>
-            <br>
+        <div class="container-fluid">
             {% for customer in customers %}
-            <div class="row tbody" id="tbody" style="color: white;">
-                <div class="col-2" style="color: beige; display: flex; justify-content: space-between;">
-                    <span id="user" data-user="{{ customer }}" data-fname="{{ customer.fname }}">{{ customer.lname }} {{ customer.fname }}</span>
-                    <span>
-                        <a href="tel:{{ customer.tel }}" style="color: black;"><i class="fa fa-phone" aria-hidden="true"></i></a>
-                        &nbsp;&nbsp;&nbsp;
-                        <a href="mailto:{{ customer }}"><i class="btn-danger fa fa-envelope" aria-hidden="true"></i></a>
-                    </span>
-                </div>
-                <div id="transfer{{ customer.fname }}" class="col-3"></div>
-                <div class="col-3" id="receive{{ customer.fname }}"></div>
-                <div class="col-4" id="complaints{{ customer.fname }}"></div>
+            <div class="ul-wrapper" style="height:40vh; overflow-y: auto;">
+                <ul class="ul">
+                    <li class="li">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span style="color: white;" id="user" data-user="{{ customer }}" data-fname="{{ customer.fname }}"><h4>{{ customer.lname }} {{ customer.fname }}</h4></span>
+                                    <br>
+                                    <div onclick="modify('show', '{{ customer.fname }}', '{{ customer.tel }}', '{{ customer }}')" id="menu-btn{{ customer.fname }}" class="btn btn-primary" style="display: block;"><i class="fa fa-bars" aria-hidden="true"></i></div>
+                                    <div onclick="modify('hide', '{{ customer.fname }}', '{{ customer.tel }}', '{{ customer }}')" id="close-menu-btn{{ customer.fname }}" class="btn btn-danger" style="display: none;"><i class="fa fa-window-close" aria-hidden="true"></i></div>
+                                    
+                                    <div class="menu" id="{{ customer.fname }}"></div>
+                                </div>
+                                <div id="details{{ customer.fname }}" class="col-9 detail-main"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="li">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-7">Complaints body Complaints body Complaints body Complaints body
+                                    Complaints body</div>
+                                <div class="col-2 btn btn-primary"><i class="fa fa-share" aria-hidden="true"></i> Reply
+                                </div>
+                                <div class="col-2 date">Complaints date</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <br>
             </div>
-            <br>
-            {% empty %}
-            <div class="d-flex justify-content-center align-items-center"><h1>No Customer Yet!</h1></div>
             {% endfor %}
         </div>
     </main>
+
+    <!-- Acct. Summary -->
+    <div class="modal-main" id="acctSummary">
+        <div class="acctSummary">
+            <div class="modal-header">
+                <div>
+                    <h3>Weekly Account Summary</h3>
+                </div>
+                <div onclick="accSummary('none')" class="close" style="color: white;"><i class="fa fa-window-close" aria-hidden="true"></i></div>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12" style="font-size: 1.5rem;">
+                            <center>
+                                Totoal Income - <b>NGN <span id="total-income"></span></b>
+                            </center>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-6" style="font-size: 1.2rem;">
+                            <div class="row exp-wrapper">
+                                <div class="col-5">Properties</div>
+                                <div class="col-5" id="amountProperties"></div>
+                                <div class="col-2" id="percentProperties"></div>
+                            </div>
+                            <div class="row exp-wrapper">
+                                <div class="col-5">Investment</div>
+                                <div class="col-5" id="amountInvestment"></div>
+                                <div class="col-2" id="percentInvestment"></div>
+                            </div>
+                            <div class="row exp-wrapper">
+                                <div class="col-5">Food</div>
+                                <div class="col-5" id="amountFood"></div>
+                                <div class="col-2" id="percentFood"></div>
+                            </div>
+                            <div class="row exp-wrapper">
+                                <div class="col-5">Shelter</div>
+                                <div class="col-5" id="amountShelter"></div>
+                                <div class="col-2" id="percentShelter"></div>
+                            </div>
+                            <div class="row exp-wrapper">
+                                <div class="col-5">Miscellaneous</div>
+                                <div class="col-5" id="amountMiscellaneous"></div>
+                                <div class="col-2" id="percentMiscellaneous"></div>
+                            </div>
+                            <div class="row exp-wrapper">
+                                <div>Total Expenditure: <b>NGN <span id="total-expenditure"></span></b></div>
+                                <!-- <div>Excess of RECEIPTS over EXPENDITURE: <b id="excess"></b></div> -->
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <h3>
+                                <center>Summary</center>
+                            </h3>
+                            <form action="" method="post" id="summaryForm">
+                                <input type="hidden" name="user" value="" id="summaryUser">
+                                <div class="form-group">
+                                    <label for="accSummary">Account summary</label>
+                                    <textarea type="text" name="accSummary" id="summaryTextarea" class="form-control"
+                                        aria-describedby="accSummary" style="height: 12rem; opacity: .9; margin: 0; padding: .2rem;"></textarea>
+                                    <input type="submit" value="Update" class="btn btn-success mt-2">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Optional JavaScript -->
