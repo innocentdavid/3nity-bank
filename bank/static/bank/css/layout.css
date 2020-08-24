@@ -7,6 +7,7 @@
 
 *,
 p {
+  color: #111111;
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
@@ -21,7 +22,7 @@ body {
   position: relative;
   width: 100vw;
   overflow-x: hidden;
-  background: linear-gradient(45deg, #83776a, #0f547f);
+  background: rgba(248, 224, 39, 0.966);
 }
 
 ul {
@@ -29,7 +30,6 @@ ul {
 }
 
 header {
-  background: linear-gradient(45deg, #83776a, #0f547f);
   color: white;
   padding: 0.5rem;
   padding-bottom: 0.5rem;
@@ -83,7 +83,7 @@ header {
 }
 
 .main-nav {
-  border-bottom: 1px solid #11b880;
+  border-bottom: 1px solid;
   padding: 1rem 0.5rem;
 }
 
@@ -103,7 +103,7 @@ header {
 
 .main-nav ul li a {
   display: inline-block;
-  border: 1px solid #11b880;
+  border: 1px solid;
   padding: 0.2rem 0.5rem;
   margin: 0 0.6rem;
   border-radius: 10px;

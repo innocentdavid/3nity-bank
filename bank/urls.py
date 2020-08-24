@@ -8,8 +8,7 @@ urlpatterns = [
     path('register/', views.register_view, name='register'),
     path('logout/', views.logout_view, name='logout'),
 
-    # all route
-    path('profile', views.profile, name="profile"),
+    # all other route
     path('staff', views.staff, name="staff"),
     path('check', views.check, name="check"),
     path('page/<str:file_name>', views.page, name='page'),
@@ -18,9 +17,10 @@ urlpatterns = [
     path('bill', views.bill, name='bill'),
     path('getExpSumr', views.getExpSumr, name='getExpSumr'),
     path('getNotification', views.getNotification, name='getNotification'),
+    path('notfChecked', views.notfChecked, name='notfChecked'),
     path('getNotificationCount', views.getNotificationCount, name='getNotificationCount'),
     path('allCustomer', views.allCustomer, name='allCustomer'),
-    path('allCustomeComplaints', views.allCustomeComplaints, name='allCustomeComplaints'),
     path('totalIncome', views.totalIncome, name='totalIncome'),
+    path('totalCatgExp', views.totalCatgExp, name='totalCatgExp'),
     path('AcctSummary', views.AcctSummary, name='AcctSummary'),
 ]

@@ -21,7 +21,8 @@ body {
   position: relative;
   width: 100vw;
   overflow-x: hidden;
-  background: linear-gradient(45deg, #83776a, #0f547f);
+  background: rgba(248, 224, 39, 0.966);
+  color: #111111;
 }
 
 ul {
@@ -29,8 +30,6 @@ ul {
 }
 
 header {
-  background: linear-gradient(45deg, #83776a, #0f547f);
-  color: white;
   padding: 0.5rem;
   padding-bottom: 0.5rem;
 }
@@ -112,9 +111,8 @@ main {
 
 .li {
   display: inline-block;
-  border-right: 1px solid;
   margin: 0 0.5rem;
-  padding: 0 1rem;
+  padding: 0;
   width: 80vw;
 }
 
@@ -133,6 +131,10 @@ main {
   background: rgba(0, 0, 0, 0.5);
 }
 
+.modal-main > * {
+  color: white;
+}
+
 .acctSummary {
   position: fixed;
   top: 10%;
@@ -143,9 +145,23 @@ main {
   width: 80%;
   height: 80%;
   margin: auto;
+  overflow: auto;
 }
 
 .exp-wrapper div {
   margin: .7rem auto;
+}
+
+#err-msg {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #dc3545;
+  color: white;
 }
 /*# sourceMappingURL=staff.css.map */

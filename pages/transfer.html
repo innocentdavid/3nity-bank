@@ -31,7 +31,7 @@
         </div>
         <div class="form-group">
           <label for="amount">Amount</label>
-          <input type="number" name="amount" class="form-control" id="amount" value="0" required>
+          <input type="number" onchange="checkAmount(this)" name="amount" class="form-control" id="amount" value="0" required>
           <div id="ammountError" class="help-text" style="color: red;"></div>
         </div>
         <div class="form-group">

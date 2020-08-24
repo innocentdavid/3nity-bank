@@ -1,3 +1,5 @@
+// alert();
+
 function modify(action, fname, tel, email) {
     if (action == 'show') {
         let menuBtn = document.querySelector('#menu-btn' + fname);
@@ -37,25 +39,56 @@ function totalExp(action, user) {
 }
 
 // get total expenditure per category
-function totalExpCatg(catg, user) {
-    $('#amount' + catg).text('NGN 20,000 .00');
-    $('#percent' + catg).text('20%');
+function totalCatgExp(catg, user) {
+    fetch('/totalCatgExp', {
+        method: 'POST',
+        body: JSON.stringify({ catg: catg, user: user })
+    })
+        .then(res => res.json())
+        .then(res => {
+            // console.log(res.totalCatgExp);
+            if (res.totalCatgExp.amount__sum != null) {
+                $('#amount' + catg).text('NGN ' + res.totalCatgExp.amount__sum);
+            } else {
+                $('#amount' + catg).text('NGN 0');
+            }
+
+            let a = $('#total-expenditure').text();
+            let b = res.totalCatgExp.amount__sum * 100;
+            let c = (b / a).toFixed(2);
+
+            if (a >= c) {
+                $('#npercent' + catg).text(res.totalCatgExp.amount__sum);
+            } else {
+                $('#npercent' + catg).text(0.00);
+            }
+        })
+}
+
+function totalCatgExpb(catg) {
+    let res = $('#npercent' + catg).text();
+    
+    if (res >= 0) {
+        return res;
+    } else {
+        return 0;
+    }
 }
 
 function AccountSummary(user, action, summary) {
     fetch('/AcctSummary', {
-        method:'POST',
-        body:JSON.stringify({user:user, action:action, summary:summary})
+        method: 'POST',
+        body: JSON.stringify({ user: user, action: action, summary: summary })
     })
-    .then(res => res.json())
-    .then(res => {
-        console.log(res);
-        if (action == 'get'){
-            $('#summaryTextarea')[0].value = res.summary;
-        }else{
-            location.reload();
-        }
-    })
+        .then(res => res.json())
+        .then(res => {
+            // console.log(res);
+            if (action == 'get') {
+                $('#summaryTextarea')[0].value = res.summary;
+            } else {
+                location.reload();
+            }
+        })
 }
 
 $('#summaryForm').on('submit', function (e) {
@@ -73,21 +106,44 @@ function accSummary(action, user) {
         totalExp('expenditure', user);
 
         // get total expenditure per category
-        totalExpCatg('Properties', user);
-        totalExpCatg('Investment', user);
-        totalExpCatg('Food', user);
-        totalExpCatg('Shelter', user);
-        totalExpCatg('Miscellaneous', user);
-        
-        // lext a = $('#total-income').text();
-        // let b = $('#total-expenditure').text();
-        // console.log(b);
-        // $('#excess').text(a-b);
-        
+        totalCatgExp('Properties', user);
+        totalCatgExp('Investment', user);
+        totalCatgExp('Food', user);
+        totalCatgExp('Shelter', user);
+        totalCatgExp('Miscellaneous', user);
+
+        // get excess
+        let getExcess = setInterval(() => {
+            let a = $('#total-income').text();
+            let b = $('#total-expenditure').text();
+            let c = `Excess of RECEIPTS over EXPENDITURE: <b>NGN <span id="excess">${a - b}</span></b>`;
+            $('#excess-wrapper').html(c);
+
+            let p = parseFloat(totalCatgExpb('Properties'));
+            let i = parseFloat(totalCatgExpb('Investment'));
+            let f = parseFloat(totalCatgExpb('Food'));
+            let s = parseFloat(totalCatgExpb('Shelter'));
+            let m = parseFloat(totalCatgExpb('Miscellaneous'));
+            if (p >= 0){}else{p=0}
+            if (i >= 0){}else{i=0}
+            if (f >= 0){}else{f=0}
+            if (s >= 0){}else{s=0}
+            if (m >= 0){}else{m=0}
+            let res = p + i + f + s + m;
+            $('#percentProperties').text(((p*100)/res).toFixed(1));
+            $('#percentInvestment').text(((i*100)/res).toFixed(1));
+            $('#percentFood').text(((f*100)/res).toFixed(1));
+            $('#percentShelter').text(((s*100)/res).toFixed(1));
+            $('#percentMiscellaneous').text(((m*100)/res).toFixed(1));
+        }, 500);
+        setTimeout(() => {
+            clearInterval(getExcess);
+        }, 1000);
+
         // get Account Summary
         AccountSummary(user, 'get', 'summary');
         // update Account Summary
-        $('#summaryUser')[0].value=user;
+        $('#summaryUser')[0].value = user;
     }
 }
 
@@ -118,11 +174,8 @@ function allCustomers() {
                             } else {
                                 result += `<span class="btn-sm btn-danger">Transfered:</span> `;
                             }
-                            result += `${history.naration} - `;
-                            result += `<b>${history.transactionId}</b>`;
-                            result += '</li>';
-                            result += '</ul>'
-                            result += '</div>'
+                            result += `${history.naration}`;
+                            result += '</li></ul></div>';
                             result += `<div class="col-3" style="text-align:right; font-size: .8rem;">${history.timestamp}</div>`;
                             result += '</div>'
                         });
@@ -131,31 +184,14 @@ function allCustomers() {
                         document.querySelector('#details' + fname).innerHTML = `<center><h1>${response.message}</h1></center>`;
                     }
                 })
-
-            // Complaints
-            // fetch('/allCustomerComplaints', {
-            //     method: 'POST',
-            //     body: JSON.stringify({
-            //         user: user
-            //     })
-            // })
-            //     .then(response => response.json())
-            //     .then(response => {
-            //         if (response.message == undefined) {
-            //             let result = '';
-            //             response.forEach(history => {
-            //                 result += `<div> NGN ${history.amount}</div>`;
-            //                 result += `<div>${history.timestamp}</div>`;
-            //             });
-            //             $('#receive' + fname).html(result);
-            //         } else {
-            //             document.querySelector('#receive' + fname).innerHTML = response.message;
-            //         }
-            //     })
         }
     });
 }
 
+function closeErr() {
+    let x = document.querySelector('#err-msg');
+    x.style.display='none';
+}
 
 $('document').ready(function () {
     allCustomers();

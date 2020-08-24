@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from time import gmtime, strftime
 
 class Staff(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
@@ -22,6 +23,19 @@ class Customer(models.Model):
     tel = models.CharField(max_length=200, null=True)
     dob = models.CharField(max_length=200, null=True)
 
+    # def serialize(self):
+    #     return {
+    #         "id": self.id,
+    #         "user": self.user.username,
+    #         "manager": self.manager,
+    #         "fname": self.fname,
+    #         "lname": self.lname,
+    #         "email": self.email,
+    #         "address": self.address,
+    #         "tel": self.tel,
+    #         "dob": self.dob
+    #     }
+
     def __str__(self):
         return self.user.username
 
@@ -34,13 +48,7 @@ class Account(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.accountNum}"
-
-class Category(models.Model):
-    name = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.name
+        return f"{self.customer.lname} {self.customer.fname}"
 
 class History(models.Model):
     INCOME = 'Income'
@@ -57,7 +65,7 @@ class History(models.Model):
     amount = models.FloatField(default=0.00)
     naration = models.TextField(blank=True)
     transactionId = models.IntegerField(default=0)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now_add=False, null=True, blank=True)
     seen = models.BooleanField(default=False)
 
     def serialize(self):
@@ -68,7 +76,7 @@ class History(models.Model):
             "amount": self.amount,
             "naration": self.naration,
             "transactionId": self.transactionId,
-            "timestamp": self.timestamp.strftime("%d/%b/%Y, %H:%M %p"),
+            "timestamp": self.timestamp,
             "seen": self.seen
         }
     
@@ -77,7 +85,7 @@ class History(models.Model):
 
 class AccountSummary(models.Model):
     account = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True, blank=True)
-    summary = models.CharField(max_length=200, null=True, blank=True)
+    summary = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.summary
@@ -85,9 +93,9 @@ class AccountSummary(models.Model):
 class Notification(models.Model):
     account = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True, blank=True)
     sender = models.CharField(max_length=200, default='3NITY BANK')
-    subject = models.CharField(max_length=255, null=True, blank=True)
+    subject = models.CharField(max_length=255, null=True, blank=True, default='Expenditure')
     body = models.TextField(blank=True)
-    timestamp = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=False, null=True, blank=True)
     seen = models.BooleanField(default=False)
 
     def serialize(self):
@@ -97,6 +105,6 @@ class Notification(models.Model):
             "sender": self.sender,
             "subject": self.subject,
             "body": self.body,
-            "timestamp": self.timestamp.strftime("%d/%b/%Y, %H:%M %p"),
+            "timestamp": self.timestamp,
             "seen": self.seen
         }

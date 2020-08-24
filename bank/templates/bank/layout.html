@@ -39,8 +39,8 @@
         </div>
       </div>
       <br>
-      <div class="close" style="cursor: pointer;">Close</div>
     </div>
+    <div class="close" style="cursor: pointer;">Close</div>
   </div>
   <header>
     <div class="container-fluid">
@@ -59,7 +59,7 @@
               <b style="display: inline;">Account: {{ account.accountNum }} ({{ account.accountType }})</b>
             </div>
             <div>
-              <span>Acc. bal. <b>NGN <span>{{ account.balance | floatformat:2 }}</span></b></span>
+              <span>Acc. bal. <b>NGN <span id="accBal">{{ account.balance | floatformat:2 }}</span></b></span>
             </div>
             <div id="pdToggle" style="margin-top: 1rem;">
               <a href="/logout" style="color:white; padding: 0 .3rem; border:1px solid; font-size: 1rem;">
@@ -108,6 +108,11 @@
   </div>
   <br>
   <!-- main-nav -->
+  <input type="hidden" id="p" value="0">
+  <input type="hidden" id="i" value="0">
+  <input type="hidden" id="f" value="0">
+  <input type="hidden" id="s" value="0">
+  <input type="hidden" id="m" value="0">
 
   <div class="container-fluid">
     <div class="row">

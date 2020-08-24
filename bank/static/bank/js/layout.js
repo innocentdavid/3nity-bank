@@ -1,5 +1,6 @@
 $(document).ready(() => {
   let globalAccountBalance = $('#globalAccountBalance')[0].value;
+  accBal();
 })
 // get extra pages on click on the nav buttons
 function mainNav(page) {
@@ -64,12 +65,8 @@ $('.close').on('click', function () {
   $('#notification').hide()
 })
 
-// get notification every 5sec
-// setInterval(() => {
-// }, 5000);
-getNotificationCount();
-
 // Notification count
+getNotificationCount();
 function getNotificationCount() {
   fetch('getNotificationCount', {
     method: 'POST',
@@ -80,10 +77,21 @@ function getNotificationCount() {
     .then(response => response.json())
     .then(response => {
       if (response.message == 'Not found!') { } else {
-        console.log(response.result);
+        // console.log(response.result);
         $('#notification-count').html(response.result);
       }
     })
+}
+
+function notfChecked(id) {
+  $('#'+id).hide();
+  fetch('/notfChecked', {
+    method:'POST',
+    body:JSON.stringify({
+      notfId: id
+    })
+  })
+  location.reload();
 }
 
 // get Notification
@@ -96,14 +104,15 @@ function getNotification() {
   })
     .then(response => response.json())
     .then(response => {
-      if (response.message != '') { } else {
+      // console.log(response[0]);
+      if (response.message == 'Not found!'){$('#getNotification').text(response.message);}else{
         let result = '';
         response.forEach(notification => {
-          result += `<div class="row">`;
+          result += `<br/><div class="row" id="${notification.id}">`;
           result += `<div class="col-7">${notification.body}</div>`;
           result += `<div class="col-3">${notification.timestamp}</div>`;
-          result += `<div class="col-2"> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>`;
-          result += `</div>`;
+          result += `<div class="col-2 text-right" onclick="notfChecked(${notification.id})"> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>`;
+          result += `</div><br/>`;
         });
         $('#getNotification').html(result);
       }
@@ -166,35 +175,54 @@ function compressCatg(catg) {
   $('#' + catg).html('');
 }
 
+// get total expenditure per category
+function getExpC(catg, id) {
+  fetch('/totalCatgExp', {
+    method: 'POST',
+    body: JSON.stringify({ catg: catg, user: 'request.user.username' })
+  })
+    .then(res => res.json())
+    .then(res => {
+      $('#'+id)[0].value=res.totalCatgExp.amount__sum;
+    })
+}
 // pie chart to illustrate customer's expenditure
 function drawChart() {
+  getExpC('Miscellaneous', 'm');
+  getExpC('Shelter', 's');
+  getExpC('Properties', 'p');
+  getExpC('Investment', 'i');
+  getExpC('Food', 'f');
+  setTimeout(() => {
+    var m = parseInt($('#m')[0].value);
+    $('#Nm').text(m);
+    var s = parseInt($('#s')[0].value);
+    $('#Ns').text(s);
+    var p = parseInt($('#p')[0].value);
+    $('#Np').text(p);
+    var i = parseInt($('#i')[0].value);
+    $('#Ni').text(i);
+    var f = parseInt($('#f')[0].value);
+    $('#Nf').text(f);
 
-  var data = google.visualization.arrayToDataTable([
-    ['Task',
-      'total expenditure'],
-    ['Work',
-      40],
-    ['Nap',
-      10],
-    ['Eat',
-      11],
-    ['Eat',
-      11],
-    ['Watch TV',
-      14],
-    ['Watch TV',
-      14],
-    ['Sleep',
-      15]
-  ]);
+    var d = [
+      ['Task','total expenditure'],
+      ['Properties',p],
+      ['Investment',i],
+      ['Food',f],
+      ['Shelter', s],
+      ['Miscellaneous', m]
+    ];
+    var data = google.visualization.arrayToDataTable(d);
 
-  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
-  chart.draw(data,
-    {
-      title: 'My Weekly Expenditures',
-      is3D: true,
-    });
+    chart.draw(data,
+      {
+        title: 'My Expenditures',
+        is3D: true,
+      });
+  }, 2000);
 }
 google.charts.load('current', {
   'packages': ['corechart']
@@ -272,7 +300,7 @@ function stf() {
   let amount = document.querySelector('#amount').value;
   if (amount == '') {
     $('#ammountError').text('Please fill this field!')
-  } else if (amount >= globalAccountBalance.value) {
+  } else if (amount == globalAccountBalance.value) {
     $('#ammountError').text('You cannot transfer more than you have ):')
   } else {
     $('#ammountError').text('')
@@ -360,7 +388,7 @@ function buyAirtimeFormSubmit() {
   const baTel = $('#ba-tel').val();
   const baAmount = $('#ba-amount').val();
   const baTransPin = $('#ba-transPin').val();
-  if (baAmount >= globalAccountBalance.value) {
+  if (baAmount == globalAccountBalance.value) {
     $('#ba-amountError').text('You cannot spend more than you have ):');
   }
 
@@ -399,6 +427,7 @@ function buyAirtimeFormSubmit() {
                       $('#networkP').val('');
                       $('#ba-tel').val('');
                       $('#ba-transPin').val('');
+                      $('#ba-amount').val(0);
 
                       $('#transcId').text(response.transcId)
                       $('#tsc-amount').text(baAmount)
@@ -427,7 +456,7 @@ function billFormSubmit() {
   let bill = $('#bill').val();
   let billId = $('#bill-id').val();
   let billAmount = $('#bill-amount').val();
-  if (billAmount >= globalAccountBalance.value) {
+  if (billAmount == globalAccountBalance.value) {
     $('#billAmountError').text('You cannont spend more than you have!');
     billAmount = '';
   }
@@ -468,12 +497,13 @@ function billFormSubmit() {
                 $('#bill-id').val('');
                 $('#bill-amount').val('');
                 $('#bill-transPin').val('');
+                $('#bill-amount').val(0);
 
                 $('#transcId').text(response.transcId)
                 $('#tsc-amount').text(billAmount)
                 $('#tsc-bill').text(bill)
-                $('#tsc-naration').text('Bill')
-                $('#transctsc-dateId').text(response.date)
+                $('#tsc-naration').text(`For ${bill} Bill`)
+                $('#tsc-date').text(response.date)
 
                 $('#tsc').show();
               } else {
@@ -485,3 +515,26 @@ function billFormSubmit() {
   }
 }
 // bill js end
+
+// Check amount field to restrict any other characters
+
+function checkAmount(e) {
+  var invalidChars = /[^0-9]/gi;
+  if (invalidChars.test(e.value)){
+    e.value = e.value.replace(invalidChars,'');
+  }
+}
+function numWithcommas(x) {
+  x = x.toString()
+  var pattern = /(-?\d+)(\d{3})/;
+  while (pattern.test(x)) {
+    x = x.replace(pattern, "$1, $2");
+  }
+  return x;
+}
+
+function accBal() {
+ let x = $('#accBal').text();
+ let numWithcomma = numWithcommas(x);
+ $('#accBal').text(numWithcomma);
+}

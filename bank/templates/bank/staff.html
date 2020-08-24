@@ -48,53 +48,54 @@
     <hr>
 
     <div class="search">
-        <form action="" method="GET">
+        <form action="" method="GET" id="searchCustomer">
             <div class="form-group d-flex justify-content-center align-items-center">
                 <input type="search" placeholder="Search for customer by Account Number"
-                    style="border-radius: 30px; outline: none; padding: .3rem 1rem;" name="search-customer"
-                    id="search-customer" class="form-control">
+                    style="border-radius: 30px; outline: none; padding: .3rem 1rem;" name="q" id="search-customer"
+                    class="form-control">
                 &nbsp;&nbsp;
                 <button type="submit" style="border: none; background: none;"><i class="fa fa-search"
                         style="color: beige;" aria-hidden="true"></i></button>
             </div>
         </form>
+        <div class="" id="err-msg">
+            <div class="err">{{error}}</div>
+            <div class="close">
+                <i onclick="closeErr()" class="{{closeErr}}"></i></div>
+        </div>
     </div>
     <!-- search -->
 
     <main>
         <div class="container-fluid">
             {% for customer in customers %}
-            <div class="ul-wrapper" style="height:40vh; overflow-y: auto;">
-                <ul class="ul">
-                    <li class="li">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-3">
-                                    <span style="color: white;" id="user" data-user="{{ customer }}" data-fname="{{ customer.fname }}"><h4>{{ customer.lname }} {{ customer.fname }}</h4></span>
-                                    <br>
-                                    <div onclick="modify('show', '{{ customer.fname }}', '{{ customer.tel }}', '{{ customer }}')" id="menu-btn{{ customer.fname }}" class="btn btn-primary" style="display: block;"><i class="fa fa-bars" aria-hidden="true"></i></div>
-                                    <div onclick="modify('hide', '{{ customer.fname }}', '{{ customer.tel }}', '{{ customer }}')" id="close-menu-btn{{ customer.fname }}" class="btn btn-danger" style="display: none;"><i class="fa fa-window-close" aria-hidden="true"></i></div>
-                                    
-                                    <div class="menu" id="{{ customer.fname }}"></div>
-                                </div>
-                                <div id="details{{ customer.fname }}" class="col-9 detail-main"></div>
-                            </div>
+            <div class="ul-wrapper" id="main-body" style="height:40vh; overflow-y: auto;">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-3">
+                            <span style="color: white;" id="user" data-user="{{ customer }}"
+                                data-fname="{{ customer.fname }}">
+                                <h4>{{ customer.lname }} {{ customer.fname }}</h4>
+                            </span>
+                            <br>
+                            <div onclick="modify('show', '{{ customer.fname }}', '{{ customer.tel }}', '{{ customer }}')"
+                                id="menu-btn{{ customer.fname }}" class="btn btn-primary" style="display: block;"><i
+                                    class="fa fa-bars" aria-hidden="true"></i></div>
+                            <div onclick="modify('hide', '{{ customer.fname }}', '{{ customer.tel }}', '{{ customer }}')"
+                                id="close-menu-btn{{ customer.fname }}" class="btn btn-danger" style="display: none;"><i
+                                    class="fa fa-window-close" aria-hidden="true"></i></div>
+
+                            <div class="menu" id="{{ customer.fname }}"></div>
                         </div>
-                    </li>
-                    <li class="li">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-7">Complaints body Complaints body Complaints body Complaints body
-                                    Complaints body</div>
-                                <div class="col-2 btn btn-primary"><i class="fa fa-share" aria-hidden="true"></i> Reply
-                                </div>
-                                <div class="col-2 date">Complaints date</div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                        <div id="details{{ customer.fname }}" class="col-9 detail-main"></div>
+                    </div>
+                </div>
                 <br>
             </div>
+            {% empty %}
+            <center>
+                <h1>No Customers Yet</h1>
+            </center>
             {% endfor %}
         </div>
     </main>
@@ -104,9 +105,10 @@
         <div class="acctSummary">
             <div class="modal-header">
                 <div>
-                    <h3>Weekly Account Summary</h3>
+                    <h3>Account Summary</h3>
                 </div>
-                <div onclick="accSummary('none')" class="close" style="color: white;"><i class="fa fa-window-close" aria-hidden="true"></i></div>
+                <div onclick="accSummary('none')" class="close" style="color: white;"><i class="fa fa-window-close"
+                        aria-hidden="true"></i></div>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
@@ -119,38 +121,44 @@
                     </div>
                     <br>
                     <div class="row">
-                        <div class="col-6" style="font-size: 1.2rem;">
+                        <div class="col-md-6" style="font-size: 1.2rem;">
                             <div class="row exp-wrapper">
                                 <div class="col-5">Properties</div>
                                 <div class="col-5" id="amountProperties"></div>
-                                <div class="col-2" id="percentProperties"></div>
+                                <div class="col-2"><span id="percentProperties"></span>%</div>
+                                <div class="col-2 d-none"><span id="npercentProperties"></span></div>
                             </div>
                             <div class="row exp-wrapper">
                                 <div class="col-5">Investment</div>
                                 <div class="col-5" id="amountInvestment"></div>
-                                <div class="col-2" id="percentInvestment"></div>
+                                <div class="col-2"><span id="percentInvestment"></span>%</div>
+                                <div class="col-2 d-none"><span id="npercentInvestment"></span></div>
                             </div>
                             <div class="row exp-wrapper">
                                 <div class="col-5">Food</div>
                                 <div class="col-5" id="amountFood"></div>
-                                <div class="col-2" id="percentFood"></div>
+                                <div class="col-2"><span id="percentFood"></span>%</div>
+                                <div class="col-2 d-none"><span id="npercentFood"></span></div>
                             </div>
                             <div class="row exp-wrapper">
                                 <div class="col-5">Shelter</div>
                                 <div class="col-5" id="amountShelter"></div>
-                                <div class="col-2" id="percentShelter"></div>
+                                <div class="col-2"><span id="percentShelter"></span>%</div>
+                                <div class="col-2 d-none"><span id="npercentShelter"></span></div>
                             </div>
                             <div class="row exp-wrapper">
                                 <div class="col-5">Miscellaneous</div>
                                 <div class="col-5" id="amountMiscellaneous"></div>
-                                <div class="col-2" id="percentMiscellaneous"></div>
+                                <div class="col-2"><span id="percentMiscellaneous"></span>%</div>
+                                <div class="col-2 d-none"><span id="npercentMiscellaneous"></span></div>
                             </div>
                             <div class="row exp-wrapper">
+                                <div id="expCatgTotal" class="d-none"></div>
                                 <div>Total Expenditure: <b>NGN <span id="total-expenditure"></span></b></div>
-                                <!-- <div>Excess of RECEIPTS over EXPENDITURE: <b id="excess"></b></div> -->
+                                <div id="excess-wrapper"></div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-md-6">
                             <h3>
                                 <center>Summary</center>
                             </h3>
@@ -159,7 +167,8 @@
                                 <div class="form-group">
                                     <label for="accSummary">Account summary</label>
                                     <textarea type="text" name="accSummary" id="summaryTextarea" class="form-control"
-                                        aria-describedby="accSummary" style="height: 12rem; opacity: .9; margin: 0; padding: .2rem;"></textarea>
+                                        aria-describedby="accSummary"
+                                        style="height: 12rem; opacity: .9; margin: 0; padding: .2rem;"></textarea>
                                     <input type="submit" value="Update" class="btn btn-success mt-2">
                                 </div>
                             </form>
