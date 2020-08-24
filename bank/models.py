@@ -65,7 +65,7 @@ class History(models.Model):
     amount = models.FloatField(default=0.00)
     naration = models.TextField(blank=True)
     transactionId = models.IntegerField(default=0)
-    timestamp = models.DateTimeField(auto_now_add=False, null=True, blank=True)
+    timestamp = models.CharField(max_length=200, null=True, blank=True)
     seen = models.BooleanField(default=False)
 
     def serialize(self):
@@ -95,7 +95,7 @@ class Notification(models.Model):
     sender = models.CharField(max_length=200, default='3NITY BANK')
     subject = models.CharField(max_length=255, null=True, blank=True, default='Expenditure')
     body = models.TextField(blank=True)
-    timestamp = models.DateTimeField(auto_now_add=False, null=True, blank=True)
+    timestamp = models.CharField(max_length=200, null=True, blank=True)
     seen = models.BooleanField(default=False)
 
     def serialize(self):

@@ -108,6 +108,7 @@ main {
   width: 90vw;
   overflow: auto;
   padding: 1rem 0;
+  overflow: auto;
 }
 
 .ul {
@@ -122,6 +123,7 @@ main {
   margin: 0 0.5rem;
   padding: 0;
   width: 80vw;
+  overflow: auto;
 }
 
 .menu li {
@@ -137,6 +139,7 @@ main {
   height: 100%;
   z-index: 999;
   background: rgba(0, 0, 0, 0.5);
+  overflow: auto;
 }
 
 .modal-main > *{

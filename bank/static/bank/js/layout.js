@@ -91,7 +91,8 @@ function notfChecked(id) {
       notfId: id
     })
   })
-  location.reload();
+  // location.reload();
+  getNotification()
 }
 
 // get Notification
@@ -109,9 +110,9 @@ function getNotification() {
         let result = '';
         response.forEach(notification => {
           result += `<br/><div class="row" id="${notification.id}">`;
-          result += `<div class="col-7">${notification.body}</div>`;
-          result += `<div class="col-3">${notification.timestamp}</div>`;
-          result += `<div class="col-2 text-right" onclick="notfChecked(${notification.id})"> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>`;
+          result += `<div class="col-md-7">${notification.body}</div>`;
+          result += `<div class="col-md-3">${notification.timestamp}</div>`;
+          result += `<div class="col-md-2 text-right" onclick="notfChecked(${notification.id})"> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>`;
           result += `</div><br/>`;
         });
         $('#getNotification').html(result);
