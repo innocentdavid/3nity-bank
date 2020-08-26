@@ -297,9 +297,10 @@ function stf() {
   let transPinError = document.querySelector('#transPinError').innerHTML;
   let accNumError = document.querySelector('#accNumError').innerHTML;
   let amount = document.querySelector('#amount').value;
+  let balance = Math.round(globalAccountBalance.value);
   if (amount == '') {
     $('#ammountError').text('Please fill this field!')
-  } else if (amount == globalAccountBalance.value) {
+  } else if (amount >= balance) {
     $('#ammountError').text('You cannot transfer more than you have ):')
   } else {
     $('#ammountError').text('')
@@ -374,11 +375,6 @@ function transferFormSubmit() {
     })
 }
 
-// close transaction success
-function closeTsc() {
-  $('.tsc').hide();
-}
-
 // transfer js end
 
 // Submit buy Airtime Form
@@ -387,7 +383,8 @@ function buyAirtimeFormSubmit() {
   const baTel = $('#ba-tel').val();
   const baAmount = $('#ba-amount').val();
   const baTransPin = $('#ba-transPin').val();
-  if (baAmount == globalAccountBalance.value) {
+  let balance = Math.round(globalAccountBalance.value);
+  if (baAmount >= balance) {
     $('#ba-amountError').text('You cannot spend more than you have ):');
   }
 
@@ -455,7 +452,8 @@ function billFormSubmit() {
   let bill = $('#bill').val();
   let billId = $('#bill-id').val();
   let billAmount = $('#bill-amount').val();
-  if (billAmount == globalAccountBalance.value) {
+  let balance = Math.round(globalAccountBalance.value);
+  if (billAmount >= balance) {
     $('#billAmountError').text('You cannont spend more than you have!');
     billAmount = '';
   }

@@ -5,6 +5,8 @@ For my final project i have created a bank application where customers can have 
 * Buy Airtime (as we do here in my country (Nigeria), and also
 * Pay bills.
 
+Those views (transfer, buy airtime and pay bills) have their separate files in the pages folder so that whenever any of them is needed it will just be called up.
+
 
 Staff are selected at random when a new customer is registered and they are attached to customers as their account manager, so a staff might have more than one customers.
 
@@ -32,7 +34,16 @@ My project has satisfied all the requirements:
 * It's mobile responsive.
 
 
-For testing, While registering the via the admin page use the username field for email but i've created a staff and some customer already:
+## For testing 
+
+* You can find other customers account number by going to to the django admin panel (/admin) then Accounts model.
+* Login as a staff and it will automatically redirect you to the staff page instead of customer page.
+* While registering the via the admin page use the username field for email but i've created a staff and some customer already:
+
+### Superuser:
+    username: admin
+    password: 12345
+
 ### Staff:
     Email: staff@3nitybank.com
     password: MANAGER12345
@@ -40,7 +51,16 @@ For testing, While registering the via the admin page use the username field for
 ### Customers:
     Email: paulinnocent@email.com
     password: 12345
+    Account Number: 2392146465
+    Transaction Pin: 1234
 
+    Email: foo@email.com
+    password: 12345
+    Account Number: 4678234741
+    Transaction Pin: 1234
+    
     Email: lilian@email.com
     password: 12345
+    Account Number: 7112455646
+    Transaction Pin: 1234
     

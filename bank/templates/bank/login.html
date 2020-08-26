@@ -14,10 +14,18 @@
 
 <body>
 
+    <style>
+        body{
+            padding: 2rem 10%;
+        }
+        .code{
+            background-color: rgb(241, 238, 238)!important;
+            color: black!important;
+            margin: 1rem auto;
+        }
+    </style>
 
-    {% block body %}
-
-    <h2>Login</h2>
+    <h2 class="text-center">Login</h2>
 
     {% if message %}
     <div>{{ message }}</div>
@@ -35,28 +43,53 @@
         </div>
         <input class="btn btn-primary" type="submit" value="Login">
     </form>
+    <br>
+    Don't have an account? <a href="{% url 'register' %}">Register here.</a>
+    <br>
+    <br>
 
     <p>I have created a staff and some customers for testing of this project</p>
     <h3>Staff:</h3>
-    <code>
-        <p>Email: staff@3nitybank.com</p>
-        <p>password: MANAGER12345</p>
-    </code>
+    <div class="code">
+        Email: 
+        <p>staff@3nitybank.com</p>
+        password: 
+        <p>MANAGER12345</p>
+    </div>
 
     <h3>Customers:</h3>
-    <code>
-        <p>Email: paulinnocent@email.com</p>
-        <p>password: 12345</p>
-    </code>
+    <div class="code">
+        Email: 
+        <p>paulinnocent@email.com</p>
+        Account Number: 
+        <p>2392146465</p>
+        password: 
+        <p>12345</p>
+        <b>Transaction Pin:</b> 
+        <p>1234</p>
+    </div>
+    <div class="code">
+        Email: 
+        <p>foo@email.com</p>
+        Account Number: 
+        <p>4678234741</p>
+        password: 
+        <p>12345</p>
+        <b>Transaction Pin:</b> 
+        <p>1234</p>
+    </div>
+    <div class="code">
+        Email: 
+        <p>lilian@email.com</p>
+        Account Number: 
+        <p>7112455646</p>
+        password: 
+        <p>12345</p>
+        <b>Transaction Pin:</b> 
+        <p>1234</p>
+    </div>
 
-    <code>
-        <p>Email: lilian@email.com</p>
-        <p>password: 12345</p>
-    </code>
 
-    Don't have an account? <a href="{% url 'register' %}">Register here.</a>
-
-    {% endblock %}
 
 
     <!-- Optional JavaScript -->

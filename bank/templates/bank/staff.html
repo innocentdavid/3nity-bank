@@ -34,7 +34,7 @@
                         <div>ID: <b>{{ staff.id }}</b></div>
                         <div>Total Customers: <b>{{ staff.totalCustomer }}</b></div>
                         <div id="pdToggle" style="margin-top: 1rem;">
-                            <a href="/logout" style="color:white; padding: 0 .3rem; border:1px solid black; font-size: 1rem;">
+                            <a href="/logout" style="color:black; padding: 0 .3rem; border:1px solid black; font-size: 1rem;">
                                 <i class="fa fa-arrow-left"></i>
                                 <span>Logout </span>
                             </a>
@@ -74,7 +74,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-3">
-                            <span style="color: white;" id="user" data-user="{{ customer }}"
+                            <span style="color: black;" id="user" data-user="{{ customer }}"
                                 data-fname="{{ customer.fname }}">
                                 <h4>{{ customer.lname }} {{ customer.fname }}</h4>
                             </span>
@@ -108,8 +108,10 @@
                 <div>
                     <h3>Account Summary</h3>
                 </div>
-                <div onclick="accSummary('none')" class="close" style="color: white;"><i class="fa fa-window-close"
-                        aria-hidden="true"></i></div>
+                <div class="close"><a style="color: white;" href=""><i class="fa fa-window-close"
+                        aria-hidden="true"></i></a></div>
+                <!-- <div onclick="accSummary('none')" class="close" style="color: white;"><i class="fa fa-window-close"
+                        aria-hidden="true"></i></div> -->
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
@@ -125,31 +127,41 @@
                         <div class="col-md-6" style="font-size: 1.2rem;">
                             <div class="row exp-wrapper">
                                 <div class="col-5">Properties</div>
-                                <div class="col-5" id="amountProperties"></div>
+                                <div class="col-5">
+                                    NGN <span id="amountProperties"></span>
+                                </div>
                                 <div class="col-2"><span id="percentProperties"></span>%</div>
                                 <div class="col-2 d-none"><span id="npercentProperties"></span></div>
                             </div>
                             <div class="row exp-wrapper">
                                 <div class="col-5">Investment</div>
-                                <div class="col-5" id="amountInvestment"></div>
+                                <div class="col-5">
+                                    NGN <span id="amountInvestment"></span>
+                                </div>
                                 <div class="col-2"><span id="percentInvestment"></span>%</div>
                                 <div class="col-2 d-none"><span id="npercentInvestment"></span></div>
                             </div>
                             <div class="row exp-wrapper">
                                 <div class="col-5">Food</div>
-                                <div class="col-5" id="amountFood"></div>
+                                <div class="col-5">
+                                    NGN <span id="amountFood"></span>
+                                </div>
                                 <div class="col-2"><span id="percentFood"></span>%</div>
                                 <div class="col-2 d-none"><span id="npercentFood"></span></div>
                             </div>
                             <div class="row exp-wrapper">
                                 <div class="col-5">Shelter</div>
-                                <div class="col-5" id="amountShelter"></div>
+                                <div class="col-5">
+                                    NGN <span id="amountShelter"></span>
+                                </div>
                                 <div class="col-2"><span id="percentShelter"></span>%</div>
                                 <div class="col-2 d-none"><span id="npercentShelter"></span></div>
                             </div>
                             <div class="row exp-wrapper">
                                 <div class="col-5">Miscellaneous</div>
-                                <div class="col-5" id="amountMiscellaneous"></div>
+                                <div class="col-5">
+                                    NGN <span id="amountMiscellaneous"></span>
+                                </div>
                                 <div class="col-2"><span id="percentMiscellaneous"></span>%</div>
                                 <div class="col-2 d-none"><span id="npercentMiscellaneous"></span></div>
                             </div>

@@ -50,7 +50,7 @@
         </div>
         <div class="form-group">
           <label for="transPin">Transaction Pin</label>
-          <input type="number" name="transPin" class="form-control" id="transPin" placeholder="4 digit pin" min="999" max="9999" onkeyup="checkTransPin()" required>
+          <input type="password" name="transPin" class="form-control" id="transPin" placeholder="4 digit pin" min="999" max="9999" onkeyup="checkTransPin()" required>
           <div id="transPinError" class="help-text" style="color: red;"></div>
         </div>
         <div class="form-group">
@@ -89,9 +89,10 @@
       <div class="date">
         <b>Date:</b> <span id="tsc-date"></span>
       </div>
-      <div class="close-tsc" onclick="closeTsc()">
+      <div class="close-tsc"><a href="">
         <b>Close</b>
-      </div>
+
+      </a></div>
     </div>
   </div>
 </div>

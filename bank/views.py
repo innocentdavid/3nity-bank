@@ -91,8 +91,8 @@ def transfer(request):
     category = data.get('catg')
     naration = data.get('naration')
     transPin = data.get('transPin')
-    date = datetime.now().strftime('%Y/%m/%d %H:%M:%S')
-    transcId = datetime.now().strftime('%Y%m%d%H%M%S')
+    date = datetime.now().strftime('%Y/%m/%d %I:%M:%S')
+    transcId = datetime.now().strftime('%Y%m%d%I%M%S')
 
     # deduct from user's account
     user = Customer.objects.get(user=User.objects.get(username=request.user))
@@ -106,7 +106,7 @@ def transfer(request):
         sender = Account.objects.get(
             customer=Customer.objects.get(user=request.user))
 
-        senderNaration = f"Your Account was Debited with NGN {data.get('amount')} for {naration} on {date} Your Balance now is NGN {a.balance}"
+        senderNaration = f"Your Account was Debited with NGN {data.get('amount')} Naration: {naration} On: {date} Your Balance now is NGN {a.balance}"
 
         senderNotification = Notification(account=sender, body=senderNaration, timestamp=date)
         senderNotification.save()
@@ -121,10 +121,10 @@ def transfer(request):
             to.balance = newAmount
             to.save()
 
-            receiverNaration = f"Your Account was Credited with NGN {data.get('amount')} for {naration} on {datetime.now().strftime('%Y/%m/%d %H:%M:%S')}"
+            receiverNaration = f"Your Account was Credited with NGN {data.get('amount')} Naration: {naration} On: {datetime.now().strftime('%Y/%m/%d %H:%M:%S')}"
 
             receiverNotification = Notification(
-                account=sender, body=receiverNaration, timestamp=date)
+                account=receiver, body=receiverNaration, timestamp=date)
             receiverNotification.save()
 
             receiverHistory = History(
@@ -336,12 +336,12 @@ def airtime(request):
     data = json.loads(request.body)
     user = Customer.objects.get(user=User.objects.get(username=request.user))
     account = Account.objects.filter(customer=user)
-    date = datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+    date = datetime.now().strftime('%Y/%m/%d %I:%M:%S')
     for a in account:
         newBal = a.balance - float(data.get('baAmount'))
         a.balance = round(newBal, 2)
 
-        transcId = datetime.now().strftime('%Y%m%d%H%M%S')
+        transcId = datetime.now().strftime('%Y%m%d%I%M%S')
         naration = f"You have been debited with {data['baAmount']} for Airtime to: {data.get('baTel')} | {data.get('networkP')} | transaction id: {transcId}"
 
         notification = Notification(account=Account.objects.get(
@@ -362,12 +362,12 @@ def bill(request):
     data = json.loads(request.body)
     user = Customer.objects.get(user=User.objects.get(username=request.user))
     account = Account.objects.filter(customer=user)
-    date = datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+    date = datetime.now().strftime('%Y/%m/%d %I:%M:%S')
     for a in account:
         newBal = a.balance - float(data.get('billAmount'))
         a.balance = round(newBal, 2)
 
-        transcId = datetime.now().strftime('%Y%m%d%H%M%S')
+        transcId = datetime.now().strftime('%Y%m%d%I%M%S')
         naration = f"Bill for: {data.get('bill')} | {data.get('billId')} | transaction id: {transcId}"
 
         notification = Notification(account=Account.objects.get(
