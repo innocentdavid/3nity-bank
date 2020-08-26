@@ -65,6 +65,10 @@ header {
     padding: 0;
   }
 
+  .ptitle{
+    font-family: Anton, serif;
+  }
+
   .acc-type {
     display: none;
     position: fixed;
@@ -130,7 +134,7 @@ header {
   }
   .main-nav {
     ul {
-      padding-left: 13rem;
+      padding-left: 7rem;
       width: 90vw;
       li {
         border: none;

@@ -1,6 +1,6 @@
 $(document).ready(() => {
   let globalAccountBalance = $('#globalAccountBalance')[0].value;
-  accBal();
+  formatAccBal();
 })
 // get extra pages on click on the nav buttons
 function mainNav(page) {
@@ -22,10 +22,8 @@ function getPage(page) {
 
       let style = `<link rel="stylesheet" href="././static/bank/css/mainNav.css">`;
       $('#customCss').html(style);
-      // let style = `<link rel="stylesheet" href="././static/bank/css/${page}.css">`;
-      // $('#customCss').html(style);
 
-      let pdToggle = '<a href="/" style="color:white; padding: 0 .3rem; border:1px solid; font-size: 1rem;">';
+      let pdToggle = '<a href="/" style="color:white; padding: 0 .3rem; border:1px solid black; font-size: 1rem;">';
       pdToggle += '<i class="fa fa-arrow-left"></i><span> Dashboard </span></a>';
       $('#pdToggle').html(pdToggle);
 
@@ -534,7 +532,7 @@ function numWithcommas(x) {
   return x;
 }
 
-function accBal() {
+function formatAccBal() {
  let x = $('#accBal').text();
  let numWithcomma = numWithcommas(x);
  $('#accBal').text(numWithcomma);

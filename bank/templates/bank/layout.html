@@ -15,6 +15,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="{% static 'bank/css/layout.css' %}">
   {% block customStyle %}{% endblock %}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton&display=swap">
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata&text=3NITY+BANK+NIG.+PLC&display=swap">  -->
 </head>
 
 <body>
@@ -54,7 +56,7 @@
               <span>Acc. bal. <b>NGN <span id="accBal">{{ account.balance | floatformat:2 }}</span></b></span>
             </div>
             <div id="pdToggle" style="margin-top: 1rem;">
-              <a href="/logout" style="color:white; padding: 0 .3rem; border:1px solid; font-size: 1rem;">
+              <a href="/logout" style="color:white; padding: 0 .3rem; border:1px solid black; font-size: 1rem;">
                 <i class="fa fa-arrow-left"></i>
                 <span>Logout </span>
               </a>
@@ -208,84 +210,6 @@
     </div>
   </div>
   <!-- main page -->
-
-
-  <div class="" id="footer">
-    footer (follow us and newsletter
-  </div>
-  <!-- footer -->
-
-  <div class="col-12 col-md-1 left-sidebar" style="border: 1px solid; display: none;">
-    <ul>
-      <li><a href="">
-          <center>
-            <div>
-              <i class="fa fa-home" aria-hidden="true"></i>
-            </div>
-            Home
-          </center>
-        </a></li>
-      <li>
-        <center>
-          <div>
-            <i class="fa fa-user" aria-hidden="true"></i>
-          </div>
-          Profile
-        </center>
-      </li>
-      <li>
-        <center>
-          <div>
-            <i class="fa fa-share" aria-hidden="true"></i>
-          </div>
-          Refer
-        </center>
-      </li>
-      <li>
-        <center>
-          <div>
-            <i class="fa fa-money" aria-hidden="true"></i>
-          </div>
-          Loan
-        </center>
-      </li>
-      <li>
-        <center>
-          <div>
-            <i class="fa fa-star" aria-hidden="true"></i>
-          </div>
-          <small>Investor Relation</small>
-        </center>
-      </li>
-      <li>
-        <center>
-          <div>
-            <i class="fa fa-phone" aria-hidden="true"></i>
-          </div>
-          Contact Us
-        </center>
-      </li>
-      <li>
-        <center>
-          <div>
-            <i class="fa fa-users" aria-hidden="true"></i>
-          </div>
-          About us
-        </center>
-      </li>
-      <li>
-        <center>
-          <div>
-            <i class="fa fa-gear" aria-hidden="true"></i>
-          </div>
-          Settings
-        </center>
-      </li>
-      <li>
-        <center><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Logout</center>
-      </li>
-    </ul>
-  </div>
 
   {% endfor %}
 

@@ -55,6 +55,10 @@ header {
   padding: 0;
 }
 
+.header .ptitle {
+  font-family: Anton, serif;
+}
+
 .header .acc-type {
   display: none;
   position: fixed;
