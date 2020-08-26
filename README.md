@@ -23,7 +23,7 @@ Another main feature of this web application is that from the Expenditure Catego
 * Mecsellaneous
 
 
-and  Naration that the customer will provide while making transactions most expecially when transferring money (Buying airtime and paying bills will be automatically generated) will be use to analyse the customer's account which show how many percentage of total income spent on each category that is it can show the customer that he/she has spent 40% of his/her income on Investement and 30% on Food for example.
+and  Naration that the customer will provide while making transactions most expecially when transferring money (For Buying airtime and paying bills the Category and Narations will be automatically generated) will be use to analyse the customer's account which show how many percentage of total income spent on each category that is it can show the customer that he/she has spent 40% of his/her income on Investement and 30% on Food for example.
 
 
 My project has satisfied all the requirements:
