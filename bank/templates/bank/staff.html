@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anton&display=swap">
 </head>
 
-<body style="width: 100vw;">
+<body style="width: 100vw; padding-right: 5%; overflow-x: hidden;">
     <header>
         <div class="container-fluid">
             <div class="row" style="margin-right: -35px; margin-left: -35px;">
@@ -70,7 +70,7 @@
     <main>
         <div class="container-fluid">
             {% for customer in customers %}
-            <div class="ul-wrapper" id="main-body" style="height:40vh; overflow-y: auto;">
+            <div class="ul-wrapper" id="main-body" style="height:40vh; overflow-y: hidden;">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-3">
@@ -88,11 +88,13 @@
 
                             <div class="menu" id="{{ customer.fname }}"></div>
                         </div>
-                        <div id="details{{ customer.fname }}" class="col-md-9 detail-main"></div>
+                        <div id="details{{ customer.fname }}" class="col-md-9 detail-main" style="height:40vh; overflow-y: auto;"></div>
                     </div>
                 </div>
                 <br>
             </div>
+            <hr>
+            <br>
             {% empty %}
             <center>
                 <h1>No Customers Yet</h1>
@@ -108,10 +110,10 @@
                 <div>
                     <h3>Account Summary</h3>
                 </div>
-                <div class="close"><a style="color: white;" href=""><i class="fa fa-window-close"
-                        aria-hidden="true"></i></a></div>
-                <!-- <div onclick="accSummary('none')" class="close" style="color: white;"><i class="fa fa-window-close"
-                        aria-hidden="true"></i></div> -->
+                <!-- <div class="close"><a style="color: white;" href=""><i class="fa fa-window-close"
+                        aria-hidden="true"></i></a></div> -->
+                <div onclick="accSummary('none')" class="close" style="color: white;"><i class="fa fa-window-close"
+                        aria-hidden="true"></i></div>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
@@ -126,44 +128,34 @@
                     <div class="row">
                         <div class="col-md-6" style="font-size: 1.2rem;">
                             <div class="row exp-wrapper">
-                                <div class="col-5">Properties</div>
-                                <div class="col-5">
+                                <div class="col-6">Properties</div>
+                                <div class="col-6">
                                     NGN <span id="amountProperties"></span>
                                 </div>
-                                <div class="col-2"><span id="percentProperties"></span>%</div>
-                                <div class="col-2 d-none"><span id="npercentProperties"></span></div>
                             </div>
                             <div class="row exp-wrapper">
-                                <div class="col-5">Investment</div>
-                                <div class="col-5">
+                                <div class="col-6">Investment</div>
+                                <div class="col-6">
                                     NGN <span id="amountInvestment"></span>
                                 </div>
-                                <div class="col-2"><span id="percentInvestment"></span>%</div>
-                                <div class="col-2 d-none"><span id="npercentInvestment"></span></div>
                             </div>
                             <div class="row exp-wrapper">
-                                <div class="col-5">Food</div>
-                                <div class="col-5">
+                                <div class="col-6">Food</div>
+                                <div class="col-6">
                                     NGN <span id="amountFood"></span>
                                 </div>
-                                <div class="col-2"><span id="percentFood"></span>%</div>
-                                <div class="col-2 d-none"><span id="npercentFood"></span></div>
                             </div>
                             <div class="row exp-wrapper">
-                                <div class="col-5">Shelter</div>
-                                <div class="col-5">
+                                <div class="col-6">Shelter</div>
+                                <div class="col-6">
                                     NGN <span id="amountShelter"></span>
                                 </div>
-                                <div class="col-2"><span id="percentShelter"></span>%</div>
-                                <div class="col-2 d-none"><span id="npercentShelter"></span></div>
                             </div>
                             <div class="row exp-wrapper">
-                                <div class="col-5">Miscellaneous</div>
-                                <div class="col-5">
+                                <div class="col-6">Miscellaneous</div>
+                                <div class="col-6">
                                     NGN <span id="amountMiscellaneous"></span>
                                 </div>
-                                <div class="col-2"><span id="percentMiscellaneous"></span>%</div>
-                                <div class="col-2 d-none"><span id="npercentMiscellaneous"></span></div>
                             </div>
                             <div class="row exp-wrapper">
                                 <div id="expCatgTotal" class="d-none"></div>
@@ -175,6 +167,11 @@
                             <h3>
                                 <center>Summary</center>
                             </h3>
+                            <div id="msg"></div>
+                            
+                            <script>
+                              $(".alert").alert();
+                            </script>
                             <form action="" method="post" id="summaryForm">
                                 <input type="hidden" name="user" value="" id="summaryUser">
                                 <div class="form-group">

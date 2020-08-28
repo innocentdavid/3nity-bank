@@ -52,27 +52,7 @@ function totalCatgExp(catg, user) {
             } else {
                 $('#amount' + catg).text(0);
             }
-
-            let a = $('#total-expenditure').text();
-            let b = res.totalCatgExp.amount__sum * 100;
-            let c = Math.round((b / a));
-
-            if (a >= c) {
-                $('#npercent' + catg).text(res.totalCatgExp.amount__sum);
-            } else {
-                $('#npercent' + catg).text(0);
-            }
         })
-}
-
-function totalCatgExpb(catg) {
-    let res = $('#npercent' + catg).text();
-    
-    if (res >= 0) {
-        return res;
-    } else {
-        return 0;
-    }
 }
 
 function AccountSummary(user, action, summary) {
@@ -86,7 +66,15 @@ function AccountSummary(user, action, summary) {
             if (action == 'get') {
                 $('#summaryTextarea')[0].value = res.summary;
             } else {
-                location.reload();
+                // location.reload();
+                let msg = ''
+                msg += '<div class="alert alert-success alert-dismissible fade show" role="alert">'
+                msg += '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
+                msg += '<span aria-hidden="true">&times;</span>'
+                msg += '</button>'
+                msg += '<strong>Updated !</strong>'
+                msg += '</div>'
+                $('#msg').html(msg);
             }
         })
 }
@@ -113,46 +101,16 @@ function accSummary(action, user) {
         totalCatgExp('Miscellaneous', user);
 
         // get
-        let p = 0;
-        let i = 0;
-        let f = 0;
-        let s = 0;
-        let m = 0;
+       
         let getExcess = setInterval(() => {
             let a = $('#total-income').text();
             let b = $('#total-expenditure').text();
             let c = `Excess of RECEIPTS over EXPENDITURE: <b>NGN <span id="excess">${a - b}</span></b>`;
             $('#excess-wrapper').html(c);
-
-            p += Math.round($('#npercentProperties').text());
-            i += Math.round($('#npercentInvestment').text());
-            f += Math.round($('#npercentFood').text());
-            s += Math.round($('#npercentShelter').text());
-            m += Math.round($('#npercentMiscellaneous').text());
-            
-        }, 2000);
+        }, 500);
         setTimeout(() => {
             clearInterval(getExcess);
-        }, 4000);
-
-        let xy = setInterval(() => {
-            if (p >= 0){pp=p}else{pp=0}
-            if (i >= 0){ii=i}else{ii=0}
-            if (f >= 0){ff=f}else{ff=0}
-            if (s >= 0){ss=s}else{ss=0}
-            if (m >= 0){mm=m}else{mm=0}
-            // console.log(mm);
-            let res = pp + ii + ff + ss + mm;
-            // console.log(res);
-            $('#percentProperties').text(((pp*100)/res).toFixed(2));
-            $('#percentInvestment').text(((ii*100)/res).toFixed(2));
-            $('#percentFood').text(((ff*100)/res).toFixed(2));
-            $('#percentShelter').text(((ss*100)/res).toFixed(2));
-            $('#percentMiscellaneous').text(((mm*100)/res).toFixed(2));
-        }, 2500);
-        setTimeout(() => {
-            clearInterval(xy)
-        }, 5000);
+        }, 1100);
 
         // get Account Summary
         AccountSummary(user, 'get', 'summary');

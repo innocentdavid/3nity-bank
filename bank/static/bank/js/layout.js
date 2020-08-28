@@ -40,7 +40,7 @@ window.addEventListener('DOMContentLoaded', function () {
   let page = (window.location.hash).slice(1);
   if (page != "main-body") {
     if (page.includes('category')) { } else {
-      if (window.location.hash === '#') { } else {
+      if (page.includes('')) { } else {
         getPage(page);
       }
     }
@@ -90,7 +90,8 @@ function notfChecked(id) {
     })
   })
   // location.reload();
-  getNotification()
+  getNotificationCount();
+  getNotification();
 }
 
 // get Notification
